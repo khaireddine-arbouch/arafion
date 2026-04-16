@@ -65,7 +65,7 @@ export default function MethodologyPage() {
               4. Ship & Operate
             </h2>
             <p className="text-[15px] text-ink/80 leading-relaxed">
-              Production deployment with observability from day one. We don't
+              Production deployment with observability from day one. We don&apos;t
               hand off — we operate alongside your team through the first
               critical months, then transfer knowledge systematically.
             </p>

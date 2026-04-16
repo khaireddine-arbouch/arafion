@@ -40,7 +40,11 @@ export default function TopToolbar({
   const [helpOpen, setHelpOpen] = useState(false);
   const [mac, setMac] = useState(true);
 
-  useEffect(() => setMac(isMacLike()), []);
+  useEffect(() => {
+    queueMicrotask(() => {
+      setMac(isMacLike());
+    });
+  }, []);
 
   // Global hotkeys for the toolbar's modals. ⌘K / Ctrl+K opens search,
   // `?` opens the shortcuts cheat sheet. Both ignore typing in inputs

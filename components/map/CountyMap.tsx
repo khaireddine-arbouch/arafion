@@ -293,7 +293,9 @@ export default function CountyMap({
 
   useEffect(() => {
     if (!computed || computed.zoomedPaths.length === 0) return;
-    setAnimateReady(false);
+    queueMicrotask(() => {
+      setAnimateReady(false);
+    });
     const id = requestAnimationFrame(() => {
       requestAnimationFrame(() => setAnimateReady(true));
     });

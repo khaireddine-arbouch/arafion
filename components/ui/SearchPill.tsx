@@ -81,8 +81,10 @@ export default function SearchPill({ open, onClose, onNavigate }: SearchPillProp
   // stale result list under the new query.
   useEffect(() => {
     if (!open) {
-      setQuery("");
-      setActiveIdx(0);
+      queueMicrotask(() => {
+        setQuery("");
+        setActiveIdx(0);
+      });
       return;
     }
     requestAnimationFrame(() => inputRef.current?.focus());

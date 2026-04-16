@@ -318,12 +318,16 @@ export default function GlobePage() {
     }
     animate();
 
-    setStatsReady(true);
+    queueMicrotask(() => {
+      setStatsReady(true);
+    });
 
     return () => {
       cancelAnimationFrame(animId);
       globe.destroy();
-      setStatsReady(false);
+      queueMicrotask(() => {
+        setStatsReady(false);
+      });
     };
   }, [markers]);
 

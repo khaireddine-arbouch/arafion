@@ -41,7 +41,9 @@ export default function FadeInOnView({
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
-      setShown(true);
+      queueMicrotask(() => {
+        setShown(true);
+      });
       return;
     }
     const io = new IntersectionObserver(

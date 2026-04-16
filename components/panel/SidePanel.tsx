@@ -174,7 +174,8 @@ export default function SidePanel({
   const toggleExpand = (layer: Layer) =>
     setExpandedSections((prev) => {
       const next = new Set(prev);
-      next.has(layer) ? next.delete(layer) : next.add(layer);
+      if (next.has(layer)) next.delete(layer);
+      else next.add(layer);
       return next;
     });
   const setSize = onSizeChange;
