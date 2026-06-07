@@ -210,13 +210,13 @@ export default function FloatingDockNav() {
         transition={{ type: "spring", stiffness: 450, damping: 24 }}
       >
         <a
-          href="mailto:hello@arafion.com"
-          aria-label="Email hello@arafion.com"
+          href="mailto:contact@arafion.com"
+          aria-label="Email contact@arafion.com"
           className="inline-flex h-11 min-w-11 items-center justify-center rounded-full bg-white px-2.5 text-[10px] font-semibold text-[#141414] shadow-sm ring-1 ring-black/4 transition-shadow hover:shadow-md sm:min-h-11 sm:min-w-0 sm:px-4 sm:py-2.5 sm:text-[12px]"
         >
           <MailIcon className="shrink-0 sm:hidden" />
           <span className="hidden max-w-44 truncate sm:inline md:max-w-none">
-            hello@arafion.com
+            contact@arafion.com
           </span>
         </a>
       </motion.div>
