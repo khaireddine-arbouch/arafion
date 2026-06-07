@@ -1,0 +1,169 @@
+[
+  {
+    "id": "websites",
+    "title": "Websites & Digital Presence",
+    "shortDescription": "Landing pages, business websites, corporate sites, architecture portfolios, healthcare websites, e-commerce, and maintenance.",
+    "whoItIsFor": [
+      "Architects",
+      "Healthcare practices",
+      "B2B service companies",
+      "E-commerce brands",
+      "Local businesses",
+      "Premium service providers"
+    ],
+    "whatWeBuild": [
+      "Landing pages",
+      "Corporate websites",
+      "Portfolio websites",
+      "E-commerce storefronts",
+      "Healthcare websites",
+      "SEO-ready pages",
+      "Maintenance systems"
+    ],
+    "proofProjects": [
+      "geoflex360",
+      "cabinet-chiropratique-chaima-hosni",
+      "chafai-architects",
+      "almajliss-heritage"
+    ],
+    "cta": "Start a website project"
+  },
+  {
+    "id": "saas-software",
+    "title": "SaaS Products & Custom Software",
+    "shortDescription": "Full-stack SaaS platforms, heavy CRUD systems, admin panels, authenticated portals, internal tools, MVPs, and web applications.",
+    "whoItIsFor": [
+      "Founders",
+      "Agencies",
+      "Operations teams",
+      "Businesses that outgrew spreadsheets",
+      "Product teams"
+    ],
+    "whatWeBuild": [
+      "SaaS MVPs",
+      "Admin dashboards",
+      "Client portals",
+      "Internal operating systems",
+      "Workflow tools",
+      "Browser-based production software"
+    ],
+    "proofProjects": [
+      "nileroute-os",
+      "signalsframe",
+      "draftly",
+      "evo2-variant-intelligence"
+    ],
+    "cta": "Start a software project"
+  },
+  {
+    "id": "ai-systems",
+    "title": "AI Systems & Automation",
+    "shortDescription": "AI copilots, AI-assisted workflows, product AI features, document intelligence, media AI, research tools, and decision-support systems.",
+    "whoItIsFor": [
+      "Product teams",
+      "Research teams",
+      "Businesses with repetitive workflows",
+      "AI-first founders",
+      "Technical organizations"
+    ],
+    "whatWeBuild": [
+      "AI copilots",
+      "AI workflow systems",
+      "Model/API integrations",
+      "Document intelligence",
+      "Video/media AI tools",
+      "Research assistants",
+      "Decision-support dashboards"
+    ],
+    "proofProjects": [
+      "evo2-variant-intelligence",
+      "draftly",
+      "signalsframe",
+      "nileroute-os"
+    ],
+    "cta": "Build an AI workflow"
+  },
+  {
+    "id": "dashboards-intelligence",
+    "title": "Dashboards & Intelligence Platforms",
+    "shortDescription": "BI dashboards, executive consoles, ETL/data pipelines, operational visibility systems, market/risk/geospatial intelligence dashboards.",
+    "whoItIsFor": [
+      "Executives",
+      "Operations teams",
+      "Research teams",
+      "Procurement teams",
+      "Analysts",
+      "Companies needing visibility"
+    ],
+    "whatWeBuild": [
+      "Custom dashboards",
+      "ETL pipelines",
+      "Executive consoles",
+      "Operational reporting tools",
+      "Geospatial dashboards",
+      "Market/risk intelligence UIs"
+    ],
+    "proofProjects": [
+      "intelligence-console",
+      "atlas-intelligence",
+      "atlas-geoint",
+      "visibility-intelligence-lab"
+    ],
+    "cta": "Build a dashboard"
+  },
+  {
+    "id": "marketing-production",
+    "title": "Marketing, Campaigns & Production",
+    "shortDescription": "Campaign infrastructure, creative production, tracking setup, reporting, post-production workflows, and client training.",
+    "whoItIsFor": [
+      "Brands",
+      "Local businesses",
+      "Architecture firms",
+      "Real estate teams",
+      "Service companies",
+      "Content-heavy businesses"
+    ],
+    "whatWeBuild": [
+      "Meta/Google/TikTok setup",
+      "Campaign planning",
+      "Tracking and pixels",
+      "Creative production pipelines",
+      "Post-production workflows",
+      "Monthly reporting structures",
+      "Client training"
+    ],
+    "proofProjects": [
+      "high-end-campaign-production-pipeline"
+    ],
+    "cta": "Plan a campaign system"
+  },
+  {
+    "id": "architecture-visualization",
+    "title": "Architecture Visualization & 3D Sales Systems",
+    "shortDescription": "Interior/exterior renders, 2D plan to 3D visualization, virtual walkthroughs, real estate sales visuals, social media render packs, and portfolio integration.",
+    "whoItIsFor": [
+      "Architects",
+      "Interior designers",
+      "Real estate developers",
+      "Kitchen designers",
+      "Construction companies",
+      "Premium design studios"
+    ],
+    "whatWeBuild": [
+      "Interior renders",
+      "Exterior renders",
+      "3D modeling",
+      "Virtual walkthroughs",
+      "Three.js web showcases",
+      "Social media render packs",
+      "Portfolio/project pages"
+    ],
+    "proofProjects": [
+      "confidential-kitchen-interior-render-series-turkiye",
+      "confidential-room-interior-render-series-turkiye",
+      "confidential-virtual-walkthrough-project-turkiye",
+      "chafai-architects"
+    ],
+    "cta": "Get a render quote"
+  }
+]

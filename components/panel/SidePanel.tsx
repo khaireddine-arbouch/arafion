@@ -179,10 +179,9 @@ export default function SidePanel({
       return next;
     });
   const setSize = onSizeChange;
-  const [dragOffset, setDragOffset] = useState<{ x: number; y: number } | null>(
-    null,
-  );
+  const [isDragging, setIsDragging] = useState(false);
   const dragStartRef = useRef<{ x: number; y: number } | null>(null);
+  const asideRef = useRef<HTMLElement>(null);
 
   // A pinned facility takes over the panel content while it's set.
   const facilityMode = !!facility;
@@ -226,8 +225,6 @@ export default function SidePanel({
       ? availableLayers[0]
       : preferredLayer;
 
-  const isDragging = dragOffset !== null;
-
   // Position the panel via direct top/right/bottom/left (not via calc-with-%
   // in a transform — that doesn't resolve reliably in all browsers).
   // Min mode sits below the TopToolbar (which owns top-6 ≈ 1.5rem); stacking
@@ -269,13 +266,11 @@ export default function SidePanel({
   })();
 
   // Transform: handle horizontal centering (-50%) for centered anchors,
-  // plus the drag offset.
+  // plus the drag offset using CSS variables set imperatively.
   const horizCentered = size === "min" || position === "bottom";
-  const dx = dragOffset?.x ?? 0;
-  const dy = dragOffset?.y ?? 0;
   const transformValue = horizCentered
-    ? `translate(calc(-50% + ${dx}px), ${dy}px)`
-    : `translate(${dx}px, ${dy}px)`;
+    ? `translate3d(calc(-50% + var(--drag-x, 0px)), var(--drag-y, 0px), 0)`
+    : `translate3d(var(--drag-x, 0px), var(--drag-y, 0px), 0)`;
 
   // Two discrete sizes:
   //   min — Dynamic Island-style horizontal pill (~13rem × 2.5rem), top-centered
@@ -329,17 +324,23 @@ export default function SidePanel({
     e.stopPropagation();
     e.preventDefault();
     dragStartRef.current = { x: e.clientX, y: e.clientY };
-    setDragOffset({ x: 0, y: 0 });
+    setIsDragging(true);
+    if (asideRef.current) {
+      asideRef.current.style.setProperty("--drag-x", "0px");
+      asideRef.current.style.setProperty("--drag-y", "0px");
+    }
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   };
 
   const onDragPointerMove = (e: React.PointerEvent) => {
     if (!dragStartRef.current) return;
     e.stopPropagation();
-    setDragOffset({
-      x: e.clientX - dragStartRef.current.x,
-      y: e.clientY - dragStartRef.current.y,
-    });
+    const dx = e.clientX - dragStartRef.current.x;
+    const dy = e.clientY - dragStartRef.current.y;
+    if (asideRef.current) {
+      asideRef.current.style.setProperty("--drag-x", `${dx}px`);
+      asideRef.current.style.setProperty("--drag-y", `${dy}px`);
+    }
   };
 
   const onDragPointerUp = (e: React.PointerEvent) => {
@@ -360,8 +361,12 @@ export default function SidePanel({
     if (target.hasPointerCapture(e.pointerId)) {
       target.releasePointerCapture(e.pointerId);
     }
-    setDragOffset(null);
     dragStartRef.current = null;
+    setIsDragging(false);
+    if (asideRef.current) {
+      asideRef.current.style.setProperty("--drag-x", "0px");
+      asideRef.current.style.setProperty("--drag-y", "0px");
+    }
 
     // Tap (no significant movement). 12px threshold is forgiving enough
     // for touch micro-movement. The handle is the only minimize/dismiss
@@ -623,7 +628,7 @@ export default function SidePanel({
                       >
                         {active && (
                           <motion.span
-                            layoutId="sidepanel-layer-indicator"
+                            layoutId={isDragging ? undefined : "sidepanel-layer-indicator"}
                             className="absolute inset-0 rounded-full bg-white"
                             style={{
                               boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
@@ -648,7 +653,7 @@ export default function SidePanel({
                 </div>
 
                 {activeLayer === "legislation" && hasLegislation && (
-                  <motion.section layout>
+                  <motion.section layout={!isDragging}>
                     <LegislationList
                       legislation={entity.legislation.slice(0, LEGISLATION_PREVIEW)}
                       stateCode={entity.level === "federal" ? "US" : undefined}
@@ -664,7 +669,7 @@ export default function SidePanel({
                 )}
 
                 {activeLayer === "local" && hasLocal && localActions && (
-                  <motion.section layout>
+                  <motion.section layout={!isDragging}>
                     <LegislationList
                       legislation={localActions.slice(0, LEGISLATION_PREVIEW)}
                       onSelectFacility={onSelectFacility}
@@ -681,7 +686,7 @@ export default function SidePanel({
                 {/* Figures tab removed — agency doesn't use politicians */}
 
                 {activeLayer === "news" && hasNews && (
-                  <motion.section layout>
+                  <motion.section layout={!isDragging}>
                     <NewsSection news={entity.news.slice(0, NEWS_PREVIEW)} />
                     <SeeAllLink
                       total={entity.news.length}
@@ -693,7 +698,7 @@ export default function SidePanel({
                 )}
 
                 {activeLayer === "clients" && hasClientProjects && (
-                  <motion.section layout>
+                  <motion.section layout={!isDragging}>
                     <MapProjectsList
                       projects={scopedProjects.slice(0, DC_PREVIEW)}
                       groupBy={null}
@@ -727,13 +732,14 @@ export default function SidePanel({
   // already carries the min↔md morph, so we don't need motion here.
   return (
     <aside
+      ref={asideRef}
       style={{
         ...positionStyle,
         ...sizeStyle,
         transform: transformValue,
         opacity: visibility,
         pointerEvents: visibility < 0.5 ? "none" : "auto",
-        backgroundColor: "rgba(255, 255, 255, 0.9)",
+        backgroundColor: isDragging ? "rgba(255, 255, 255, 0.98)" : "rgba(255, 255, 255, 0.9)",
         borderColor: "rgba(0, 0, 0, 0.04)",
         borderRadius: isMin ? "9999px" : "1.5rem",
         transition: isDragging
@@ -741,7 +747,9 @@ export default function SidePanel({
           : `${TRANSITION}, background-color 350ms ease, border-color 350ms ease, border-radius 350ms ease`,
         willChange: "transform",
       }}
-      className="fixed z-30 backdrop-blur-2xl border shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.06)] flex flex-col overflow-hidden"
+      className={`fixed z-30 border shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.06)] flex flex-col overflow-hidden ${
+        isDragging ? "" : "backdrop-blur-2xl"
+      }`}
     >
       {isMin ? renderMin() : renderMd()}
     </aside>

@@ -1,0 +1,93 @@
+{
+  "ProjectStatus": [
+    "live",
+    "delivered",
+    "active",
+    "in-development",
+    "prototype",
+    "planned-or-in-progress"
+  ],
+  "ProjectType": [
+    "client-website",
+    "client-ecommerce",
+    "client-healthcare-website",
+    "confidential-client-work",
+    "internal-product",
+    "internal-demo",
+    "internal-demo-shell",
+    "saas-product",
+    "research-tool",
+    "research-dashboard-demo",
+    "enterprise-demo-proposal",
+    "geoint-workstation-prototype",
+    "design-platform-prototype"
+  ],
+  "ServiceCategory": [
+    "websites",
+    "digital-presence",
+    "saas-software",
+    "ai-systems",
+    "dashboards-intelligence",
+    "marketing-production",
+    "architecture-visualization",
+    "3d-rendering",
+    "ecommerce",
+    "internal-tools"
+  ],
+  "ProofType": [
+    "public-link",
+    "public-demo",
+    "screenshots",
+    "renders",
+    "before-after",
+    "3d-models",
+    "private-demo",
+    "live-authenticated-deployment",
+    "long-term-contract",
+    "client-feedback-private",
+    "technical-architecture-notes"
+  ],
+  "ArafionProjectShape": {
+    "id": "string",
+    "title": "string",
+    "slug": "string",
+    "status": "ProjectStatus",
+    "projectType": "ProjectType",
+    "visibility": "public | partial | public-partial",
+    "targetMarkets": ["string"],
+    "client": {
+      "name": "string",
+      "publicName": "string",
+      "isConfidential": "boolean"
+    },
+    "location": {
+      "country": "string",
+      "city": "string|null",
+      "region": "string",
+      "lat": "number|null",
+      "lng": "number|null"
+    },
+    "industry": [
+      "string"
+    ],
+    "serviceCategories": [
+      "ServiceCategory"
+    ],
+    "proofTypes": [
+      "ProofType"
+    ],
+    "publicUrl": "string|null",
+    "shortDescription": "string",
+    "whatWeBuilt": [
+      "string"
+    ],
+    "saferTechnicalStack": [
+      "string"
+    ],
+    "bestSalesAngle": "string",
+    "doNotClaim": [
+      "string"
+    ],
+    "featured": "boolean"
+  }
+}

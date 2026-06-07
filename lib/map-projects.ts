@@ -1,29 +1,118 @@
-import type { MapProject } from "@/types";
-import researchedData from "@/data/map-projects/researched.json";
-import internationalData from "@/data/map-projects/international.json";
+import type { ImpactTag, MapProject, MapProjectStatus } from "@/types";
+import arafionProjectsRaw from "@/data/arafion-data/projects.json";
+import {
+  buildPortfolioProjects,
+  type ArafionProjectRow,
+  type PortfolioProject,
+} from "@/lib/portfolio-view";
 
-interface MapProjectsFile {
-  generatedAt: string;
-  /** Legacy key kept for compatibility with older exports */
-  facilities?: MapProject[];
-  projects?: MapProject[];
+const SERVICE_TO_IMPACT: Partial<Record<string, ImpactTag>> = {
+  "saas-software": "frontend-engineering",
+  "dashboards-intelligence": "data-engineering",
+  "ai-systems": "ai-ml",
+  websites: "frontend-engineering",
+  ecommerce: "frontend-engineering",
+  "digital-presence": "marketing",
+  "internal-tools": "devops",
+  "marketing-production": "marketing",
+  "architecture-visualization": "design-systems",
+  "3d-rendering": "branding",
+  "b2b-services": "strategy",
+  healthcare: "strategy",
+  "data-visualization": "data-engineering",
+  "research-tools": "ai-ml",
+  "campaign-infrastructure": "devops",
+  "technical-training": "strategy",
+  "product-design": "product-design",
+  "visual-sales-systems": "marketing",
+};
+
+function mapEngagementStatus(raw: string): MapProjectStatus {
+  switch (raw) {
+    case "live":
+      return "live";
+    case "in-development":
+      return "in-progress";
+    case "prototype":
+    case "planned-or-in-progress":
+      return "concept";
+    case "delivered":
+    default:
+      return "live";
+  }
 }
 
-const RESEARCHED = researchedData as unknown as MapProjectsFile;
-const INTERNATIONAL = internationalData as unknown as MapProjectsFile;
-
-function projectsFromFile(f: MapProjectsFile): MapProject[] {
-  return f.projects ?? f.facilities ?? [];
+function concernsFromServices(cats: string[]): string[] {
+  const out: ImpactTag[] = [];
+  for (const c of cats) {
+    const t = SERVICE_TO_IMPACT[c];
+    if (t && !out.includes(t)) out.push(t);
+  }
+  if (out.length === 0) out.push("strategy");
+  return out;
 }
 
-const merged = new Map<string, MapProject>();
-for (const p of projectsFromFile(RESEARCHED)) merged.set(p.id, p);
-for (const p of projectsFromFile(INTERNATIONAL)) {
-  if (!merged.has(p.id)) merged.set(p.id, p);
+/** Country string used for regional map filters (`EU_COUNTRIES`, etc.). */
+function normalizeFilterCountry(raw: string, fallbackCountry: string): string {
+  let c = raw.trim();
+  const composite = /^(.*?)\s*\/\s*International$/i.exec(c);
+  if (composite) c = composite[1].trim();
+  if (c === "Türkiye" || c === "Turkiye") return "Turkey";
+  if (c !== "International" && c.length > 0) return c;
+  return fallbackCountry;
 }
+
+function inferUSState(lat: number, lng: number): string | undefined {
+  if (lat > 40.4 && lat < 41.1 && lng > -74.35 && lng < -73.65)
+    return "New York";
+  if (lat > 38.85 && lat < 39.05 && lng > -77.15 && lng < -76.92)
+    return "Virginia";
+  return undefined;
+}
+
+function toMapProject(view: PortfolioProject, row: ArafionProjectRow): MapProject {
+  const filterCountry = normalizeFilterCountry(row.location.country, view.country);
+  const state =
+    filterCountry === "United States" ? inferUSState(view.lat, view.lng) : undefined;
+
+  return {
+    id: view.id,
+    slug: view.slug,
+    operator: view.displayTitle,
+    displayTitle: view.displayTitle,
+    globeLabel: view.globeLabel,
+    location: view.locationLabel,
+    regionLabel: view.regionLabel,
+    state,
+    country: filterCountry,
+    lat: view.lat,
+    lng: view.lng,
+    engagementWeight: view.weight,
+    status: mapEngagementStatus(row.status),
+    rawStatus: row.status,
+    statusLabel: view.statusLabel,
+    notes: view.shortDescription,
+    concerns: concernsFromServices(view.serviceCategories),
+    serviceCategories: view.serviceCategories,
+    serviceLabels: view.serviceLabels,
+    proofTypes: view.proofTypes,
+    stackTags: view.stackTags,
+    featured: view.featured,
+    isConfidential: view.isConfidential,
+    publicUrl: view.publicUrl,
+    source: "arafion",
+    primaryUser: row.client.isConfidential ? undefined : row.client.publicName,
+  };
+}
+
+const rows = arafionProjectsRaw as unknown as ArafionProjectRow[];
+export const ALL_PORTFOLIO_PROJECTS: PortfolioProject[] =
+  buildPortfolioProjects(rows);
 
 /** All geo-located engagements shown on the map. */
-export const ALL_MAP_PROJECTS: MapProject[] = Array.from(merged.values());
+export const ALL_MAP_PROJECTS: MapProject[] = ALL_PORTFOLIO_PROJECTS.map(
+  (project, index) => toMapProject(project, rows[index]),
+);
 
 /** US + Canada pins */
 export const NA_MAP_PROJECTS: MapProject[] = ALL_MAP_PROJECTS.filter(

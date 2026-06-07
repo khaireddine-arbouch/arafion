@@ -2,56 +2,34 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import FadeInOnView from "@/components/ui/FadeInOnView";
+import { ALL_PORTFOLIO_PROJECTS } from "@/lib/map-projects";
 
-interface Client {
+interface Engagement {
+  id: string;
   name: string;
   region: string;
   type: string;
 }
 
-const CLIENTS: Client[] = [
-  { name: "NeuroTrade", region: "Americas", type: "AI/ML" },
-  { name: "Meridian Health", region: "Americas", type: "Healthcare" },
-  { name: "Atlas Logistics", region: "Americas", type: "Logistics" },
-  { name: "Finova", region: "Americas", type: "FinTech" },
-  { name: "Verde Carbon", region: "Americas", type: "Climate" },
-  { name: "BioSync", region: "Americas", type: "BioTech" },
-  { name: "Civitas Gov", region: "Americas", type: "GovTech" },
-  { name: "CloudScope", region: "Americas", type: "Cloud" },
-  { name: "Delta", region: "Americas", type: "Aviation" },
-  { name: "Revolut", region: "Europe", type: "FinTech" },
-  { name: "Siemens", region: "Europe", type: "Industrial" },
-  { name: "Klarna", region: "Europe", type: "FinTech" },
-  { name: "Wise", region: "Europe", type: "FinTech" },
-  { name: "Aramco Digital", region: "MENA", type: "Energy" },
-  { name: "Careem", region: "MENA", type: "Super App" },
-  { name: "QIA", region: "MENA", type: "Finance" },
-  { name: "STC", region: "MENA", type: "Telecom" },
-  { name: "Getir", region: "MENA", type: "Delivery" },
-  { name: "Trendyol", region: "MENA", type: "E-commerce" },
-  { name: "Zain Group", region: "MENA", type: "Telecom" },
-  { name: "Mawdoo3", region: "MENA", type: "AI/ML" },
-  { name: "Anghami", region: "MENA", type: "Media" },
-  { name: "CIH Bank", region: "MENA", type: "Banking" },
-  { name: "OCP Group", region: "MENA", type: "Industry" },
-  { name: "Safaricom", region: "MENA", type: "Telecom" },
-  { name: "Flutterwave", region: "MENA", type: "FinTech" },
-  { name: "MTN Group", region: "MENA", type: "Telecom" },
-  { name: "Noon", region: "MENA", type: "E-commerce" },
-  { name: "Grab", region: "APAC", type: "Super App" },
-  { name: "Sony", region: "APAC", type: "Entertainment" },
-  { name: "Tencent Cloud", region: "APAC", type: "Cloud" },
-  { name: "Razorpay", region: "APAC", type: "FinTech" },
-];
+const CLIENTS: Engagement[] = ALL_PORTFOLIO_PROJECTS.map((project) => ({
+  id: project.id,
+  name: project.displayTitle,
+  region: project.regionLabel,
+  type: project.serviceLabels[0] ?? "Product system",
+}));
 
-const REGIONS = ["All", "Americas", "Europe", "MENA", "APAC"];
+const REGIONS = [
+  "All",
+  ...Array.from(new Set(CLIENTS.map((client) => client.region))).sort(),
+];
 
 const REGION_COLOR: Record<string, string> = {
   Americas: "bg-blue-500",
   Europe: "bg-emerald-500",
-  MENA: "bg-amber-500",
-  APAC: "bg-purple-500",
+  "MENA & Africa": "bg-amber-500",
+  "Asia Pacific": "bg-purple-500",
+  International: "bg-gray-400",
+  "Morocco / International": "bg-orange-500",
 };
 
 export default function ClientMarquee() {
@@ -83,7 +61,7 @@ export default function ClientMarquee() {
         <AnimatePresence mode="popLayout">
           {filtered.map((client) => (
             <motion.div
-              key={client.name}
+              key={client.id}
               layout
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}

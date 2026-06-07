@@ -57,7 +57,8 @@ export type ImpactTag =
   | "api-development"
   | "devops"
   | "strategy"
-  | "branding";
+  | "branding"
+  | "marketing";
 
 // ─── Project Categories (replace LegislationCategory) ────────────────
 export type LegislationCategory =
@@ -104,6 +105,7 @@ export const IMPACT_TAG_LABEL: Record<ImpactTag, string> = {
   "devops": "DevOps & CI/CD",
   "strategy": "Product Strategy",
   "branding": "Brand & Identity",
+  marketing: "Marketing & Growth",
 };
 
 export const CATEGORY_LABEL: Record<LegislationCategory, string> = {
@@ -188,18 +190,32 @@ export type MapProjectStatus = "live" | "in-progress" | "concept";
 
 export interface MapProject {
   id: string;
+  slug?: string;
   operator: string;
+  displayTitle?: string;
+  globeLabel?: string;
   location: string;
+  regionLabel?: string;
   state?: string;
   country?: string;
   lat: number;
   lng: number;
   capacityMW?: number;
+  engagementWeight?: number;
   status: MapProjectStatus;
+  rawStatus?: string;
+  statusLabel?: string;
   yearBuilt?: number;
   yearProposed?: number;
   notes?: string;
   concerns?: string[];
+  serviceCategories?: string[];
+  serviceLabels?: string[];
+  proofTypes?: string[];
+  stackTags?: string[];
+  featured?: boolean;
+  isConfidential?: boolean;
+  publicUrl?: string | null;
   source: "arafion" | "researched";
   primaryUser?: string;
   computeH100e?: number;

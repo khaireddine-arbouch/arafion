@@ -12,6 +12,7 @@ export const DIMENSION_TAGS: Record<Exclude<Dimension, "overall">, ImpactTag[]> 
     "product-design",
     "design-systems",
     "branding",
+    "marketing",
   ],
   ai: [
     "ai-ml",

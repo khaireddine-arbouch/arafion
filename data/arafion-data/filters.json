@@ -1,0 +1,184 @@
+{
+  "regions": [
+    {
+      "id": "morocco",
+      "label": "Morocco"
+    },
+    {
+      "id": "turkiye",
+      "label": "Türkiye"
+    },
+    {
+      "id": "international",
+      "label": "International"
+    },
+    {
+      "id": "remote-global",
+      "label": "Remote / Global"
+    },
+    {
+      "id": "morocco-international",
+      "label": "Morocco / International"
+    },
+    {
+      "id": "turkiye-international",
+      "label": "Türkiye / International"
+    }
+  ],
+  "serviceCategories": [
+    {
+      "id": "websites",
+      "label": "Websites"
+    },
+    {
+      "id": "digital-presence",
+      "label": "Digital Presence"
+    },
+    {
+      "id": "saas-software",
+      "label": "SaaS / Software"
+    },
+    {
+      "id": "ai-systems",
+      "label": "AI Systems"
+    },
+    {
+      "id": "dashboards-intelligence",
+      "label": "Dashboards & Intelligence"
+    },
+    {
+      "id": "marketing-production",
+      "label": "Marketing & Production"
+    },
+    {
+      "id": "architecture-visualization",
+      "label": "Architecture Visualization"
+    },
+    {
+      "id": "3d-rendering",
+      "label": "3D Rendering"
+    },
+    {
+      "id": "ecommerce",
+      "label": "E-commerce"
+    },
+    {
+      "id": "internal-tools",
+      "label": "Internal Tools"
+    }
+  ],
+  "projectTypes": [
+    {
+      "id": "client-website",
+      "label": "Client Website"
+    },
+    {
+      "id": "client-ecommerce",
+      "label": "Client E-commerce"
+    },
+    {
+      "id": "confidential-client-work",
+      "label": "Confidential Client Work"
+    },
+    {
+      "id": "internal-product",
+      "label": "Internal Product"
+    },
+    {
+      "id": "saas-product",
+      "label": "SaaS Product"
+    },
+    {
+      "id": "research-tool",
+      "label": "Research Tool"
+    },
+    {
+      "id": "research-dashboard-demo",
+      "label": "Research Dashboard / Demo"
+    },
+    {
+      "id": "enterprise-demo-proposal",
+      "label": "Enterprise Demo / Proposal"
+    },
+    {
+      "id": "geoint-workstation-prototype",
+      "label": "GEOINT Workstation Prototype"
+    },
+    {
+      "id": "design-platform-prototype",
+      "label": "Design Platform Prototype"
+    }
+  ],
+  "statuses": [
+    {
+      "id": "live",
+      "label": "Live"
+    },
+    {
+      "id": "delivered",
+      "label": "Delivered"
+    },
+    {
+      "id": "active",
+      "label": "Active"
+    },
+    {
+      "id": "in-development",
+      "label": "In Development"
+    },
+    {
+      "id": "prototype",
+      "label": "Prototype"
+    },
+    {
+      "id": "planned-or-in-progress",
+      "label": "Planned / In Progress"
+    }
+  ],
+  "proofTypes": [
+    {
+      "id": "public-link",
+      "label": "Public Link"
+    },
+    {
+      "id": "public-demo",
+      "label": "Public Demo"
+    },
+    {
+      "id": "screenshots",
+      "label": "Screenshots"
+    },
+    {
+      "id": "renders",
+      "label": "Renders"
+    },
+    {
+      "id": "before-after",
+      "label": "Before / After"
+    },
+    {
+      "id": "3d-models",
+      "label": "3D Models"
+    },
+    {
+      "id": "private-demo",
+      "label": "Private Demo"
+    },
+    {
+      "id": "live-authenticated-deployment",
+      "label": "Live Authenticated Deployment"
+    },
+    {
+      "id": "long-term-contract",
+      "label": "Long-Term Contract"
+    },
+    {
+      "id": "client-feedback-private",
+      "label": "Private Client Feedback"
+    },
+    {
+      "id": "technical-architecture-notes",
+      "label": "Technical Architecture Notes"
+    }
+  ]
+}

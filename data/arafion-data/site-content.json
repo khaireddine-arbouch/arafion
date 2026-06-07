@@ -1,0 +1,38 @@
+{
+  "brand": {
+    "name": "Arafion",
+    "positioning": "Hybrid execution studio",
+    "oneLiner": "Digital systems, AI products, and visual sales infrastructure — built end to end.",
+    "description": "Arafion builds websites, SaaS platforms, AI workflows, dashboards, campaign infrastructure, and architectural visualization systems for businesses that need serious execution."
+  },
+  "homepage": {
+    "hero": {
+      "headline": "Digital systems, AI products, and visual sales infrastructure — built end to end.",
+      "subheadline": "Arafion builds websites, SaaS platforms, AI workflows, dashboards, campaign infrastructure, and architectural visualization systems for businesses that need serious execution.",
+      "primaryCta": "Start a project",
+      "secondaryCta": "See case studies",
+      "microcopy": "Drag to explore active builds, delivered systems, and confidential client work."
+    },
+    "sections": [
+      "Cinematic globe hero",
+      "What we build",
+      "Featured case studies",
+      "Architecture visualization",
+      "Software and AI systems",
+      "Marketing production pipeline",
+      "Project explorer preview",
+      "How we work",
+      "Quote CTA"
+    ]
+  },
+  "recommendedCtas": {
+    "primary": "Start a project",
+    "secondary": "See case studies",
+    "servicePage": "Request quote",
+    "architecturePage": "Get render quote"
+  },
+  "confidentialityCopy": {
+    "short": "Client name withheld. Visuals shown with permission.",
+    "long": "Some client work is confidential. Where required, Arafion shows approved visuals, screenshots, before/after material, or anonymized project records without disclosing private client details."
+  }
+}

@@ -13,12 +13,6 @@ function stripConfidence(s: string | undefined): string {
   return (s ?? "").replace(/\s*#\w+/g, "").trim();
 }
 
-function formatRelativeScale(mw: number | undefined): string | null {
-  if (!mw) return null;
-  if (mw >= 1000) return `${(mw / 1000).toFixed(1)} GW`;
-  return `${Math.round(mw)} MW`;
-}
-
 const STATUS_LABEL: Record<string, string> = {
   live: "Live",
   "in-progress": "In Progress",
@@ -28,8 +22,8 @@ const STATUS_LABEL: Record<string, string> = {
   proposed: "Concept",
 };
 
-function sortByScaleDesc(a: MapProject, b: MapProject): number {
-  return (b.capacityMW ?? 0) - (a.capacityMW ?? 0);
+function sortByEngagementDesc(a: MapProject, b: MapProject): number {
+  return (b.engagementWeight ?? 0) - (a.engagementWeight ?? 0);
 }
 
 function groupProjects(
@@ -46,8 +40,8 @@ function groupProjects(
   return Array.from(map.entries())
     .map(([label, items]) => ({
       label,
-      items: items.slice().sort(sortByScaleDesc),
-      total: items.reduce((s, p) => s + (p.capacityMW ?? 0), 0),
+      items: items.slice().sort(sortByEngagementDesc),
+      total: items.reduce((s, p) => s + (p.engagementWeight ?? 0), 0),
     }))
     .sort((a, b) => b.total - a.total)
     .map(({ label, items }) => ({ label, items }));
@@ -60,8 +54,9 @@ function ProjectRow({
   project: MapProject;
   onSelect?: (p: MapProject) => void;
 }) {
-  const title = stripConfidence(project.operator) || "Project";
-  const scale = formatRelativeScale(project.capacityMW);
+  const title =
+    (project.displayTitle ?? stripConfidence(project.operator)) || "Project";
+  const service = project.serviceLabels?.[0];
   const color =
     (PROJECT_PIN_COLOR as Record<string, string>)[project.status] ??
     PROJECT_PIN_COLOR.live;
@@ -83,7 +78,7 @@ function ProjectRow({
         </span>
         <span className="block text-[11px] text-muted truncate">
           {STATUS_LABEL[project.status]}
-          {scale ? ` · ${scale}` : ""}
+          {service ? ` · ${service}` : ""}
         </span>
       </span>
     </>
@@ -117,7 +112,7 @@ export default function MapProjectsList({
   }
 
   if (!groupBy) {
-    const sorted = projects.slice().sort(sortByScaleDesc);
+    const sorted = projects.slice().sort(sortByEngagementDesc);
     return (
       <div className="flex flex-col">
         {sorted.map((p) => (

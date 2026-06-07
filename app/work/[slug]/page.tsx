@@ -1,0 +1,571 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { ALL_PORTFOLIO_PROJECTS } from "@/lib/map-projects";
+import { getCaseStudyMeta, imageUrl } from "@/data/arafion-data/case-studies-meta";
+import type { ArafionProjectRow } from "@/lib/portfolio-view";
+import rawProjects from "@/data/arafion-data/projects.json";
+
+const RAW = rawProjects as unknown as ArafionProjectRow[];
+import ReadingProgress from "@/components/blog/ReadingProgress";
+import RelatedWork from "@/components/work/RelatedWork";
+
+const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
+
+const LOGO_MAP: Record<string, { src: string; invert?: boolean }> = {
+  "nileroute-os":               { src: "/logos/nile-route-os-logo.png", invert: true },
+  "evo2-variant-intelligence":  { src: "/logos/evo2-Logo.png" },
+  signalsframe:                 { src: "/logos/SignalsFrame%20logo.png" },
+  "atlas-intelligence":         { src: "/logos/Atlas%20Intelligence%20Logo.png" },
+  geoflex360:                   { src: "/logos/geoflex%20logo.png" },
+  "chafai-architects":          { src: "/logos/chafai-architects.png" },
+  "almajliss-heritage":         { src: "/logos/Almajliss-Site-Icon.webp" },
+};
+
+const STATUS_DOT: Record<string, string> = {
+  live:               "#30D158",
+  delivered:          "#86868B",
+  "in-development":   "#FF9F0A",
+  prototype:          "#FF9F0A",
+};
+
+export async function generateStaticParams() {
+  return ALL_PORTFOLIO_PROJECTS.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = ALL_PORTFOLIO_PROJECTS.find((p) => p.slug === slug);
+  if (!project) return { title: "Not Found" };
+  const url = `https://arafion.com/work/${slug}`;
+  const meta = getCaseStudyMeta(slug);
+  const heroImg = meta ? imageUrl(meta.imageFolder, meta.images[0]) : null;
+  return {
+    title: project.displayTitle,
+    description: project.shortDescription,
+    keywords: [...project.stackTags, ...project.serviceLabels, "Arafion", "case study"],
+    openGraph: {
+      title: `${project.displayTitle} — Arafion Case Study`,
+      description: project.shortDescription,
+      url,
+      type: "article",
+      ...(heroImg ? { images: [{ url: heroImg, alt: project.displayTitle }] } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.displayTitle} — Arafion`,
+      description: project.shortDescription,
+      ...(heroImg ? { images: [heroImg] } : {}),
+    },
+    alternates: { canonical: url },
+  };
+}
+
+export default async function CaseStudyPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const project = ALL_PORTFOLIO_PROJECTS.find((p) => p.slug === slug);
+  if (!project) notFound();
+
+  const meta = getCaseStudyMeta(slug);
+  const raw = RAW.find((r) => (r.slug ?? r.id) === slug);
+  const whatWeBuilt: string[] = raw?.whatWeBuilt ?? [];
+  const logo = LOGO_MAP[project.id];
+  const dotColor = STATUS_DOT[project.status] ?? "#86868B";
+
+  // 3 related projects (same service category, excluding current)
+  const related = ALL_PORTFOLIO_PROJECTS.filter(
+    (p) =>
+      p.slug !== slug &&
+      p.serviceCategories.some((c) => project.serviceCategories.includes(c)),
+  ).slice(0, 3);
+
+  const allImages = meta
+    ? meta.images.map((img) => imageUrl(meta.imageFolder, img))
+    : [];
+  const heroImage = allImages[0] ?? null;
+  const gallery = allImages.slice(1, 8);
+
+  return (
+    <>
+      <ReadingProgress />
+      <main style={{ fontFamily: NM, background: "white", minHeight: "100vh" }}>
+
+        {/* ── Top bar ── */}
+        <div style={{
+          borderBottom: "1px solid rgba(0,0,0,0.07)", position: "sticky", top: 0, zIndex: 40,
+          background: "rgba(255,255,255,0.92)", backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+        }}>
+          <div style={{
+            maxWidth: "1320px", margin: "0 auto", padding: "0 2rem",
+            height: "52px", display: "flex", alignItems: "center", justifyContent: "space-between",
+          }}>
+            <Link href="/work" style={{
+              fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#86868B",
+              textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.4rem",
+            }}>
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "9px", height: "9px" }}>
+                <path d="M8 5H2M5 8l-3-3 3-3" />
+              </svg>
+              Work
+            </Link>
+            <Link href="/" style={{ fontFamily: NM, fontWeight: 500, fontSize: "14px", color: "#1D1D1F", letterSpacing: "-0.02em", textDecoration: "none" }}>
+              Arafion
+            </Link>
+          </div>
+        </div>
+
+        {/* ── Article header ── */}
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "clamp(2.5rem, 4vw, 4rem) 1.25rem clamp(2rem, 3vw, 3rem)" }}>
+
+          {/* Meta row */}
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.65rem", marginBottom: "2rem" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: dotColor, display: "inline-block" }} />
+              <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", letterSpacing: "0.06em", textTransform: "uppercase", color: "#86868B" }}>
+                {project.statusLabel}
+              </span>
+            </span>
+            <span style={{ color: "rgba(0,0,0,0.18)", fontSize: "10px" }}>·</span>
+            {project.serviceLabels.slice(0, 2).map((label, i) => (
+              <span key={i} style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "#86868B" }}>
+                {label}{i < Math.min(project.serviceLabels.length, 2) - 1 ? " ·" : ""}
+              </span>
+            ))}
+            <span style={{ color: "rgba(0,0,0,0.18)", fontSize: "10px" }}>·</span>
+            <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "#86868B" }}>
+              {project.regionLabel}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h1 style={{
+            fontFamily: NM, fontWeight: 400,
+            fontSize: "clamp(2.2rem, 5vw, 4.2rem)",
+            lineHeight: 1.06, letterSpacing: "-0.038em",
+            color: "#1D1D1F", maxWidth: "900px", marginBottom: "1.5rem",
+          }}>
+            {project.displayTitle}
+          </h1>
+
+          {/* Description */}
+          <p style={{
+            fontFamily: NM, fontWeight: 400, fontSize: "1.15rem",
+            lineHeight: 1.65, color: "#86868B",
+            maxWidth: "680px", marginBottom: "2rem",
+          }}>
+            {project.shortDescription}
+          </p>
+
+          {/* Tag chips */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+            {project.stackTags.slice(0, 6).map((tag) => (
+              <span key={tag} style={{
+                fontFamily: NM, fontWeight: 400, fontSize: "11.5px", color: "#86868B",
+                border: "1px solid rgba(0,0,0,0.1)", borderRadius: "100px", padding: "3px 11px",
+              }}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Hero visual ── */}
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 2rem 3rem" }}>
+          <div style={{
+            borderRadius: "20px", overflow: "hidden",
+            background: "#080A0E", position: "relative",
+          }}>
+            {heroImage ? (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={heroImage}
+                  alt={`${project.displayTitle} screenshot`}
+                  style={{ width: "100%", height: "auto", display: "block", maxHeight: "600px", objectFit: "cover", objectPosition: "top" }}
+                />
+                {/* Overlay bar */}
+                <div style={{
+                  position: "absolute", bottom: 0, left: 0, right: 0,
+                  background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%)",
+                  padding: "2rem 1.75rem 1rem",
+                  display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem",
+                }}>
+                  {logo && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={logo.src}
+                      alt=""
+                      style={{
+                        height: "28px", width: "auto",
+                        filter: logo.invert ? "brightness(0) invert(1)" : "brightness(0) invert(1)",
+                        opacity: 0.75,
+                      }}
+                    />
+                  )}
+                  {project.publicUrl && (
+                    <Link
+                      href={project.publicUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontFamily: NM, fontWeight: 400, fontSize: "11.5px",
+                        color: "rgba(255,255,255,0.7)", textDecoration: "none",
+                        display: "inline-flex", alignItems: "center", gap: "5px",
+                        border: "1px solid rgba(255,255,255,0.2)", borderRadius: "100px",
+                        padding: "5px 14px", background: "rgba(0,0,0,0.3)",
+                        backdropFilter: "blur(8px)",
+                        marginLeft: "auto",
+                      }}
+                    >
+                      View live project
+                      <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "8px", height: "8px" }}>
+                        <path d="M2 5h6M5 2l3 3-3 3" />
+                      </svg>
+                    </Link>
+                  )}
+                </div>
+              </>
+            ) : (
+              /* Fallback dark panel (no screenshots available) */
+              <div style={{
+                minHeight: "340px", display: "flex", flexDirection: "column",
+                alignItems: "center", justifyContent: "center", padding: "4rem 2rem", position: "relative",
+              }}>
+                <div style={{
+                  position: "absolute", inset: 0, pointerEvents: "none",
+                  backgroundImage: "radial-gradient(ellipse 80% 55% at 50% 35%, rgba(255,255,255,0.04) 0%, transparent 70%)",
+                }} />
+                {logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={logo.src} alt={project.displayTitle} style={{
+                    height: "56px", width: "auto", maxWidth: "min(320px, 80vw)", objectFit: "contain",
+                    filter: logo.invert ? "brightness(0) invert(1)" : undefined, opacity: 0.9,
+                  }} />
+                ) : (
+                  <p style={{
+                    fontFamily: NM, fontWeight: 400, fontSize: "clamp(1.4rem, 3vw, 2.2rem)",
+                    lineHeight: 1.1, letterSpacing: "-0.035em",
+                    color: "rgba(255,255,255,0.88)", textAlign: "center",
+                  }}>
+                    {project.displayTitle}
+                  </p>
+                )}
+                <div style={{
+                  position: "absolute", bottom: 0, left: 0, right: 0,
+                  borderTop: "1px solid rgba(255,255,255,0.06)", padding: "1rem 1.75rem",
+                  display: "flex", alignItems: "center", justifyContent: "space-between",
+                }}>
+                  <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "10.5px", color: "rgba(255,255,255,0.22)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                    {project.displayTitle} · {project.regionLabel}
+                  </span>
+                  {project.publicUrl && (
+                    <Link href={project.publicUrl} target="_blank" rel="noopener noreferrer" style={{
+                      fontFamily: NM, fontWeight: 400, fontSize: "11.5px",
+                      color: "rgba(255,255,255,0.45)", textDecoration: "none",
+                      display: "inline-flex", alignItems: "center", gap: "5px",
+                      border: "1px solid rgba(255,255,255,0.1)", borderRadius: "100px", padding: "4px 12px",
+                    }}>
+                      View live
+                      <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "8px", height: "8px" }}>
+                        <path d="M2 5h6M5 2l3 3-3 3" />
+                      </svg>
+                    </Link>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ── Body: overview + what we built ── */}
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 2rem" }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0,1fr)",
+            gap: "0",
+          }}>
+
+            {/* Overview */}
+            {meta?.overview && (
+              <div style={{
+                maxWidth: "720px", margin: "0 auto", width: "100%",
+                padding: "3rem 0 2.5rem",
+                borderTop: "1px solid rgba(0,0,0,0.07)",
+              }}>
+                <p style={{
+                  fontFamily: NM, fontWeight: 500, fontSize: "10.5px",
+                  letterSpacing: "0.1em", textTransform: "uppercase",
+                  color: "#86868B", marginBottom: "1.75rem",
+                }}>
+                  Overview
+                </p>
+                {meta.overview.map((para, i) => (
+                  <p key={i} style={{
+                    fontFamily: NM, fontWeight: 400, fontSize: "16px",
+                    lineHeight: 1.85, color: "#1D1D1F", marginBottom: "1.4rem",
+                  }}>
+                    {para}
+                  </p>
+                ))}
+              </div>
+            )}
+
+            {/* What we built — always show */}
+            {whatWeBuilt.length > 0 && (
+              <div style={{
+                maxWidth: "720px", margin: "0 auto", width: "100%",
+                padding: "2.5rem 0 3rem",
+                borderTop: "1px solid rgba(0,0,0,0.07)",
+              }}>
+                <p style={{
+                  fontFamily: NM, fontWeight: 500, fontSize: "10.5px",
+                  letterSpacing: "0.1em", textTransform: "uppercase",
+                  color: "#86868B", marginBottom: "1.75rem",
+                }}>
+                  What we built
+                </p>
+                <div style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(min(220px, 100%), 1fr))",
+                  gap: "1px",
+                  background: "rgba(0,0,0,0.06)",
+                  borderRadius: "12px",
+                  overflow: "hidden",
+                }}>
+                  {whatWeBuilt.map((item, i) => (
+                    <div key={i} style={{
+                      background: "white", padding: "1rem 1.25rem",
+                      display: "flex", alignItems: "flex-start", gap: "0.75rem",
+                    }}>
+                      <span style={{
+                        fontFamily: NM, fontWeight: 400, fontSize: "11px",
+                        color: "#86868B", flexShrink: 0, marginTop: "2px",
+                        letterSpacing: "0.04em",
+                      }}>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span style={{
+                        fontFamily: NM, fontWeight: 400, fontSize: "13.5px",
+                        letterSpacing: "-0.01em", color: "#1D1D1F", lineHeight: 1.4,
+                      }}>
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ── Screenshot gallery — full container width ── */}
+        {gallery.length > 0 && (
+          <div style={{
+            maxWidth: "1320px", margin: "0 auto",
+            padding: "1rem 2rem 4rem",
+            borderTop: "1px solid rgba(0,0,0,0.07)",
+          }}>
+            <p style={{
+              fontFamily: NM, fontWeight: 500, fontSize: "10.5px",
+              letterSpacing: "0.1em", textTransform: "uppercase",
+              color: "#86868B", marginBottom: "1.75rem",
+            }}>
+              Screenshots
+            </p>
+
+            {/* First image full width */}
+            <div style={{ borderRadius: "14px", overflow: "hidden", marginBottom: "1rem" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={gallery[0]}
+                alt={`${project.displayTitle} screenshot`}
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+            </div>
+
+            {/* Remaining images in a 2-col grid */}
+            {gallery.length > 1 && (
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(min(340px, 100%), 1fr))",
+                gap: "1rem",
+              }}>
+                {gallery.slice(1).map((src, i) => (
+                  <div key={i} style={{ borderRadius: "12px", overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)" }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={src}
+                      alt={`${project.displayTitle} screenshot ${i + 2}`}
+                      style={{ width: "100%", height: "auto", display: "block" }}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── Outcome / Challenge callouts ── */}
+        {(meta?.challenge || meta?.outcome) && (
+          <div style={{
+            maxWidth: "1320px", margin: "0 auto",
+            padding: "0 2rem 4rem",
+          }}>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))",
+              gap: "1rem",
+            }}>
+              {meta.challenge && (
+                <div style={{
+                  background: "#F5F5F7", borderRadius: "16px", padding: "2rem",
+                }}>
+                  <p style={{
+                    fontFamily: NM, fontWeight: 500, fontSize: "10.5px",
+                    letterSpacing: "0.1em", textTransform: "uppercase",
+                    color: "#86868B", marginBottom: "0.85rem",
+                  }}>
+                    The challenge
+                  </p>
+                  <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "14.5px", lineHeight: 1.7, color: "#1D1D1F" }}>
+                    {meta.challenge}
+                  </p>
+                </div>
+              )}
+              {meta.outcome && (
+                <div style={{
+                  background: "#1D1D1F", borderRadius: "16px", padding: "2rem",
+                }}>
+                  <p style={{
+                    fontFamily: NM, fontWeight: 500, fontSize: "10.5px",
+                    letterSpacing: "0.1em", textTransform: "uppercase",
+                    color: "rgba(255,255,255,0.35)", marginBottom: "0.85rem",
+                  }}>
+                    The outcome
+                  </p>
+                  <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "14.5px", lineHeight: 1.7, color: "rgba(255,255,255,0.75)" }}>
+                    {meta.outcome}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* ── Technical stack ── */}
+        {project.stackTags.length > 0 && (
+          <div style={{
+            maxWidth: "1320px", margin: "0 auto",
+            padding: "0 2rem 4rem",
+            borderTop: "1px solid rgba(0,0,0,0.07)",
+          }}>
+            <p style={{
+              fontFamily: NM, fontWeight: 500, fontSize: "10.5px",
+              letterSpacing: "0.1em", textTransform: "uppercase",
+              color: "#86868B", margin: "2rem 0 1.25rem",
+            }}>
+              Technical stack
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+              {project.stackTags.map((tag) => (
+                <span key={tag} style={{
+                  fontFamily: NM, fontWeight: 400, fontSize: "13px",
+                  letterSpacing: "-0.01em", color: "#1D1D1F",
+                  border: "1px solid rgba(0,0,0,0.1)", borderRadius: "8px",
+                  padding: "6px 14px",
+                }}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Related projects ── */}
+        {related.length > 0 && (
+          <div style={{
+            borderTop: "1px solid rgba(0,0,0,0.07)",
+            maxWidth: "1320px", margin: "0 auto", padding: "3rem 2rem 4rem",
+          }}>
+            <p style={{
+              fontFamily: NM, fontWeight: 400, fontSize: "13px",
+              color: "#86868B", marginBottom: "2rem",
+            }}>
+              More work
+            </p>
+            <RelatedWork projects={related} />
+          </div>
+        )}
+
+        {/* ── CTA ── */}
+        <div style={{ borderTop: "1px solid rgba(0,0,0,0.07)", background: "#F5F5F7" }}>
+          <div style={{
+            maxWidth: "1320px", margin: "0 auto", padding: "clamp(2.5rem, 4vw, 4rem) 1.25rem",
+            display: "flex", flexWrap: "wrap", alignItems: "center",
+            justifyContent: "space-between", gap: "1.5rem",
+          }}>
+            <div>
+              <p style={{
+                fontFamily: NM, fontWeight: 400,
+                fontSize: "clamp(1.3rem, 2.5vw, 2rem)",
+                lineHeight: 1.2, letterSpacing: "-0.025em",
+                color: "#1D1D1F", marginBottom: "0.5rem", maxWidth: "480px",
+              }}>
+                Want to build something like this?
+              </p>
+              <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "14px", color: "#86868B" }}>
+                Tell us what you&rsquo;re working on — we&rsquo;ll tell you what&rsquo;s possible.
+              </p>
+            </div>
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+              {project.publicUrl && (
+                <Link
+                  href={project.publicUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontFamily: NM, fontWeight: 400, fontSize: "13.5px",
+                    color: "#1D1D1F", background: "white",
+                    border: "1px solid rgba(0,0,0,0.12)",
+                    borderRadius: "100px", padding: "11px 24px",
+                    textDecoration: "none", display: "inline-flex",
+                    alignItems: "center", gap: "7px",
+                  }}
+                >
+                  View live project
+                  <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "9px", height: "9px" }}>
+                    <path d="M2 5h6M5 2l3 3-3 3" />
+                  </svg>
+                </Link>
+              )}
+              <Link
+                href="/contact"
+                style={{
+                  fontFamily: NM, fontWeight: 500, fontSize: "13.5px",
+                  letterSpacing: "-0.01em", color: "white", background: "#1D1D1F",
+                  borderRadius: "100px", padding: "12px 28px",
+                  textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "8px",
+                }}
+              >
+                Start a project
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" style={{ width: "10px", height: "10px" }}>
+                  <path d="M2 5h6M5 2l3 3-3 3" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </>
+  );
+}

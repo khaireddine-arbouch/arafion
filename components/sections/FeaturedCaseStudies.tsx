@@ -1,82 +1,26 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import FadeInOnView from "@/components/ui/FadeInOnView";
+import { ALL_PORTFOLIO_PROJECTS } from "@/lib/map-projects";
 
-interface CaseStudy {
-  id: string;
-  client: string;
-  title: string;
-  region: string;
-  tags: string[];
-  metric: string;
-  metricLabel: string;
-  description: string;
-  color: string;
+const COLORS = ["#0A84FF", "#30D158", "#BF5AF2", "#FF9F0A", "#FF375F"];
+
+const CASES = ALL_PORTFOLIO_PROJECTS.filter((project) => project.featured).slice(0, 5);
+
+function proofLabel(value: string): string {
+  return value
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
 }
-
-const CASES: CaseStudy[] = [
-  {
-    id: "neurotrade",
-    client: "NeuroTrade",
-    title: "AI Trading Platform",
-    region: "New York, US",
-    tags: ["AI/ML", "Real-time", "Finance"],
-    metric: "2M+",
-    metricLabel: "daily signals processed",
-    description: "End-to-end AI-powered trading platform with real-time analytics dashboard, ML inference pipeline, and institutional-grade UI. Sub-100ms latency across the entire signal chain.",
-    color: "#0A84FF",
-  },
-  {
-    id: "aramco",
-    client: "Aramco Digital",
-    title: "Enterprise Energy Dashboard",
-    region: "Riyadh, Saudi Arabia",
-    tags: ["Data", "IoT", "Enterprise"],
-    metric: "200+",
-    metricLabel: "facilities monitored",
-    description: "Real-time energy management platform tracking facilities across the Kingdom. Anomaly detection, predictive alerts, and executive reporting for the world's largest energy company.",
-    color: "#30D158",
-  },
-  {
-    id: "revolut",
-    client: "Revolut",
-    title: "Payment Intelligence Engine",
-    region: "London, UK",
-    tags: ["AI/ML", "FinTech", "Scale"],
-    metric: "150M+",
-    metricLabel: "monthly transactions",
-    description: "ML-powered fraud detection and payment routing engine. Reduced false positives by 34% while maintaining sub-100ms decision latency at peak throughput.",
-    color: "#BF5AF2",
-  },
-  {
-    id: "grab",
-    client: "Grab",
-    title: "Driver Intelligence Platform",
-    region: "Singapore",
-    tags: ["AI/ML", "Mobile", "Logistics"],
-    metric: "50M+",
-    metricLabel: "rides optimized",
-    description: "Demand prediction and earnings optimization for Southeast Asia's largest ride-hailing service. ML models, real-time heatmaps, and driver-facing app features.",
-    color: "#FF9F0A",
-  },
-  {
-    id: "safaricom",
-    client: "Safaricom",
-    title: "M-Pesa Transaction Analytics",
-    region: "Nairobi, Kenya",
-    tags: ["Data", "FinTech", "Africa"],
-    metric: "40M+",
-    metricLabel: "users protected",
-    description: "Real-time fraud detection and transaction analytics for Africa's largest mobile money platform. Streaming pipeline with sub-second anomaly flagging.",
-    color: "#FF375F",
-  },
-];
 
 export default function FeaturedCaseStudies() {
   const [activeId, setActiveId] = useState(CASES[0].id);
   const active = CASES.find((c) => c.id === activeId) ?? CASES[0];
+  const activeColor = COLORS[Math.max(0, CASES.findIndex((c) => c.id === active.id)) % COLORS.length];
 
   return (
     <div className="flex flex-col lg:flex-row gap-6">
@@ -94,13 +38,13 @@ export default function FeaturedCaseStudies() {
               }`}
             >
               <div className="text-[11px] font-medium opacity-60 tracking-tight mb-0.5">
-                {c.region}
+                {c.regionLabel}
               </div>
               <div className="text-sm font-semibold tracking-tight">
-                {c.client}
+                {c.displayTitle}
               </div>
               <div className={`text-xs mt-1 ${c.id === activeId ? "text-white/60" : "text-muted"}`}>
-                {c.title}
+                {c.serviceLabels[0] ?? "Product system"}
               </div>
               {c.id === activeId && (
                 <motion.div
@@ -127,44 +71,44 @@ export default function FeaturedCaseStudies() {
             className="rounded-3xl border border-black/[.06] bg-white overflow-hidden h-full"
           >
             {/* Accent bar */}
-            <div className="h-1" style={{ backgroundColor: active.color }} />
+            <div className="h-1" style={{ backgroundColor: activeColor }} />
 
             <div className="p-8">
               {/* Header */}
               <div className="flex items-start justify-between gap-4 mb-6">
                 <div>
                   <div className="text-[11px] font-medium text-muted tracking-tight uppercase mb-1">
-                    {active.region}
+                    {active.regionLabel}
                   </div>
                   <h3 className="text-xl font-semibold text-ink tracking-tight">
-                    {active.client}
+                    {active.displayTitle}
                   </h3>
-                  <p className="text-sm text-muted mt-0.5">{active.title}</p>
+                  <p className="text-sm text-muted mt-0.5">{active.serviceLabels.join(", ")}</p>
                 </div>
                 <div
                   className="text-right shrink-0 px-5 py-3 rounded-2xl"
-                  style={{ backgroundColor: `${active.color}0D` }}
+                  style={{ backgroundColor: `${activeColor}0D` }}
                 >
                   <div
-                    className="text-2xl font-bold tracking-tight"
-                    style={{ color: active.color }}
+                    className="text-sm font-semibold tracking-tight"
+                    style={{ color: activeColor }}
                   >
-                    {active.metric}
+                    {active.statusLabel}
                   </div>
                   <div className="text-[10px] font-medium text-muted tracking-tight uppercase mt-0.5">
-                    {active.metricLabel}
+                    Project status
                   </div>
                 </div>
               </div>
 
               {/* Description */}
               <p className="text-[15px] text-ink/80 leading-relaxed mb-6">
-                {active.description}
+                {active.shortDescription}
               </p>
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-6">
-                {active.tags.map((tag) => (
+                {[...active.serviceLabels, ...active.proofTypes.slice(0, 3).map(proofLabel)].map((tag) => (
                   <span
                     key={tag}
                     className="text-[11px] font-medium px-3 py-1 rounded-full border border-black/[.06] text-muted tracking-tight"
@@ -175,11 +119,11 @@ export default function FeaturedCaseStudies() {
               </div>
 
               {/* CTA */}
-              <button
-                type="button"
+              <Link
+                href={`/work?project=${encodeURIComponent(active.slug)}`}
                 className="inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-ink/70 transition-colors group"
               >
-                View full case study
+                View in work explorer
                 <svg
                   width="14"
                   height="14"
@@ -189,7 +133,7 @@ export default function FeaturedCaseStudies() {
                 >
                   <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-              </button>
+              </Link>
             </div>
           </motion.div>
         </AnimatePresence>

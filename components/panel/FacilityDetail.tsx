@@ -28,26 +28,6 @@ interface FacilityDetailProps {
   facility: MapProject;
 }
 
-function formatMW(mw: number | undefined): string | null {
-  if (!mw) return null;
-  if (mw >= 1000) return `${(mw / 1000).toFixed(1)} GW`;
-  return `${Math.round(mw)} MW`;
-}
-
-function formatH100e(n: number | undefined): string | null {
-  if (!n) return null;
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(2)}M H100e`;
-  if (n >= 1_000) return `${Math.round(n / 1_000)}k H100e`;
-  return `${Math.round(n)} H100e`;
-}
-
-function formatCost(n: number | undefined): string | null {
-  if (!n) return null;
-  if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(1)}B`;
-  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(0)}M`;
-  return `$${n}`;
-}
-
 function stripConfidence(s: string | undefined): string | undefined {
   if (!s) return undefined;
   return s.replace(/\s*#\w+/g, "").trim();
@@ -82,7 +62,8 @@ export default function FacilityDetail({
   facility,
 }: FacilityDetailProps) {
   const [issuesOpen, setIssuesOpen] = useState(true);
-  const operator = stripConfidence(facility.operator) ?? facility.operator;
+  const operator =
+    facility.displayTitle ?? stripConfidence(facility.operator) ?? facility.operator;
   const user = stripConfidence(facility.primaryUser);
 
   // Reverse link: find county actions whose title/summary name this
@@ -97,25 +78,36 @@ export default function FacilityDetail({
           ),
         )
       : [];
-  const capacity = formatMW(facility.capacityMW);
-  const compute = formatH100e(facility.computeH100e);
-  const cost = formatCost(facility.costUSD);
   const color =
     (PROJECT_PIN_COLOR as Record<string, string>)[facility.status] ??
     PROJECT_PIN_COLOR.live;
   const isProposed = facility.status === "concept";
   const showUser = !!user;
+  const categoryLabels =
+    facility.serviceLabels && facility.serviceLabels.length > 0
+      ? facility.serviceLabels
+      : (facility.concerns ?? []).map(prettyConcern);
 
   const details: Array<{ label: string; value: string }> = [];
-  if (showUser) details.push({ label: "Primary user", value: user! });
-  if (capacity) details.push({ label: "Capacity", value: capacity });
-  if (compute) details.push({ label: "Compute", value: compute });
-  if (cost) details.push({ label: "Invested", value: cost });
+  if (showUser) details.push({ label: "Client", value: user! });
+  if (facility.serviceLabels?.length) {
+    details.push({
+      label: "Services",
+      value: facility.serviceLabels.slice(0, 2).join(", "),
+    });
+  }
+  if (facility.regionLabel) details.push({ label: "Region", value: facility.regionLabel });
   if (facility.yearBuilt)
     details.push({ label: "Built", value: String(facility.yearBuilt) });
   else if (facility.yearProposed)
     details.push({ label: "Proposed", value: String(facility.yearProposed) });
   details.push({ label: "Location", value: facility.location });
+  if (facility.proofTypes?.length) {
+    details.push({
+      label: "Proof",
+      value: facility.proofTypes.slice(0, 3).join(", "),
+    });
+  }
 
   return (
     <div className="flex-1 overflow-y-auto">
@@ -133,12 +125,6 @@ export default function FacilityDetail({
             }}
           />
           <span>{STATUS_LABEL[facility.status]}</span>
-          {capacity && (
-            <>
-              <span aria-hidden>·</span>
-              <span>{capacity}</span>
-            </>
-          )}
         </div>
       </div>
 
@@ -267,8 +253,8 @@ export default function FacilityDetail({
             </section>
           )}
 
-        {/* Issues dropdown — collapsible list of concern tags */}
-        {facility.concerns && facility.concerns.length > 0 && (
+        {/* Service categories dropdown — portfolio-safe capability tags. */}
+        {categoryLabels.length > 0 && (
           <div>
             <button
               type="button"
@@ -277,9 +263,9 @@ export default function FacilityDetail({
               className="w-full flex items-center justify-between py-2 text-[13px] font-medium text-ink hover:text-ink/70 transition-colors"
             >
               <span>
-                Issues{" "}
+                Service categories{" "}
                 <span className="text-muted font-normal">
-                  ({facility.concerns.length})
+                  ({categoryLabels.length})
                 </span>
               </span>
               <span
@@ -294,12 +280,12 @@ export default function FacilityDetail({
             </button>
             {issuesOpen && (
               <ul className="mt-1.5 flex flex-wrap gap-1.5">
-                {facility.concerns.map((c) => (
+                {categoryLabels.map((c) => (
                   <li
                     key={c}
                     className="text-[11.5px] px-2 py-1 rounded-full bg-black/[.04] text-ink/80 tracking-tight"
                   >
-                    {prettyConcern(c)}
+                    {c}
                   </li>
                 ))}
               </ul>

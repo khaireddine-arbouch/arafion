@@ -1563,6 +1563,21 @@ export default function MapShell({
                 <LegendRow color="#BF5AF2" label="Concept" hollow />
               </div>
               <div className="mt-3 pt-2.5 border-t border-black/[.05]">
+                <div className="text-[11px] font-semibold text-muted tracking-tight mb-2">
+                  Engagement
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  {LEGEND_STANCE_ORDER.map((s) => (
+                    <LegendRow
+                      key={s}
+                      color={STANCE_HEX[s]}
+                      label={STANCE_LABEL[s]}
+                      labelClassName="text-[11px]"
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="mt-3 pt-2.5 border-t border-black/[.05]">
                 {/* Size-band key — dot size scales with cluster total MW,
                     mirroring MapProjectDots size bands. Stacked
                     vertically so it reads alongside the status rows above. */}
@@ -1937,18 +1952,29 @@ function SizeBandSwatch({ r, label }: { r: number; label: string }) {
 
 // PowerPlantLegend removed — agency mode
 
+const LEGEND_STANCE_ORDER: StanceType[] = [
+  "flagship",
+  "growth",
+  "sprint",
+  "advisory",
+  "none",
+];
+
 function LegendRow({
   color,
   label,
   hollow = false,
+  labelClassName,
 }: {
   color: string;
   label: string;
   hollow?: boolean;
+  /** e.g. smaller type for longer stance names in the engagement block */
+  labelClassName?: string;
 }) {
   return (
-    <div className="flex items-center gap-2.5">
-      <span className="relative flex items-center justify-center flex-shrink-0 w-3.5 h-3.5">
+    <div className="flex items-start gap-2.5 w-full min-w-0">
+      <span className="relative flex items-center justify-center flex-shrink-0 w-3.5 h-3.5 mt-0.5">
         <span
           className="absolute inset-0 rounded-full"
           style={{ backgroundColor: color, opacity: 0.18 }}
@@ -1961,7 +1987,9 @@ function LegendRow({
           }}
         />
       </span>
-      <span className="text-[12px] text-ink font-medium tracking-tight">
+      <span
+        className={`min-w-0 flex-1 text-[12px] text-ink font-medium tracking-tight leading-snug ${labelClassName ?? ""}`}
+      >
         {label}
       </span>
     </div>

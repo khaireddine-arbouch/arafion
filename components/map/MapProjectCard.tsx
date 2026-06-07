@@ -11,26 +11,6 @@ interface MapProjectCardProps {
   clusterSize?: number;
 }
 
-function formatRelativeScale(mw: number | undefined): string | null {
-  if (!mw) return null;
-  if (mw >= 1000) return `${(mw / 1000).toFixed(1)} GW`;
-  return `${Math.round(mw)} MW`;
-}
-
-function formatCost(n: number | undefined): string | null {
-  if (!n) return null;
-  if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(1)}B`;
-  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(0)}M`;
-  return `$${n}`;
-}
-
-function formatH100e(n: number | undefined): string | null {
-  if (!n) return null;
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 1_000) return `${Math.round(n / 1_000)}k`;
-  return `${Math.round(n)}`;
-}
-
 function stripConfidence(s: string | undefined): string | undefined {
   if (!s) return undefined;
   return s.replace(/\s*#\w+/g, "").trim();
@@ -51,11 +31,9 @@ export default function MapProjectCard({
   y,
   clusterSize = 1,
 }: MapProjectCardProps) {
-  const title = stripConfidence(project.operator) ?? project.operator;
+  const title =
+    project.displayTitle ?? stripConfidence(project.operator) ?? project.operator;
   const user = stripConfidence(project.primaryUser);
-  const scale = formatRelativeScale(project.capacityMW);
-  const cost = formatCost(project.costUSD);
-  const compute = formatH100e(project.computeH100e);
   const color =
     (PROJECT_PIN_COLOR as Record<string, string>)[project.status] ??
     PROJECT_PIN_COLOR.live;
@@ -72,10 +50,14 @@ export default function MapProjectCard({
   const showUser = !!user;
   const rows: Array<{ label: string; value: string }> = [];
   if (showUser) rows.push({ label: "Client", value: user! });
-  if (scale) rows.push({ label: "Scale", value: scale });
-  if (cost) rows.push({ label: "Investment", value: cost });
-  if (compute) rows.push({ label: "Compute", value: `${compute} H100e` });
+  if (project.serviceLabels?.length) {
+    rows.push({ label: "Services", value: project.serviceLabels.slice(0, 2).join(", ") });
+  }
+  if (project.regionLabel) rows.push({ label: "Region", value: project.regionLabel });
   if (locationLine) rows.push({ label: "Location", value: locationLine });
+  if (project.proofTypes?.length) {
+    rows.push({ label: "Proof", value: project.proofTypes.slice(0, 2).join(", ") });
+  }
 
   const cardWidth = 260;
   const hasProposalBlock =

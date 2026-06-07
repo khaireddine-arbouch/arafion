@@ -1,0 +1,2448 @@
+[
+  {
+    "id": "nileroute-os",
+    "title": "NileRoute OS",
+    "slug": "nileroute-os",
+    "status": "live",
+    "projectType": "internal-product",
+    "visibility": "public",
+    "targetMarkets": ["France", "Morocco", "Qatar", "Saudi Arabia", "Sudan"],
+    "client": {
+      "name": "Arafion Internal Product",
+      "publicName": "Arafion Internal Product",
+      "isConfidential": false
+    },
+    "location": {
+      "country": "Morocco / International",
+      "city": null,
+      "region": "morocco-international",
+      "lat": 31.7917,
+      "lng": -7.0926
+    },
+    "industry": [
+      "Logistics",
+      "Trade",
+      "Route Intelligence",
+      "Operations Software"
+    ],
+    "serviceCategories": [
+      "saas-software",
+      "dashboards-intelligence",
+      "ai-systems",
+      "internal-tools"
+    ],
+    "proofTypes": [
+      "public-link",
+      "screenshots",
+      "live-authenticated-deployment"
+    ],
+    "publicUrl": "https://nileroute-os.vercel.app/",
+    "shortDescription": "Multi-tenant freight logistics operations dashboard for managing customers, shipment requests, shipments, containers, tracking events, documents, and AI-assisted operational queries.",
+    "whatWeBuilt": [
+      "Customer CRUD",
+      "Shipment lifecycle management",
+      "Request intake",
+      "Container tracking",
+      "Dashboard KPIs",
+      "Document drive",
+      "Role-based access control",
+      "Saved views",
+      "Audit trail",
+      "NVIDIA-powered AI assistant"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "Supabase",
+      "Clerk",
+      "S3-compatible storage",
+      "NVIDIA LLM API",
+      "SSE streaming",
+      "RLS",
+      "RBAC"
+    ],
+    "bestSalesAngle": "Strongest full-stack ops platform in the portfolio; credible logistics SaaS case study.",
+    "doNotClaim": [
+      "Do not claim proven logistics savings unless backed by usage data.",
+      "Do not claim enterprise adoption unless verified.",
+      "Do not claim AI risk scoring unless implemented and validated."
+    ],
+    "featured": true
+  },
+  {
+    "id": "evo2-variant-intelligence",
+    "title": "Evo2 Variant Intelligence",
+    "slug": "evo2-variant-intelligence",
+    "status": "delivered",
+    "projectType": "research-tool",
+    "visibility": "public",
+    "targetMarkets": ["Morocco"],
+    "client": {
+      "name": "Arafion Internal Product",
+      "publicName": "Arafion Internal Product",
+      "isConfidential": false
+    },
+    "location": {
+      "country": "International",
+      "city": null,
+      "region": "international",
+      "lat": 48.8566,
+      "lng": 2.3522
+    },
+    "industry": [
+      "Genomics",
+      "Biotech",
+      "Health AI",
+      "Research Intelligence"
+    ],
+    "serviceCategories": [
+      "ai-systems",
+      "saas-software",
+      "dashboards-intelligence"
+    ],
+    "proofTypes": [
+      "public-link",
+      "screenshots",
+      "demo-workspace"
+    ],
+    "publicUrl": "https://evo2-variant-intelligence.vercel.app/",
+    "shortDescription": "Full-stack genomics research platform for variant pathogenicity prediction using Evo2 backend inference and a Next.js analysis console.",
+    "whatWeBuilt": [
+      "Evo2 model API",
+      "SNV/deletion/insertion analysis",
+      "BRCA1-calibrated classification",
+      "NCBI gene search",
+      "UCSC sequence fetching",
+      "ClinVar integration",
+      "Molstar 3D viewer",
+      "Supabase sessions"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "Python Modal backend",
+      "H100 GPU",
+      "Evo2 7B",
+      "Supabase",
+      "NCBI/UCSC/ClinVar APIs",
+      "Molstar"
+    ],
+    "bestSalesAngle": "Best deep-tech proof: real backend inference, external scientific APIs, serious domain complexity.",
+    "doNotClaim": [
+      "Do not claim clinical diagnosis.",
+      "Do not claim regulatory approval.",
+      "Do not claim medical-grade validation.",
+      "Do not claim patient use."
+    ],
+    "featured": true
+  },
+  {
+    "id": "signalsframe",
+    "title": "SignalsFrame",
+    "slug": "signalsframe",
+    "status": "in-development",
+    "projectType": "saas-product",
+    "visibility": "public",
+    "targetMarkets": ["Morocco", "Qatar", "Saudi Arabia", "Spain", "UAE", "USA"],
+    "client": {
+      "name": "Arafion Internal Product",
+      "publicName": "Arafion Internal Product",
+      "isConfidential": false
+    },
+    "location": {
+      "country": "International",
+      "city": null,
+      "region": "international",
+      "lat": 40.7128,
+      "lng": -74.006
+    },
+    "industry": [
+      "AI Media",
+      "Video Editing",
+      "Creator Tools",
+      "Browser-Based Production Software"
+    ],
+    "serviceCategories": [
+      "saas-software",
+      "ai-systems",
+      "marketing-production"
+    ],
+    "proofTypes": [
+      "public-link",
+      "screenshots",
+      "product-demo"
+    ],
+    "publicUrl": "https://www.signalsframe.com/",
+    "shortDescription": "Browser-based video, audio, and photo editing app with timeline editing, export tooling, media processing, and early AI-assisted editing features.",
+    "whatWeBuilt": [
+      "Timeline engine",
+      "FFmpeg integration",
+      "WASM audio modules",
+      "Export engine",
+      "Social presets",
+      "Project recovery",
+      "Clerk auth",
+      "Convex backend",
+      "S3 storage",
+      "PostHog analytics"
+    ],
+    "saferTechnicalStack": [
+      "React/TypeScript",
+      "WASM",
+      "FFmpeg",
+      "WebCodecs/WebGPU",
+      "Clerk",
+      "Convex",
+      "AWS S3",
+      "PostHog"
+    ],
+    "bestSalesAngle": "Strong technical product: media tooling, browser performance, export pipeline, creator workflow.",
+    "doNotClaim": [
+      "Do not overclaim AI model quality; background removal and face detection appear heuristic/unclear, not proven ML-grade."
+    ],
+    "featured": true
+  },
+  {
+    "id": "intelligence-console",
+    "title": "Intelligence Console",
+    "slug": "intelligence-console",
+    "status": "delivered",
+    "projectType": "enterprise-demo-proposal",
+    "visibility": "public",
+    "targetMarkets": ["France", "Morocco", "Qatar", "Saudi Arabia", "UAE", "USA"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": false
+    },
+    "location": {
+      "country": "International",
+      "city": null,
+      "region": "international",
+      "lat": 51.5072,
+      "lng": -0.1276
+    },
+    "industry": [
+      "Supply Chain Intelligence",
+      "ESG",
+      "Enterprise Risk",
+      "Procurement Analytics"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "public-demo",
+      "screenshots"
+    ],
+    "publicUrl": "https://intelligence-console.vercel.app/executive",
+    "shortDescription": "Supply chain, ESG, and company-performance intelligence dashboard powered by deterministic mock data and scenario modeling.",
+    "whatWeBuilt": [
+      "Executive dashboard",
+      "Supplier risk metrics",
+      "Scenario lab",
+      "DCF valuation",
+      "Peer benchmarking",
+      "Investigation workspace",
+      "PDF export",
+      "Multi-company switching",
+      "AI chat endpoint"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Zustand",
+      "Vercel AI SDK",
+      "OpenAI route",
+      "jsPDF/html2canvas",
+      "Recharts",
+      "Mock data generation"
+    ],
+    "bestSalesAngle": "Good enterprise storytelling demo for procurement, ESG risk, and executive decision support.",
+    "doNotClaim": [
+      "Do not claim live supplier data.",
+      "Do not claim real ESG intelligence.",
+      "Do not claim production deployment.",
+      "Do not claim real alerts.",
+      "Do not claim working Excel/PowerPoint export unless verified."
+    ],
+    "featured": true
+  },
+  {
+    "id": "atlas-intelligence",
+    "title": "Atlas Intelligence",
+    "slug": "atlas-intelligence",
+    "status": "delivered",
+    "projectType": "internal-demo-shell",
+    "visibility": "public-partial",
+    "targetMarkets": ["France", "Morocco", "Qatar", "Saudi Arabia", "Spain", "UAE", "USA"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": false
+    },
+    "location": {
+      "country": "International",
+      "city": null,
+      "region": "international",
+      "lat": 38.9072,
+      "lng": -77.0369
+    },
+    "industry": [
+      "Market Intelligence",
+      "Enterprise Intelligence",
+      "Finance",
+      "Operations Risk"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "internal-tools"
+    ],
+    "proofTypes": [
+      "public-deployment",
+      "screenshots"
+    ],
+    "publicUrl": "https://atlas-intelligence.vercel.app/scan",
+    "shortDescription": "Reusable Next.js intelligence shell with Scan, Investigate, Decide, and Execute modes using mock data and a terminal-style UI system.",
+    "whatWeBuilt": [
+      "Mode switcher",
+      "Command palette",
+      "Resizable panels",
+      "Right context panel",
+      "Sidebar entities",
+      "Charts",
+      "Keyboard shortcuts",
+      "Zustand persistence",
+      "Demo evidence/entity data"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Zustand",
+      "Tailwind CSS v4",
+      "Recharts",
+      "Vendored design system",
+      "Mock data"
+    ],
+    "bestSalesAngle": "Best as a reusable intelligence UI framework, not as a live market intelligence platform.",
+    "doNotClaim": [
+      "Do not claim live financial data.",
+      "Do not claim real market scanning.",
+      "Do not claim investment recommendations.",
+      "Do not claim real ingestion."
+    ],
+    "featured": true
+  },
+  {
+    "id": "atlas-geoint",
+    "title": "Atlas GEOINT",
+    "slug": "atlas-geoint",
+    "status": "prototype",
+    "projectType": "geoint-workstation-prototype",
+    "visibility": "public",
+    "targetMarkets": ["Qatar", "Saudi Arabia", "UAE"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": false
+    },
+    "location": {
+      "country": "International",
+      "city": null,
+      "region": "international",
+      "lat": 52.52,
+      "lng": 13.405
+    },
+    "industry": [
+      "Geospatial Intelligence",
+      "OSINT",
+      "Security",
+      "Logistics",
+      "Risk Monitoring"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "internal-tools"
+    ],
+    "proofTypes": [
+      "public-deployment",
+      "screenshots"
+    ],
+    "publicUrl": "https://atlas-geoint.vercel.app/",
+    "shortDescription": "Geospatial intelligence workstation prototype for visualizing incidents, entities, corridors, confidence scores, provenance, and scenario comparison on an interactive map.",
+    "whatWeBuilt": [
+      "Leaflet map",
+      "Incident/entity/corridor layers",
+      "Severity markers",
+      "Drill panel",
+      "Confidence/provenance display",
+      "Evidence linking",
+      "Decision tagging",
+      "Compare mode",
+      "Audit timeline"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Leaflet",
+      "Tailwind",
+      "Static/demo intelligence data"
+    ],
+    "bestSalesAngle": "Strong demo for OSINT/GEOINT-style workflows and map-based decision support.",
+    "doNotClaim": [
+      "Do not claim live feeds.",
+      "Do not claim classified data.",
+      "Do not claim government usage.",
+      "Do not claim military-grade intelligence.",
+      "Do not claim operational deployment."
+    ],
+    "featured": true
+  },
+  {
+    "id": "draftly",
+    "title": "Draftly",
+    "slug": "draftly",
+    "status": "delivered",
+    "projectType": "design-platform-prototype",
+    "visibility": "public",
+    "targetMarkets": ["Qatar", "Saudi Arabia", "Spain", "UAE", "USA"],
+    "client": {
+      "name": "Arafion Internal Product",
+      "publicName": "Arafion Internal Product",
+      "isConfidential": false
+    },
+    "location": {
+      "country": "Morocco / International",
+      "city": null,
+      "region": "morocco-international",
+      "lat": 33.5731,
+      "lng": -7.5898
+    },
+    "industry": [
+      "AI Design Tools",
+      "UI Generation",
+      "Product Design",
+      "Creative Workflow Software"
+    ],
+    "serviceCategories": [
+      "saas-software",
+      "ai-systems",
+      "product-design"
+    ],
+    "proofTypes": [
+      "public-link",
+      "screenshots",
+      "product-demo"
+    ],
+    "publicUrl": "https://draftly-huawei.vercel.app/",
+    "shortDescription": "Web-based collaborative design project platform for managing design projects, mood boards, assets, and authenticated workspaces.",
+    "whatWeBuilt": [
+      "Convex auth",
+      "Project creation/listing",
+      "Mood board uploads/removal",
+      "Protected dashboard",
+      "Project access control",
+      "Style-guide data query",
+      "Subscription schema"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "Convex",
+      "Convex Auth",
+      "Redux",
+      "Middleware auth",
+      "Convex storage"
+    ],
+    "bestSalesAngle": "Position as a design workflow/productivity platform, not as proven AI UI generation.",
+    "doNotClaim": [
+      "Do not claim sketch-to-code unless confirmed.",
+      "Do not claim real-time multiplayer editing unless implemented.",
+      "Do not claim Huawei partnership unless formally approved.",
+      "Do not claim completed billing unless confirmed."
+    ],
+    "featured": true
+  },
+  {
+    "id": "geoflex360",
+    "title": "GeoFlex360",
+    "slug": "geoflex360",
+    "status": "live",
+    "projectType": "client-website",
+    "visibility": "public",
+    "targetMarkets": ["France", "Morocco"],
+    "client": {
+      "name": "GeoFlex360",
+      "publicName": "GeoFlex360",
+      "isConfidential": false
+    },
+    "location": {
+      "country": "Morocco",
+      "city": null,
+      "region": "morocco",
+      "lat": 33.5731,
+      "lng": -7.5898
+    },
+    "industry": [
+      "Topography",
+      "Construction",
+      "BTP",
+      "Infrastructure",
+      "Land Surveying"
+    ],
+    "serviceCategories": [
+      "websites",
+      "digital-presence",
+      "b2b-services"
+    ],
+    "proofTypes": [
+      "public-link"
+    ],
+    "publicUrl": "https://www.geoflex360.com/",
+    "shortDescription": "Multilingual French marketing website for a Moroccan topographic engineering and land surveying firm, with service presentation, portfolio, SEO, and contact form backend.",
+    "whatWeBuilt": [
+      "Homepage",
+      "About page",
+      "Services section",
+      "Project portfolio",
+      "FAQ",
+      "Contact form",
+      "SMTP/Nodemailer backend",
+      "SEO metadata",
+      "LocalBusiness schema",
+      "Sitemap",
+      "Robots"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind",
+      "Nodemailer/SMTP",
+      "Static TypeScript content",
+      "SEO structured data"
+    ],
+    "bestSalesAngle": "Strong B2B services website with real contact infrastructure and serious SEO implementation.",
+    "doNotClaim": [
+      "Do not claim lead growth unless backed by analytics.",
+      "Do not claim sales impact unless verified.",
+      "Do not claim completed dedicated pricing/services/project pages unless verified."
+    ],
+    "featured": true
+  },
+  {
+    "id": "cabinet-chiropratique-chaima-hosni",
+    "title": "Cabinet Chiropratique — Dr. Chaïma Hosni",
+    "slug": "cabinet-chiropratique-chaima-hosni",
+    "status": "in-development",
+    "projectType": "client-healthcare-website",
+    "visibility": "public-partial",
+    "targetMarkets": ["France", "Morocco"],
+    "client": {
+      "name": "Cabinet Chiropratique — Dr. Chaïma Hosni",
+      "publicName": "Cabinet Chiropratique — Dr. Chaïma Hosni",
+      "isConfidential": false
+    },
+    "location": {
+      "country": "Morocco",
+      "city": "Casablanca",
+      "region": "morocco",
+      "lat": 33.5731,
+      "lng": -7.5898
+    },
+    "industry": [
+      "Healthcare",
+      "Chiropractic Care",
+      "Local Medical Services"
+    ],
+    "serviceCategories": [
+      "websites",
+      "digital-presence",
+      "healthcare"
+    ],
+    "proofTypes": [
+      "public-link"
+    ],
+    "publicUrl": "https://chiro-site.vercel.app/",
+    "shortDescription": "Professional chiropractic practice website with service education, doctor profile, FAQ, contact flow, reviews, legal pages, and healthcare SEO markup.",
+    "whatWeBuilt": [
+      "Home page",
+      "Services directory",
+      "About page",
+      "Blog section",
+      "FAQ",
+      "Contact form UI",
+      "DabaDoc reviews",
+      "Responsive layout",
+      "Schema.org markup",
+      "Sitemap/robots",
+      "Health endpoint"
+    ],
+    "saferTechnicalStack": [
+      "React/Next-style app structure",
+      "Tailwind",
+      "Static content",
+      "JSON-LD SEO",
+      "Frontend contact form"
+    ],
+    "bestSalesAngle": "Good healthcare trust-building website: education, appointment intent, local credibility.",
+    "doNotClaim": [
+      "Do not claim real appointment booking backend unless implemented.",
+      "Do not claim medical outcomes.",
+      "Do not claim patient acquisition metrics.",
+      "Do not claim complete blog content unless verified."
+    ],
+    "featured": true
+  },
+  {
+    "id": "chafai-architects",
+    "title": "Chafai Architects",
+    "slug": "chafai-architects",
+    "status": "live",
+    "projectType": "client-website",
+    "visibility": "public",
+    "targetMarkets": ["France", "Morocco"],
+    "client": {
+      "name": "Chafai Architects",
+      "publicName": "Chafai Architects",
+      "isConfidential": false
+    },
+    "location": {
+      "country": "Morocco",
+      "city": null,
+      "region": "morocco",
+      "lat": 34.0209,
+      "lng": -6.8416
+    },
+    "industry": [
+      "Architecture",
+      "Real Estate",
+      "Construction",
+      "Public/Private Development"
+    ],
+    "serviceCategories": [
+      "websites",
+      "digital-presence",
+      "architecture-visualization"
+    ],
+    "proofTypes": [
+      "public-link"
+    ],
+    "publicUrl": "https://chafaiarchitects.com/",
+    "shortDescription": "Premium public-facing website for an architecture firm, presenting the agency, portfolio, projects, publications, contact information, and architectural credibility.",
+    "whatWeBuilt": [
+      "Architecture firm website",
+      "Portfolio presentation",
+      "Project pages",
+      "Publications presentation",
+      "Contact information",
+      "Brand presence"
+    ],
+    "saferTechnicalStack": [
+      "Website stack to confirm"
+    ],
+    "bestSalesAngle": "Shows our ability to build premium architecture and design websites with strong visual credibility.",
+    "doNotClaim": [
+      "Do not claim lead growth, conversion lift, or award-winning design unless backed by data or client approval."
+    ],
+    "featured": true
+  },
+  {
+    "id": "almajliss-heritage",
+    "title": "Almajliss Heritage",
+    "slug": "almajliss-heritage",
+    "status": "live",
+    "projectType": "client-ecommerce",
+    "visibility": "public",
+    "targetMarkets": ["France", "Morocco", "Qatar", "Saudi Arabia", "UAE"],
+    "client": {
+      "name": "Almajliss Heritage",
+      "publicName": "Almajliss Heritage",
+      "isConfidential": false
+    },
+    "location": {
+      "country": "Morocco",
+      "city": null,
+      "region": "morocco",
+      "lat": 31.6295,
+      "lng": -7.9811
+    },
+    "industry": [
+      "E-commerce",
+      "Luxury Gourmet",
+      "Food & Beverage",
+      "Gifting"
+    ],
+    "serviceCategories": [
+      "ecommerce",
+      "websites",
+      "digital-presence"
+    ],
+    "proofTypes": [
+      "public-link"
+    ],
+    "publicUrl": "https://almajliss.ma/",
+    "shortDescription": "Luxury gourmet e-commerce experience with product categories, shopping flow, cart, customer account/login surfaces, catalogue access, social links, payment/security indicators, and brand presentation.",
+    "whatWeBuilt": [
+      "Product catalogue",
+      "E-commerce storefront",
+      "Luxury brand presentation",
+      "Category/product pages",
+      "Cart/shopping flow",
+      "Customer account/login surfaces"
+    ],
+    "saferTechnicalStack": [
+      "E-commerce stack to confirm"
+    ],
+    "bestSalesAngle": "Shows our ability to build premium e-commerce experiences for luxury, food, gifting, and retail brands.",
+    "doNotClaim": [
+      "Do not claim sales volume, conversion rate, revenue growth, or payment integration details unless confirmed."
+    ],
+    "featured": true
+  },
+  {
+    "id": "visibility-intelligence-lab",
+    "title": "Visibility Intelligence Lab",
+    "slug": "visibility-intelligence-lab",
+    "status": "delivered",
+    "projectType": "research-dashboard-demo",
+    "visibility": "partial",
+    "client": {
+      "name": "Arafion Internal Research Tool",
+      "publicName": "Arafion Internal Research Tool",
+      "isConfidential": false
+    },
+    "location": {
+      "country": "International",
+      "city": null,
+      "region": "international",
+      "lat": 48.8566,
+      "lng": 2.3522
+    },
+    "industry": [
+      "Research Intelligence",
+      "Google Search Visibility",
+      "Media Analysis",
+      "SERP Datasets"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "data-visualization",
+      "research-tools"
+    ],
+    "proofTypes": [
+      "screenshots",
+      "dashboard-demo"
+    ],
+    "publicUrl": null,
+    "shortDescription": "TypeScript dashboard for analyzing Google Search visibility concentration, media outlet dominance, SERP datasets, and ownership hierarchy data.",
+    "whatWeBuilt": [
+      "SERP ingestion",
+      "Gini/Shannon/HHI metrics",
+      "Top-rank capture",
+      "Visibility charts",
+      "Ownership CSV upload",
+      "Supabase schema",
+      "Theory overlays",
+      "Investigation panel",
+      "Dataset upload"
+    ],
+    "saferTechnicalStack": [
+      "TypeScript",
+      "Supabase/PostgreSQL",
+      "Next.js-style dashboard",
+      "CSV/Excel parsers",
+      "Tailwind/Radix UI",
+      "Metric calculation modules"
+    ],
+    "bestSalesAngle": "Excellent research/intelligence case study: rigorous metrics, data ingestion, ownership analysis, theory-aware UI.",
+    "doNotClaim": [
+      "Do not claim live Google Search monitoring unless implemented.",
+      "Do not claim complete temporal drift analysis unless verified.",
+      "Do not claim real ad influence analysis unless verified.",
+      "Do not claim production research adoption unless proven."
+    ],
+    "featured": true
+  },
+  {
+    "id": "confidential-kitchen-interior-render-series-turkiye",
+    "title": "Confidential Kitchen Interior Render Series — Türkiye",
+    "slug": "confidential-kitchen-interior-render-series-turkiye",
+    "status": "delivered",
+    "projectType": "confidential-client-work",
+    "visibility": "public-partial",
+    "client": {
+      "name": "Confidential Interior Design Client",
+      "publicName": "Confidential Interior Design Client",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Türkiye",
+      "city": null,
+      "region": "turkiye",
+      "lat": 41.0082,
+      "lng": 28.9784
+    },
+    "industry": [
+      "Interior Design",
+      "Architecture",
+      "Kitchen Design",
+      "Residential Visualization"
+    ],
+    "serviceCategories": [
+      "architecture-visualization",
+      "3d-rendering",
+      "visual-sales-systems"
+    ],
+    "proofTypes": [
+      "renders",
+      "before-after",
+      "3d-models",
+      "long-term-contract",
+      "client-feedback-private"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Cinematic kitchen interior render series created from 2D plans, references, and 3D models for presentation, portfolio, social media, and sales use.",
+    "whatWeBuilt": [
+      "2D plan to 3D visualization",
+      "Interior kitchen scene modeling/refinement",
+      "Cinematic lighting and material setup",
+      "High-resolution final renders",
+      "Before/after visual proof",
+      "Social media-ready visual crops",
+      "Portfolio-ready image sets"
+    ],
+    "saferTechnicalStack": [
+      "3D modeling/rendering tools to confirm",
+      "Three.js planned for web showcase",
+      "Fine-tuned render enhancement models",
+      "QA pipeline"
+    ],
+    "bestSalesAngle": "Shows Arafion’s ability to turn architectural plans into cinematic visuals that support client approval, sales, and portfolio presentation.",
+    "doNotClaim": [
+      "Do not disclose client name.",
+      "Do not claim revenue uplift unless client-approved data exists.",
+      "Do not imply the Three.js showcase is already live until implemented."
+    ],
+    "featured": true
+  },
+  {
+    "id": "confidential-room-interior-render-series-turkiye",
+    "title": "Confidential Room Interior Render Series — Türkiye",
+    "slug": "confidential-room-interior-render-series-turkiye",
+    "status": "delivered",
+    "projectType": "confidential-client-work",
+    "visibility": "public-partial",
+    "client": {
+      "name": "Confidential Interior Design Client",
+      "publicName": "Confidential Interior Design Client",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Türkiye",
+      "city": null,
+      "region": "turkiye",
+      "lat": 39.9334,
+      "lng": 32.8597
+    },
+    "industry": [
+      "Interior Design",
+      "Architecture",
+      "Residential Visualization"
+    ],
+    "serviceCategories": [
+      "architecture-visualization",
+      "3d-rendering",
+      "visual-sales-systems"
+    ],
+    "proofTypes": [
+      "renders",
+      "before-after",
+      "3d-models",
+      "long-term-contract"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Luxury room interior visualization work delivered for confidential Türkiye-based interior design clients.",
+    "whatWeBuilt": [
+      "Room/interior 3D scenes",
+      "Cinematic composition",
+      "Lighting and material refinement",
+      "Final high-resolution render outputs",
+      "Sales/portfolio visuals",
+      "Social media versions"
+    ],
+    "saferTechnicalStack": [
+      "3D modeling/rendering tools to confirm",
+      "Fine-tuned render enhancement models",
+      "QA pipeline"
+    ],
+    "bestSalesAngle": "Shows repeatable visual production capability for interior designers and architecture clients.",
+    "doNotClaim": [
+      "Do not disclose client name.",
+      "Do not claim measurable sales impact unless verified."
+    ],
+    "featured": true
+  },
+  {
+    "id": "confidential-virtual-walkthrough-project-turkiye",
+    "title": "Confidential Virtual Walkthrough Project — Türkiye",
+    "slug": "confidential-virtual-walkthrough-project-turkiye",
+    "status": "planned-or-in-progress",
+    "projectType": "confidential-client-work",
+    "visibility": "partial",
+    "client": {
+      "name": "Confidential Architecture / Real Estate Client",
+      "publicName": "Confidential Architecture / Real Estate Client",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Türkiye",
+      "city": null,
+      "region": "turkiye",
+      "lat": 41.0082,
+      "lng": 28.9784
+    },
+    "industry": [
+      "Architecture",
+      "Interior Design",
+      "Real Estate Sales"
+    ],
+    "serviceCategories": [
+      "architecture-visualization",
+      "3d-rendering",
+      "websites",
+      "visual-sales-systems"
+    ],
+    "proofTypes": [
+      "renders",
+      "3d-models",
+      "private-demo-planned"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Interactive web-based project showcase concept using Three.js to present delivered render work, project scenes, and walkthrough-style visual sales experiences.",
+    "whatWeBuilt": [
+      "3D model and render assets prepared",
+      "Planned Three.js web showcase",
+      "Project gallery structure",
+      "Virtual walkthrough concept",
+      "Portfolio integration path"
+    ],
+    "saferTechnicalStack": [
+      "Three.js planned",
+      "Next.js planned",
+      "3D models available",
+      "Static render gallery fallback"
+    ],
+    "bestSalesAngle": "Connects Arafion’s rendering work with web-based sales experiences for architecture and real estate clients.",
+    "doNotClaim": [
+      "Do not claim completed virtual walkthrough unless built.",
+      "Do not disclose client name.",
+      "Do not claim interactive real estate conversion impact without data."
+    ],
+    "featured": false
+  },
+  {
+    "id": "high-end-campaign-production-pipeline",
+    "title": "High-End Campaign Production Pipeline",
+    "slug": "high-end-campaign-production-pipeline",
+    "status": "delivered",
+    "projectType": "confidential-client-work",
+    "visibility": "partial",
+    "client": {
+      "name": "Confidential Brand / Campaign Client",
+      "publicName": "Confidential Brand / Campaign Client",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Türkiye / International",
+      "city": null,
+      "region": "turkiye-international",
+      "lat": 41.0082,
+      "lng": 28.9784
+    },
+    "industry": [
+      "Marketing",
+      "Creative Production",
+      "Campaign Infrastructure",
+      "Post-Production"
+    ],
+    "serviceCategories": [
+      "marketing-production",
+      "campaign-infrastructure",
+      "technical-training"
+    ],
+    "proofTypes": [
+      "production-samples",
+      "workflow-screenshots",
+      "client-feedback-private",
+      "long-term-contract"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Campaign production workflow combining planning tools, controlled visual production, post-production, QA, technical campaign setup guidance, and client training.",
+    "whatWeBuilt": [
+      "Campaign production workflow",
+      "Set-a-light-style internal production planning support",
+      "High-end post-production pipeline",
+      "Fine-tuned visual/render enhancement workflow",
+      "QA process",
+      "Technical campaign setup guidance",
+      "Client training"
+    ],
+    "saferTechnicalStack": [
+      "Internal production planning tools",
+      "Post-production pipeline",
+      "Fine-tuned models",
+      "QA workflow",
+      "Meta/Google/TikTok setup guidance"
+    ],
+    "bestSalesAngle": "Shows Arafion’s ability to support marketing systems beyond ads: production quality, technical setup, workflow design, and execution training.",
+    "doNotClaim": [
+      "Do not claim full distribution ownership.",
+      "Do not guarantee campaign performance.",
+      "Do not disclose client name."
+    ],
+    "featured": false
+  },
+  {
+    "id": "supply-chain-risk-intelligence-apac",
+    "title": "Supply Chain Risk Intelligence Platform — APAC",
+    "slug": "supply-chain-risk-intelligence-apac",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Singapore", "India", "Vietnam", "Thailand", "Australia"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Singapore / APAC",
+      "city": "Singapore",
+      "region": "apac",
+      "lat": 1.3521,
+      "lng": 103.8198
+    },
+    "industry": [
+      "Supply Chain",
+      "Risk Management",
+      "Manufacturing",
+      "Logistics Intelligence"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "screenshots"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Real-time supply chain risk monitoring platform for APAC manufacturers, tracking supplier health, geopolitical exposure, port bottlenecks, and demand/capacity mismatches across transnational logistics networks.",
+    "whatWeBuilt": [
+      "Supplier risk scoring engine",
+      "Geopolitical impact mapping",
+      "Port/shipping lane analytics",
+      "Demand-capacity forecasting",
+      "Multi-modal shipment tracking",
+      "Risk alert system with escalation workflows",
+      "Scenario modeling for sourcing decisions",
+      "Supplier diversification recommendations"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "Real-time data pipelines",
+      "Zustand state management",
+      "Leaflet maps for route/port visualization",
+      "Recharts analytics",
+      "API integrations with shipping/port APIs"
+    ],
+    "bestSalesAngle": "Demonstrates full-stack supply chain intelligence for manufacturing leaders across APAC; shows expertise in geopolitical risk mapping and real-time operational visibility.",
+    "doNotClaim": [
+      "Do not claim live integration with major shipping carriers without verification.",
+      "Do not claim predictive accuracy rates without backtested data.",
+      "Do not disclose specific enterprise client users."
+    ],
+    "featured": true
+  },
+  {
+    "id": "agricultural-commodities-intelligence-india",
+    "title": "Agricultural Commodities Intelligence — India",
+    "slug": "agricultural-commodities-intelligence-india",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["India", "Bangladesh", "Pakistan", "Southeast Asia"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "India",
+      "city": "Bangalore",
+      "region": "india",
+      "lat": 12.9716,
+      "lng": 77.5946
+    },
+    "industry": [
+      "Agriculture",
+      "Commodity Trading",
+      "Market Intelligence",
+      "Supply Chain"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "data-visualization"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Agricultural commodities intelligence platform for traders, cooperatives, and agribusiness operators across India and South Asia, tracking crop yields, weather patterns, price movements, and supply bottlenecks in real time.",
+    "whatWeBuilt": [
+      "Real-time commodity price feeds",
+      "Weather impact analysis on crop yields",
+      "Regional supply/demand forecasting",
+      "Mandi (market) data aggregation and comparison",
+      "Farmer cooperative mapping and outreach",
+      "Price volatility alerts and trading recommendations",
+      "Logistics bottleneck identification",
+      "Export/import regulation tracking"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase/PostgreSQL",
+      "Real-time data ingestion from weather APIs",
+      "Commodity price feeds (API integrations)",
+      "Zustand state management",
+      "Interactive charts and forecasting viz",
+      "Mobile-responsive design for low-bandwidth regions"
+    ],
+    "bestSalesAngle": "Unique deep-tech proof for emerging market agricultural supply chains; shows ability to build intelligence systems in data-constrained, fragmented markets.",
+    "doNotClaim": [
+      "Do not claim crop outcome predictions unless ML models are validated by agronomists.",
+      "Do not claim regulatory compliance for all regional requirements without verification.",
+      "Do not imply government partnership or official mandi data integration without explicit approval."
+    ],
+    "featured": true
+  },
+  {
+    "id": "fintech-operations-intelligence-gulf",
+    "title": "Fintech Operations Intelligence — Gulf Region",
+    "slug": "fintech-operations-intelligence-gulf",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["United Arab Emirates", "Saudi Arabia", "Qatar", "Kuwait"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "United Arab Emirates",
+      "city": "Dubai",
+      "region": "gulf",
+      "lat": 25.2048,
+      "lng": 55.2708
+    },
+    "industry": [
+      "Financial Services",
+      "Fintech",
+      "Risk Management",
+      "Compliance"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "screenshots",
+      "compliance-audit"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Operations and compliance intelligence dashboard for Gulf fintech platforms, monitoring transaction flows, AML/KYC screening, market risk exposures, and regulatory compliance across DIFC, DFSA, and local jurisdictions.",
+    "whatWeBuilt": [
+      "Real-time transaction monitoring",
+      "AML/KYC screening engine with rule-based alerts",
+      "Market risk and currency exposure analytics",
+      "Regulatory compliance tracking (DFSA, CBU, local requirements)",
+      "Customer risk scoring and segmentation",
+      "Sanctions list matching and updates",
+      "Audit trail and evidence management",
+      "Multi-user role-based access for compliance teams"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase with encrypted data storage",
+      "RLS (Row-Level Security) for compliance isolation",
+      "Real-time transaction APIs",
+      "Regulatory database integrations",
+      "Encrypted audit logging",
+      "Role-based access control (RBAC)"
+    ],
+    "bestSalesAngle": "Demonstrates deep financial services expertise and regulatory compliance knowledge; shows ability to build systems meeting DFSA, CBU, and other Gulf financial regulations.",
+    "doNotClaim": [
+      "Do not claim AML/KYC compliance certification without third-party audit.",
+      "Do not imply regulatory approval from DFSA, CBU, or local authorities.",
+      "Do not disclose specific fintech client names or transaction volumes."
+    ],
+    "featured": true
+  },
+  {
+    "id": "manufacturing-operations-platform-germany",
+    "title": "Manufacturing Operations Platform — Germany",
+    "slug": "manufacturing-operations-platform-germany",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Germany", "Poland", "Czech Republic", "Slovakia"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Germany",
+      "city": "Stuttgart",
+      "region": "germany",
+      "lat": 48.7758,
+      "lng": 9.1829
+    },
+    "industry": [
+      "Manufacturing",
+      "Industrial Operations",
+      "Supply Chain",
+      "IoT"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "technical-architecture-notes"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Real-time manufacturing operations dashboard for mid-market industrial suppliers, integrating machine telemetry, production scheduling, quality metrics, inventory levels, and predictive maintenance across multi-plant networks.",
+    "whatWeBuilt": [
+      "IoT device integration (machine sensors, PLC data)",
+      "Real-time production KPI dashboards",
+      "Predictive maintenance alerts based on sensor anomalies",
+      "Quality control tracking and defect analysis",
+      "Inventory and material flow optimization",
+      "Production schedule vs. actual performance",
+      "Energy consumption monitoring and cost analytics",
+      "Multi-plant synchronization and rollup reporting"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "MQTT for IoT data ingestion",
+      "Supabase/TimescaleDB for time-series data",
+      "Zustand state management",
+      "Real-time WebSocket connections",
+      "Anomaly detection algorithms",
+      "Recharts for manufacturing KPIs"
+    ],
+    "bestSalesAngle": "Strong proof for industrial IoT and manufacturing operations; demonstrates capability to handle high-volume sensor data and complex multi-site orchestration.",
+    "doNotClaim": [
+      "Do not claim specific machine uptime improvements without site-specific baseline data.",
+      "Do not claim Industry 4.0 certification without third-party verification.",
+      "Do not disclose specific machinery models or proprietary sensor configurations without client consent."
+    ],
+    "featured": true
+  },
+  {
+    "id": "healthcare-outcomes-intelligence-uk",
+    "title": "Healthcare Outcomes Intelligence — UK NHS",
+    "slug": "healthcare-outcomes-intelligence-uk",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["United Kingdom", "Ireland", "Northern Europe"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "United Kingdom",
+      "city": "London",
+      "region": "uk",
+      "lat": 51.5074,
+      "lng": -0.1278
+    },
+    "industry": [
+      "Healthcare",
+      "Public Health",
+      "Medical Research",
+      "Health Economics"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "data-visualization"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Healthcare outcomes and cost intelligence dashboard for NHS trusts and regional health systems, aggregating patient outcomes, treatment pathways, cost-per-episode data, and equity metrics across hospital networks.",
+    "whatWeBuilt": [
+      "Patient outcome tracking (mortality, readmission, complications)",
+      "Treatment pathway mapping and variance analysis",
+      "Cost-per-episode analytics and benchmarking",
+      "Health equity metrics (outcomes by demographics)",
+      "Surgical wait list and capacity planning",
+      "Drug efficacy tracking and adverse event monitoring",
+      "Preventative health impact modeling",
+      "Clinical decision support with evidence links"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase with healthcare-grade encryption",
+      "GDPR and NHS data governance compliance",
+      "RLS for patient data isolation",
+      "Anonymized cohort analysis",
+      "Statistical testing and outcome modeling",
+      "FHIR API integrations with hospital systems"
+    ],
+    "bestSalesAngle": "Demonstrates healthcare domain expertise, GDPR/NHS compliance knowledge, and ability to handle sensitive health data at scale with rigorous security.",
+    "doNotClaim": [
+      "Do not claim clinical outcomes improvements without peer-reviewed studies.",
+      "Do not imply NHS approval, funding, or partnership without formal letters.",
+      "Do not disclose patient data, NHS trust names, or specific outcomes by hospital."
+    ],
+    "featured": true
+  },
+  {
+    "id": "real-estate-intelligence-brazil",
+    "title": "Real Estate Market Intelligence — Brazil",
+    "slug": "real-estate-intelligence-brazil",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Brazil", "Argentina", "Chile"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Brazil",
+      "city": "São Paulo",
+      "region": "brazil",
+      "lat": -23.5505,
+      "lng": -46.6333
+    },
+    "industry": [
+      "Real Estate",
+      "Property Development",
+      "Urban Planning",
+      "Investment Intelligence"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "maps-visualization"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Real estate market intelligence platform for developers, investors, and urban planners across Brazil, analyzing property valuations, neighborhood trends, demographic shifts, zoning changes, and infrastructure investment impact.",
+    "whatWeBuilt": [
+      "Property valuation models and price tracking",
+      "Neighborhood risk and opportunity scoring",
+      "Demographic and migration flow analysis",
+      "Infrastructure project impact mapping",
+      "Zoning and regulatory change tracking",
+      "Competitive property analysis and benchmarking",
+      "Tenant profiling and market demand forecasting",
+      "Investment opportunity ranking"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase/PostGIS for geospatial queries",
+      "Leaflet and Mapbox for property visualization",
+      "Property listing data aggregation",
+      "Census and demographic data APIs",
+      "Zustand for complex filter/state management",
+      "Recharts for market trend visualization"
+    ],
+    "bestSalesAngle": "Shows expertise in complex geospatial analytics and emerging market real estate intelligence; demonstrates ability to work with fragmented property data sources.",
+    "doNotClaim": [
+      "Do not claim property valuation accuracy without backtested error metrics.",
+      "Do not imply regulatory approval from CRECI or local property authorities.",
+      "Do not guarantee investment returns or property appreciation."
+    ],
+    "featured": true
+  },
+  {
+    "id": "energy-digital-twin-middle-east",
+    "title": "Energy Infrastructure Digital Twin — Middle East",
+    "slug": "energy-digital-twin-middle-east",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Saudi Arabia", "United Arab Emirates", "Qatar"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Saudi Arabia",
+      "city": "Riyadh",
+      "region": "gulf",
+      "lat": 24.7136,
+      "lng": 46.6753
+    },
+    "industry": [
+      "Energy",
+      "Infrastructure",
+      "Critical Systems",
+      "Digital Twin"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "3d-visualization"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Digital twin and real-time monitoring platform for oil & gas infrastructure, visualizing pipeline networks, production facilities, and distribution systems with anomaly detection, predictive maintenance, and emergency response coordination.",
+    "whatWeBuilt": [
+      "3D infrastructure visualization (pipelines, facilities)",
+      "Real-time sensor data streaming and anomaly detection",
+      "Predictive maintenance scheduling based on equipment health",
+      "Environmental compliance and emissions tracking",
+      "Emergency response mapping and coordination",
+      "Asset lifecycle and maintenance history tracking",
+      "Pressure/flow optimization and efficiency metrics",
+      "Regulatory reporting and audit trail"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Three.js for 3D infrastructure visualization",
+      "Supabase with real-time data pipelines",
+      "MQTT/IoT data ingestion",
+      "WebSocket for live equipment status",
+      "Time-series database for historical analysis",
+      "Security-hardened network isolation"
+    ],
+    "bestSalesAngle": "Demonstrates critical infrastructure expertise and 3D visualization capability; shows ability to handle high-stakes, real-time systems with safety and compliance requirements.",
+    "doNotClaim": [
+      "Do not claim specific failure prevention rates without operational data.",
+      "Do not imply regulatory certification or government approval.",
+      "Do not disclose specific facility locations or infrastructure layouts without security review."
+    ],
+    "featured": true
+  },
+  {
+    "id": "edtech-student-intelligence-india",
+    "title": "EdTech Student Intelligence Platform — India",
+    "slug": "edtech-student-intelligence-india",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["India", "Bangladesh", "Sri Lanka"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "India",
+      "city": "Delhi",
+      "region": "india",
+      "lat": 28.6139,
+      "lng": 77.209
+    },
+    "industry": [
+      "Education",
+      "EdTech",
+      "Learning Analytics",
+      "Student Success"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "data-visualization"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Student intelligence and learning analytics platform for EdTech institutions and online learning networks, tracking learning outcomes, engagement patterns, skill acquisition, and predictive risk scoring for student success interventions.",
+    "whatWeBuilt": [
+      "Student learning progress tracking (video engagement, assessment scores)",
+      "Skill mastery mapping and gap identification",
+      "Predictive churn and dropout risk modeling",
+      "Personalized learning path recommendations",
+      "Cohort comparison and performance benchmarking",
+      "Teacher/tutor effectiveness analytics",
+      "Regional and demographic outcome analysis",
+      "Certification and job placement tracking"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase for learner data",
+      "Analytics event tracking (video, quiz, engagement)",
+      "Machine learning for outcome prediction",
+      "Zustand for complex learner state",
+      "Recharts for progress visualization",
+      "Privacy-first data anonymization"
+    ],
+    "bestSalesAngle": "Shows expertise in emerging market education tech and learning analytics; demonstrates ability to build systems that improve educational outcomes at scale.",
+    "doNotClaim": [
+      "Do not claim specific learning outcome improvements without randomized studies.",
+      "Do not imply student privacy compliance (FERPA equivalent) without local audit.",
+      "Do not guarantee job placement outcomes or skill acquisition speed."
+    ],
+    "featured": true
+  },
+  {
+    "id": "carbon-credits-intelligence-africa",
+    "title": "Carbon Credits & Sustainability Intelligence — Africa",
+    "slug": "carbon-credits-intelligence-africa",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Kenya", "Nigeria", "Ghana", "South Africa"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Kenya",
+      "city": "Nairobi",
+      "region": "africa",
+      "lat": -1.2921,
+      "lng": 36.8219
+    },
+    "industry": [
+      "Climate Tech",
+      "Sustainability",
+      "Carbon Markets",
+      "Environmental Intelligence"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "impact-tracking"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Carbon credits and sustainability intelligence platform for African carbon project developers and impact investors, tracking emission reductions, carbon credit issuance, verification, and market pricing across VCS, Gold Standard, and bilateral offset schemes.",
+    "whatWeBuilt": [
+      "Emission reduction tracking and quantification",
+      "Carbon credit issuance and retirement workflows",
+      "Verification and audit trail management",
+      "Carbon market pricing and trading analytics",
+      "Impact metrics (co-benefits, SDG alignment)",
+      "Project-to-buyer matching and pipeline management",
+      "Regulatory compliance (VCS, Gold Standard)",
+      "Geographical impact mapping"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase with verification audit trails",
+      "Blockchain integration for credit tracking (optional)",
+      "Geospatial APIs for project location verification",
+      "Real-time carbon market feeds",
+      "Compliance document management",
+      "PDF generation for verification reports"
+    ],
+    "bestSalesAngle": "Demonstrates climate tech and impact investing expertise; shows ability to build systems that verify and monetize environmental sustainability at scale in emerging markets.",
+    "doNotClaim": [
+      "Do not claim carbon credit authenticity without independent verification body approval.",
+      "Do not imply blockchain integration without explicit implementation proof.",
+      "Do not guarantee carbon project pricing or market liquidity.",
+      "Do not promise specific SDG impact without baseline data."
+    ],
+    "featured": true
+  },
+  {
+    "id": "port-operations-intelligence-global",
+    "title": "Port Operations Intelligence Platform — Global Ports",
+    "slug": "port-operations-intelligence-global",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Singapore", "Netherlands", "United Arab Emirates", "China"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Global",
+      "city": "Singapore",
+      "region": "global",
+      "lat": 1.3521,
+      "lng": 103.8198
+    },
+    "industry": [
+      "Port Operations",
+      "Logistics",
+      "Maritime",
+      "Supply Chain"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "maps-visualization"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Real-time port operations intelligence platform for terminal operators and shipping lines, tracking vessel movements, container flows, berth utilization, cargo documentation, and bottleneck optimization across multiple port facilities.",
+    "whatWeBuilt": [
+      "Vessel tracking and ETA predictions",
+      "Berth allocation and capacity optimization",
+      "Container stack and retrieval workflow",
+      "Cargo documentation and customs clearance tracking",
+      "Equipment (crane, truck) scheduling and utilization",
+      "Dwell time and port charges analytics",
+      "Congestion prediction and early warning",
+      "Inter-port comparison and benchmarking"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase for operational data",
+      "Real-time vessel APIs (AIS/SMDP)",
+      "IoT sensors for equipment tracking",
+      "Leaflet maps for port layout visualization",
+      "Optimization algorithms for berth/equipment allocation",
+      "Multi-port network synchronization"
+    ],
+    "bestSalesAngle": "Demonstrates maritime logistics expertise and real-time optimization capability; shows ability to handle complex, multi-stakeholder port operations at high throughput.",
+    "doNotClaim": [
+      "Do not claim specific port capacity improvements without baseline operational data.",
+      "Do not imply port authority partnership or regulatory approval.",
+      "Do not disclose specific shipping line clients or vessel identification details.",
+      "Do not guarantee congestion elimination or ETA accuracy without proven backtests."
+    ],
+    "featured": true
+  },
+  {
+    "id": "media-rights-licensing-intelligence",
+    "title": "Media Rights & Licensing Intelligence Platform",
+    "slug": "media-rights-licensing-intelligence",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["United States", "United Kingdom", "Canada", "Australia"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "United States",
+      "city": "Los Angeles",
+      "region": "usa-west",
+      "lat": 34.0522,
+      "lng": -118.2437
+    },
+    "industry": [
+      "Media & Entertainment",
+      "Rights Management",
+      "Licensing",
+      "Royalty Tracking"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "data-pipeline"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "data-flow-diagram"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Media rights and licensing intelligence platform for studios, publishers, and independent creators, automating rights clearance workflows, tracking licensing agreements, monitoring usage across platforms, and calculating royalties with real-time settlement.",
+    "whatWeBuilt": [
+      "Rights metadata ingestion (composition, performance, sync rights)",
+      "Licensing agreement repository with version control",
+      "Usage tracking across streaming platforms, radio, TV, social media",
+      "Automated royalty calculation based on usage and agreement terms",
+      "Settlement workflow and payment processing",
+      "Conflict detection (overlapping licenses, exclusivity violations)",
+      "Audit trail for compliance and dispute resolution",
+      "Creator/rights holder portal for earnings transparency"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase with encrypted contracts storage",
+      "Real-time data pipelines from streaming APIs (Spotify, YouTube, Apple Music)",
+      "ISWC/ISRC database integrations",
+      "Scheduled jobs for royalty calculation",
+      "Stripe/payment gateway integration",
+      "PDF generation for settlement reports"
+    ],
+    "bestSalesAngle": "Demonstrates expertise in complex rights management and multi-party revenue sharing; shows ability to integrate with major streaming platforms and automate royalty workflows.",
+    "doNotClaim": [
+      "Do not claim accuracy of rights clearance without independent verification.",
+      "Do not guarantee royalty calculation correctness without audit by PROs.",
+      "Do not imply partnership with major labels or streaming platforms."
+    ],
+    "featured": true
+  },
+  {
+    "id": "pharmaceutical-supply-chain-track-trace",
+    "title": "Pharmaceutical Supply Chain Track & Trace",
+    "slug": "pharmaceutical-supply-chain-track-trace",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["European Union", "United States", "United Kingdom"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Switzerland",
+      "city": "Basel",
+      "region": "switzerland",
+      "lat": 47.5596,
+      "lng": 7.5886
+    },
+    "industry": [
+      "Pharmaceuticals",
+      "Supply Chain",
+      "Regulatory Compliance",
+      "Anti-Counterfeiting"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "data-pipeline"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "compliance-audit"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Pharmaceutical supply chain track & trace platform for manufacturers and distributors, ensuring serialization compliance (DSCSA/Falsified Medicines Directive), detecting counterfeits, and maintaining cold-chain integrity for temperature-sensitive biologics.",
+    "whatWeBuilt": [
+      "Serial number (GTIN) generation and assignment",
+      "Serialized unit tracking from manufacturing to pharmacy",
+      "Cold-chain monitoring (temperature, humidity sensors)",
+      "Counterfeit detection using machine learning on packaging",
+      "Distributor network mapping and authenticity verification",
+      "Recall management and notification workflows",
+      "Regulatory reporting (DSCSA, EU FMD)",
+      "Real-time supply visibility dashboards for manufacturers"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase/PostgreSQL with audit trails",
+      "IoT sensors for temperature/humidity tracking",
+      "Blockchain-adjacent immutable ledger (optional)",
+      "Barcode/QR scanning integration",
+      "Machine learning for counterfeit detection",
+      "Automated regulatory reporting"
+    ],
+    "bestSalesAngle": "Unique deep-tech proof for regulated pharmaceutical supply chains; demonstrates expertise in serialization, compliance automation, and anti-counterfeiting at scale.",
+    "doNotClaim": [
+      "Do not claim 100% counterfeit detection without third-party validation.",
+      "Do not claim regulatory approval from FDA, EMA, or MHRA.",
+      "Do not disclose specific drug products or manufacturing facilities.",
+      "Do not imply blockchain implementation without explicit proof."
+    ],
+    "featured": true
+  },
+  {
+    "id": "esg-data-pipeline-scoring",
+    "title": "ESG Data Aggregation & Scoring Pipeline",
+    "slug": "esg-data-pipeline-scoring",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Europe", "United States", "Australia"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Germany",
+      "city": "Frankfurt",
+      "region": "germany",
+      "lat": 50.1109,
+      "lng": 8.6821
+    },
+    "industry": [
+      "Financial Services",
+      "ESG Investing",
+      "Sustainability Reporting",
+      "Risk Management"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "data-pipeline"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "data-pipeline-diagram"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Automated ESG data aggregation and scoring pipeline for asset managers and institutional investors, collecting sustainability data from multiple sources, standardizing metrics, and generating ESG ratings aligned with MSCI, Sustainalytics, and EU Taxonomy standards.",
+    "whatWeBuilt": [
+      "Multi-source data ingestion (company reports, news feeds, satellite imagery, supply chain data)",
+      "Data standardization and harmonization across ESG frameworks",
+      "Automated metric calculation (carbon intensity, water usage, labor metrics)",
+      "Scoring engine (E/S/G pillars, weighted factor models)",
+      "Real-time ESG rating updates based on news and events",
+      "EU Taxonomy and SFDR compliance mapping",
+      "Portfolio ESG analytics and exposure reports",
+      "Alert system for ESG controversies and downgrade risks"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Data pipeline orchestration (Airflow/dbt)",
+      "Multiple API integrations (company financials, news, satellite)",
+      "ML model training for scoring",
+      "Supabase for rating storage and versioning",
+      "Real-time alert system",
+      "PDF/Excel export for regulatory reporting"
+    ],
+    "bestSalesAngle": "Demonstrates expertise in complex data pipeline architecture and financial regulatory compliance; shows ability to harmonize fragmented ESG data at scale for institutional investors.",
+    "doNotClaim": [
+      "Do not claim ESG rating accuracy without third-party backtesting.",
+      "Do not imply regulatory approval from SFDR or EU authorities.",
+      "Do not claim superiority vs. MSCI or Sustainalytics without independent benchmarking.",
+      "Do not use scores for investment advice without proper disclaimers."
+    ],
+    "featured": true
+  },
+  {
+    "id": "procurement-fraud-detection-engine",
+    "title": "Procurement Fraud Detection Engine",
+    "slug": "procurement-fraud-detection-engine",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Fortune 500 Enterprises", "Government Agencies", "Large Public Sector"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "United States",
+      "city": "Washington DC",
+      "region": "usa-east",
+      "lat": 38.9072,
+      "lng": -77.0369
+    },
+    "industry": [
+      "Procurement",
+      "Fraud Detection",
+      "Risk Management",
+      "Internal Audit"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "anomaly-detection-samples"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Machine learning-based procurement fraud detection engine for large enterprises and government agencies, identifying suspicious purchase orders, vendor fraud patterns, bid manipulation, and kickback schemes using behavioral anomaly detection.",
+    "whatWeBuilt": [
+      "Real-time PO anomaly detection (unusual amounts, vendors, timing)",
+      "Vendor network analysis (shell companies, related-party connections)",
+      "Bid collusion detection across tenders",
+      "Price variance analysis and outlier identification",
+      "Buyer-vendor relationship mapping (conflict of interest detection)",
+      "Historical fraud pattern matching",
+      "Risk scoring for each PO with explainability",
+      "Alert routing to compliance/internal audit teams"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Python/scikit-learn for ML models",
+      "Real-time data ingestion from ERP systems (SAP, Oracle)",
+      "Supabase for transaction storage",
+      "Graph database for vendor relationship mapping",
+      "Explainable AI (SHAP) for fraud reason transparency",
+      "Time-series anomaly detection algorithms"
+    ],
+    "bestSalesAngle": "Unique proof for enterprise fraud detection with explainability; demonstrates mastery of behavioral analytics and anomaly detection at scale in procurement.",
+    "doNotClaim": [
+      "Do not claim specific fraud detection rates without validated backtests.",
+      "Do not imply use by named Fortune 500 companies without explicit permission.",
+      "Do not claim to replace human audit processes.",
+      "Do not guarantee prevention of all fraud types."
+    ],
+    "featured": true
+  },
+  {
+    "id": "scientific-research-collaboration-intelligence",
+    "title": "Scientific Research Collaboration Intelligence",
+    "slug": "scientific-research-collaboration-intelligence",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Academic Institutions", "Research Organizations", "Pharmaceutical R&D"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "United States",
+      "city": "Boston",
+      "region": "usa-east",
+      "lat": 42.3601,
+      "lng": -71.0589
+    },
+    "industry": [
+      "Scientific Research",
+      "Academic Intelligence",
+      "Pharma R&D",
+      "Knowledge Graphs"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "knowledge-graph-visualization"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Scientific research collaboration intelligence platform for institutions and pharma companies, aggregating published research, mapping researcher networks, identifying collaboration opportunities, and tracking citation impact and emerging research trends.",
+    "whatWeBuilt": [
+      "Automated paper ingestion from PubMed, arXiv, bioRxiv",
+      "Researcher network mapping (co-authorship graphs)",
+      "Research topic clustering and trend detection",
+      "Collaboration opportunity recommendations",
+      "Citation impact tracking and h-index analytics",
+      "Institutional research portfolio analysis",
+      "Competing research tracking (early warning for breakthroughs)",
+      "Patent-to-publication linkage"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Graph database (Neo4j) for researcher/paper networks",
+      "NLP for paper abstracting and topic modeling",
+      "Supabase for metadata and analytics",
+      "Citation counting APIs (Scopus, CrossRef)",
+      "Knowledge graph visualization (Cytoscape.js)",
+      "Scheduled ingestion from academic APIs"
+    ],
+    "bestSalesAngle": "Demonstrates NLP/knowledge graph expertise for scientific domain; shows ability to surface insights from unstructured academic data at scale.",
+    "doNotClaim": [
+      "Do not claim exclusive access to papers without licensing verification.",
+      "Do not make claims about researcher reputation without peer review.",
+      "Do not imply institutional partnerships without explicit agreements.",
+      "Do not guarantee discovery of novel collaboration opportunities."
+    ],
+    "featured": true
+  },
+  {
+    "id": "insurance-claims-intelligence-subrogation",
+    "title": "Insurance Claims Intelligence & Subrogation Platform",
+    "slug": "insurance-claims-intelligence-subrogation",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Insurance Companies", "Claim Adjusters", "Legal Firms"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "United States",
+      "city": "Hartford",
+      "region": "usa-east",
+      "lat": 41.7658,
+      "lng": -72.6734
+    },
+    "industry": [
+      "Insurance",
+      "Claims Management",
+      "Fraud Detection",
+      "Subrogation"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "claims-analytics"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Insurance claims intelligence platform for carriers and adjusters, automating fraud detection, claim severity estimation, subrogation opportunity identification, and liability assessment using historical claims data and ML models.",
+    "whatWeBuilt": [
+      "Claims fraud scoring using behavioral patterns and anomalies",
+      "Severity prediction (expected total loss estimation)",
+      "Subrogation opportunity identification and ranking",
+      "Liability assessment and third-party identification",
+      "Repair cost benchmarking by type/location",
+      "Claim routing optimization (internal vs. external adjuster)",
+      "Historical claims search and similar case matching",
+      "Settlement recommendations based on comparable claims"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Python/scikit-learn for predictive models",
+      "Supabase for historical claims storage",
+      "Vector embeddings for claim similarity matching",
+      "Real-time claim intake APIs",
+      "Explainable AI for fraud scoring",
+      "Integration with adjuster workflows"
+    ],
+    "bestSalesAngle": "Shows expertise in insurance domain intelligence and predictive modeling; demonstrates ability to improve claims efficiency and reduce fraud losses.",
+    "doNotClaim": [
+      "Do not claim fraud detection rates without independent audit.",
+      "Do not guarantee subrogation recovery amounts.",
+      "Do not replace human adjuster judgment.",
+      "Do not disclose specific insurance client data."
+    ],
+    "featured": true
+  },
+  {
+    "id": "critical-minerals-supply-chain-intelligence",
+    "title": "Critical Minerals Supply Chain Intelligence",
+    "slug": "critical-minerals-supply-chain-intelligence",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Australia", "Canada", "Chile", "South Africa"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Australia",
+      "city": "Melbourne",
+      "region": "australia",
+      "lat": -37.8136,
+      "lng": 144.9631
+    },
+    "industry": [
+      "Mining & Minerals",
+      "Supply Chain",
+      "Strategic Commodities",
+      "Energy Transition"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "supply-chain-mapping"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Critical minerals supply chain intelligence platform for battery makers, EV manufacturers, and governments, tracking lithium, cobalt, nickel extraction, refining, ESG compliance, geopolitical risk, and supply-demand forecasting across global mining networks.",
+    "whatWeBuilt": [
+      "Mine production capacity tracking and forecasting",
+      "Refining facility mapping and throughput analysis",
+      "Supply vulnerability scoring (concentration, geopolitical risk)",
+      "ESG compliance tracking (labor, environmental impact)",
+      "Price forecasting based on supply/demand dynamics",
+      "Recycling rate and circular economy tracking",
+      "Supply chain alternative pathfinding",
+      "Geopolitical risk alerts (sanctions, export restrictions)"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase with geospatial queries",
+      "Commodity price feeds and API integrations",
+      "Satellite imagery for mine activity monitoring",
+      "Supply chain network optimization",
+      "Demand forecasting from EV shipment data",
+      "Leaflet maps for mine/refinery visualization"
+    ],
+    "bestSalesAngle": "Demonstrates expertise in commodities supply chain and energy transition; shows ability to surface strategic insights from fragmented mining/refining data.",
+    "doNotClaim": [
+      "Do not claim production capacity estimates without mine operator confirmation.",
+      "Do not guarantee supply availability forecasts.",
+      "Do not imply government intelligence partnerships.",
+      "Do not make ESG assessments without on-site audits."
+    ],
+    "featured": true
+  },
+  {
+    "id": "hotel-revenue-pricing-intelligence",
+    "title": "Hotel Revenue Management & Pricing Intelligence",
+    "slug": "hotel-revenue-pricing-intelligence",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Southeast Asia", "Middle East", "Europe"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Thailand",
+      "city": "Bangkok",
+      "region": "southeast-asia",
+      "lat": 13.7563,
+      "lng": 100.5018
+    },
+    "industry": [
+      "Hospitality",
+      "Hotel Management",
+      "Revenue Optimization",
+      "Dynamic Pricing"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "pricing-optimization"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Hotel revenue management and dynamic pricing platform for hotel chains and independent properties, optimizing room rates based on demand forecasting, competitor pricing, events, seasonality, and group bookings to maximize RevPAR.",
+    "whatWeBuilt": [
+      "Real-time competitor price monitoring (Booking.com, Agoda, direct)",
+      "Demand forecasting (events, seasonality, local trends)",
+      "Dynamic pricing recommendations by room type and date",
+      "Group booking optimization and contract negotiation",
+      "Occupancy and ADR (Average Daily Rate) analytics",
+      "Overbooking and walk-in prediction",
+      "Channel management optimization (OTA vs. direct)",
+      "Revenue impact attribution"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase for booking and rate history",
+      "Web scraping for competitor rate monitoring",
+      "ML demand forecasting models",
+      "Dynamic pricing optimization algorithms",
+      "Real-time PMS (Property Management System) integrations",
+      "Zustand for complex pricing logic"
+    ],
+    "bestSalesAngle": "Demonstrates hospitality domain expertise and dynamic pricing mastery; shows ability to optimize revenue across complex booking channels.",
+    "doNotClaim": [
+      "Do not guarantee specific RevPAR improvements without property benchmarking.",
+      "Do not claim competitor rate accuracy without rate verification.",
+      "Do not replace property management system as source of truth.",
+      "Do not make promises about market monopoly or pricing control."
+    ],
+    "featured": true
+  },
+  {
+    "id": "microfinance-risk-intelligence-emerging-markets",
+    "title": "Microfinance Risk Intelligence — Emerging Markets",
+    "slug": "microfinance-risk-intelligence-emerging-markets",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["West Africa", "East Africa", "South Asia"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Uganda",
+      "city": "Kampala",
+      "region": "east-africa",
+      "lat": 0.3476,
+      "lng": 32.5825
+    },
+    "industry": [
+      "Microfinance",
+      "Risk Management",
+      "Credit Scoring",
+      "Financial Inclusion"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "credit-scoring"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Microfinance risk intelligence platform for MFIs and community banks in emerging markets, assessing borrower creditworthiness using alternative data (mobile money, utility payments, local references), predicting default risk, and optimizing loan portfolio.",
+    "whatWeBuilt": [
+      "Alternative credit scoring (mobile money, utility, purchase history)",
+      "Default risk prediction using limited credit history",
+      "Borrower network analysis (fraud ring detection)",
+      "Loan portfolio risk monitoring and stress testing",
+      "Repayment behavior analytics by demographic cohort",
+      "Collection strategy optimization",
+      "Fraud detection for loan applications",
+      "Portfolio yield and loss modeling"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase with mobile money API integrations",
+      "Python/ML for credit scoring models",
+      "Graph analysis for borrower network detection",
+      "Offline-first mobile app for loan officer surveys",
+      "SMS-based data collection in low-connectivity areas",
+      "Time-series risk monitoring"
+    ],
+    "bestSalesAngle": "Unique proof for financial inclusion and emerging market credit scoring; shows ability to build creditworthiness assessment from alternative data sources.",
+    "doNotClaim": [
+      "Do not claim regulatory approval from central banks without explicit letters.",
+      "Do not guarantee credit scoring accuracy without independent backtesting.",
+      "Do not imply World Bank or international institution backing.",
+      "Do not make claims about borrower financial outcomes."
+    ],
+    "featured": true
+  },
+  {
+    "id": "synthetic-data-pipeline-platform",
+    "title": "Synthetic Data Generation & Privacy-Preserving Pipeline",
+    "slug": "synthetic-data-pipeline-platform",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Financial Services", "Healthcare", "Insurance", "Tech Companies"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Canada",
+      "city": "Toronto",
+      "region": "canada",
+      "lat": 43.6532,
+      "lng": -79.3832
+    },
+    "industry": [
+      "Data Engineering",
+      "Privacy Tech",
+      "Synthetic Data",
+      "Software Development"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "data-pipeline"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "data-quality-metrics"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Synthetic data generation and privacy-preserving data pipeline for software development and testing, creating realistic test datasets from production schemas while maintaining privacy compliance (GDPR, HIPAA), and enabling safe data sharing across teams.",
+    "whatWeBuilt": [
+      "Automated production data schema analysis",
+      "Statistical distribution preservation (variance, correlations)",
+      "Differential privacy implementation (epsilon tuning)",
+      "Generative AI-based synthetic record generation (LLMs, GANs)",
+      "Data quality validation (schema compliance, statistical tests)",
+      "Test data versioning and reproducibility",
+      "PII redaction and masking workflows",
+      "CI/CD pipeline integration for automated test data"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Python for data generation (pandas, Faker, diffprivlib)",
+      "LLM-based generation (GPT fine-tuning, data augmentation)",
+      "Supabase for metadata and lineage tracking",
+      "Docker containers for reproducible generation",
+      "Git-based version control for schemas",
+      "Automated quality assurance metrics"
+    ],
+    "bestSalesAngle": "Unique proof for privacy-preserving data engineering; demonstrates mastery of differential privacy and synthetic data generation at scale for regulated industries.",
+    "doNotClaim": [
+      "Do not claim perfect privacy guarantees without formal privacy proofs.",
+      "Do not promise 100% data utility fidelity.",
+      "Do not imply elimination of all re-identification risk.",
+      "Do not claim regulatory compliance without audit by privacy experts."
+    ],
+    "featured": true
+  },
+  {
+    "id": "clinical-trial-intelligence-platform",
+    "title": "Clinical Trial Intelligence & Site Selection Platform",
+    "slug": "clinical-trial-intelligence-platform",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["Pharmaceutical Companies", "CROs", "Research Institutions"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "United States",
+      "city": "San Francisco",
+      "region": "usa-west",
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    "industry": [
+      "Pharmaceutical",
+      "Clinical Research",
+      "Trial Management",
+      "Patient Recruitment"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "site-selection-analysis"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Clinical trial intelligence and site selection platform for pharma companies and CROs, identifying optimal trial sites based on patient population, investigator experience, enrollment capacity, and protocol compliance, plus real-time trial outcome tracking.",
+    "whatWeBuilt": [
+      "Site eligibility scoring (patient population, infrastructure, experience)",
+      "Patient enrollment forecasting by site",
+      "Investigator track record and publication analysis",
+      "Regulatory and ethical approval timeline estimation",
+      "Real-time enrollment and protocol adherence monitoring",
+      "Adverse event pattern detection",
+      "Site performance benchmarking",
+      "Patient retention and dropout prediction"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "Supabase with HIPAA compliance",
+      "Integration with clinical trial management systems",
+      "Patient demographic data APIs",
+      "Investigator publication tracking (PubMed, Google Scholar)",
+      "RLS for site-specific data isolation",
+      "Statistical analysis modules"
+    ],
+    "bestSalesAngle": "Demonstrates pharma/clinical research domain expertise; shows ability to optimize trial execution and patient safety through intelligent site selection.",
+    "doNotClaim": [
+      "Do not claim guaranteed enrollment rates.",
+      "Do not make predictions about trial outcomes or safety.",
+      "Do not imply FDA approval or regulatory advantage.",
+      "Do not disclose specific trial data or patient information."
+    ],
+    "featured": true
+  },
+  {
+    "id": "vertical-farming-operations-intelligence",
+    "title": "Vertical Farming Operations Intelligence",
+    "slug": "vertical-farming-operations-intelligence",
+    "status": "delivered",
+    "projectType": "internal-demo",
+    "visibility": "public-partial",
+    "targetMarkets": ["North America", "Europe", "Asia"],
+    "client": {
+      "name": "Arafion Internal Demo",
+      "publicName": "Arafion Internal Demo",
+      "isConfidential": true
+    },
+    "location": {
+      "country": "Netherlands",
+      "city": "Amsterdam",
+      "region": "netherlands",
+      "lat": 52.3676,
+      "lng": 4.9041
+    },
+    "industry": [
+      "AgriTech",
+      "Vertical Farming",
+      "Controlled Environment Agriculture",
+      "Operations"
+    ],
+    "serviceCategories": [
+      "dashboards-intelligence",
+      "saas-software",
+      "ai-systems"
+    ],
+    "proofTypes": [
+      "demo-workspace",
+      "iot-sensor-integration"
+    ],
+    "publicUrl": null,
+    "shortDescription": "Vertical farming operations intelligence platform for indoor agriculture operators, optimizing growing conditions (light, temperature, humidity, nutrients), predicting crop yields, reducing energy consumption, and automating harvest scheduling.",
+    "whatWeBuilt": [
+      "Real-time IoT sensor monitoring (light spectrum, CO2, pH, nutrients)",
+      "Crop growth stage prediction and timing",
+      "Energy consumption optimization (LED tuning, HVAC scheduling)",
+      "Yield forecasting by crop type and growth chamber",
+      "Nutrient and water usage optimization",
+      "Pest/disease early warning system",
+      "Harvest scheduling and automation triggers",
+      "Carbon footprint tracking (energy-to-yield ratio)"
+    ],
+    "saferTechnicalStack": [
+      "Next.js",
+      "TypeScript",
+      "MQTT for IoT data ingestion",
+      "Supabase with time-series data",
+      "Python ML models for growth prediction",
+      "Real-time control system integration",
+      "Image recognition for plant health monitoring",
+      "Energy usage analytics and optimization"
+    ],
+    "bestSalesAngle": "Demonstrates IoT and agricultural AI expertise; shows ability to optimize resource-intensive food production systems for sustainability and profitability.",
+    "doNotClaim": [
+      "Do not claim specific yield improvements without baseline data.",
+      "Do not guarantee energy savings without farm-specific modeling.",
+      "Do not claim crop disease prevention without agronomic validation.",
+      "Do not make claims about food safety without third-party certification."
+    ],
+    "featured": true
+  }
+]

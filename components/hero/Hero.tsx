@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import type { Region } from "@/types";
 
 // GlobeHero's d3-geo orthographic projection produces SVG path strings that
@@ -81,49 +82,42 @@ export default function Hero({ progress, onRegionClick }: Props) {
       />
 
       <div
-        className="absolute inset-x-0 top-[22vh] md:top-[16vh] z-0 px-6 text-center pointer-events-none max-w-[min(40rem,100%)] mx-auto"
+        className="absolute inset-x-0 top-0 z-0 px-6 pt-6 pb-2 sm:pt-8 sm:pb-3 md:pt-10 md:pb-4 text-center pointer-events-none max-w-[min(42rem,100%)] mx-auto"
         style={{
           opacity: headlineOpacity,
           transform: `translateY(${headlineY}px)`,
           willChange: "transform, opacity",
         }}
       >
-        {/* Systems graph — three nodes, one hub */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 48 48"
-          fill="none"
-          className="mx-auto mb-5 md:mb-6 w-11 h-11 md:w-14 md:h-14 text-ink"
-          aria-hidden
-        >
-          <circle cx="24" cy="11" r="3.25" fill="currentColor" />
-          <circle cx="11" cy="37" r="3.25" fill="currentColor" />
-          <circle cx="37" cy="37" r="3.25" fill="currentColor" />
-          <path
-            d="M24 14.25v9.5M24 23.75L12.9 33.35M24 23.75L35.1 33.35"
-            stroke="currentColor"
-            strokeWidth="1.65"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity={0.9}
+        {/* Top lockup: reads as a real header, less vertical drift than stacked + huge top offset */}
+        <div className="flex items-center justify-center gap-2.5 md:gap-3 mb-4 md:mb-5">
+          <Image
+            src="/Arafion%20Icon.png"
+            alt=""
+            width={64}
+            height={64}
+            priority
+            className="w-9 h-9 md:w-11 md:h-11 shrink-0 opacity-95"
           />
-        </svg>
-        <p className="text-[11px] md:text-xs font-semibold tracking-[0.28em] uppercase text-muted mb-3 md:mb-4">
-          Arafion
-        </p>
-        <h1 className="text-3xl sm:text-5xl md:text-[3.35rem] font-semibold tracking-tight text-ink leading-[1.12] md:leading-[1.06]">
+          <span
+            className="text-[10px] sm:text-[11px] md:text-xs font-semibold tracking-[0.32em] uppercase text-muted"
+            aria-hidden
+          >
+            Arafion
+          </span>
+        </div>
+        <p className="sr-only">Arafion</p>
+        <h1 className="text-3xl sm:text-[2.65rem] md:text-[3.15rem] font-semibold tracking-[-0.02em] text-ink leading-[1.08] md:leading-[1.04]">
           Product engineering
-          <br />
-          <span className="text-ink/88">for systems that ship</span>
         </h1>
-        <p className="mt-4 md:mt-5 text-[15px] sm:text-base md:text-[17px] text-muted leading-relaxed font-normal max-w-xl mx-auto">
-          We design and build high-leverage digital systems — product, AI, and
-          infrastructure — engineered for real constraints, not slide decks.
+        <p className="mt-3 md:mt-4 max-w-md mx-auto text-[14px] sm:text-[15px] text-muted leading-relaxed">
+          We partner with product teams and enterprises to design, build, and
+          ship systems that stay fast and clear as they grow.
         </p>
       </div>
 
       <div
-        className="absolute inset-x-0 top-[40vh] z-10 flex justify-center"
+        className="absolute inset-x-0 top-[min(38vh,18.5rem)] sm:top-[36vh] md:top-[34vh] z-10 flex justify-center"
         style={{
           opacity: globeOpacity,
           transform: `scale(${globeScale})`,

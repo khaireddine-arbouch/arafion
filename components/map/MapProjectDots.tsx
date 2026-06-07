@@ -227,11 +227,11 @@ function clusterProjects(facs: MapProject[], cellDeg: number): Cluster[] {
     let sumLng = 0;
     let repr = bucket[0];
     for (const f of bucket) {
-      const w = f.capacityMW ?? 0;
+      const w = f.engagementWeight ?? 1;
       weight += w;
       sumLat += f.lat;
       sumLng += f.lng;
-      if ((f.capacityMW ?? 0) > (repr.capacityMW ?? 0)) repr = f;
+      if ((f.engagementWeight ?? 0) > (repr.engagementWeight ?? 0)) repr = f;
     }
     const statuses = new Set(bucket.map((f) => f.status));
     clusters.push({

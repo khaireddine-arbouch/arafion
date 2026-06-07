@@ -1,0 +1,166 @@
+[
+  {
+    "id": "architecture-basic-render-pack",
+    "serviceId": "architecture-visualization",
+    "title": "Basic Render Pack",
+    "positioning": "For simple interior visualization needs when the model and direction are already clear.",
+    "deliverables": [
+      "Final renders",
+      "Basic lighting/material adjustment",
+      "One revision round",
+      "High-resolution output"
+    ],
+    "priceMode": "starting-from",
+    "startingFrom": {
+      "amount": 12000,
+      "currency": "TRY"
+    },
+    "notes": [
+      "Final quote depends on scene complexity, modeling needs, number of views, and deadline."
+    ]
+  },
+  {
+    "id": "architecture-standard-render-pack",
+    "serviceId": "architecture-visualization",
+    "title": "Standard Render Pack",
+    "positioning": "For interior designers and architects who need stronger visual quality and more presentation-ready outputs.",
+    "deliverables": [
+      "Final renders",
+      "Lighting/material refinement",
+      "Two revision rounds",
+      "High-resolution output",
+      "Social media crops"
+    ],
+    "priceMode": "starting-from",
+    "startingFrom": {
+      "amount": 18000,
+      "currency": "TRY"
+    },
+    "notes": [
+      "Useful for kitchens, rooms, and residential/commercial interiors."
+    ]
+  },
+  {
+    "id": "architecture-modeling-render-pack",
+    "serviceId": "architecture-visualization",
+    "title": "3D Modeling + Render Pack",
+    "positioning": "For clients who have 2D plans, sketches, references, or rough concepts and need Arafion to model and render the scene.",
+    "deliverables": [
+      "3D modeling support",
+      "Final render set",
+      "Material/lighting setup",
+      "Revision rounds",
+      "High-resolution output"
+    ],
+    "priceMode": "starting-from",
+    "startingFrom": {
+      "amount": 30000,
+      "currency": "TRY"
+    },
+    "notes": [
+      "Best for clients without a finished 3D model."
+    ]
+  },
+  {
+    "id": "architecture-premium-sales-pack",
+    "serviceId": "architecture-visualization",
+    "title": "Premium Sales Pack",
+    "positioning": "For architects, interior designers, developers, or brands that need cinematic visuals built to sell the project.",
+    "deliverables": [
+      "Premium render set",
+      "Art direction",
+      "Advanced lighting",
+      "Decor/material refinement",
+      "Hero shots",
+      "Detail shots",
+      "Social media crops"
+    ],
+    "priceMode": "starting-from",
+    "startingFrom": {
+      "amount": 45000,
+      "currency": "TRY"
+    },
+    "notes": [
+      "Position as commercial visual storytelling, not commodity rendering."
+    ]
+  },
+  {
+    "id": "architecture-virtual-walkthrough-pack",
+    "serviceId": "architecture-visualization",
+    "title": "Virtual Walkthrough / Web Showcase",
+    "positioning": "For real estate, architecture, and interior design teams that want project visuals embedded into an interactive website experience.",
+    "deliverables": [
+      "Interactive web showcase",
+      "Project gallery",
+      "Three.js/3D viewer option",
+      "Case-study/project page",
+      "CTA/contact integration"
+    ],
+    "priceMode": "custom-quote",
+    "startingFrom": null,
+    "notes": [
+      "Use static gallery first if launch speed matters; Three.js viewer can be a phase-two upgrade."
+    ]
+  },
+  {
+    "id": "software-mvp-sprint",
+    "serviceId": "saas-software",
+    "title": "MVP / SaaS Sprint",
+    "positioning": "For founders or companies that need a focused product build with clear scope, milestones, and launchable output.",
+    "deliverables": [
+      "Product scope",
+      "UX/UI",
+      "Frontend",
+      "Backend",
+      "Auth",
+      "Core CRUD",
+      "Deployment",
+      "Post-launch support"
+    ],
+    "priceMode": "custom-quote",
+    "startingFrom": null,
+    "notes": [
+      "Do not sell without discovery and scope locking."
+    ]
+  },
+  {
+    "id": "dashboard-internal-tool-build",
+    "serviceId": "dashboards-intelligence",
+    "title": "Dashboard / Internal Tool Build",
+    "positioning": "For teams that need operational visibility, reporting, admin tools, or workflow control.",
+    "deliverables": [
+      "Dashboard design",
+      "Data model",
+      "ETL/integration plan",
+      "Frontend/backend",
+      "Charts and KPIs",
+      "Role-aware access",
+      "Deployment"
+    ],
+    "priceMode": "custom-quote",
+    "startingFrom": null,
+    "notes": [
+      "Recurring maintenance/support should be offered after launch."
+    ]
+  },
+  {
+    "id": "marketing-production-retainer",
+    "serviceId": "marketing-production",
+    "title": "Campaign Production & Technical Setup",
+    "positioning": "For clients that need production quality, campaign infrastructure, reporting, and training rather than only distribution.",
+    "deliverables": [
+      "Campaign setup guidance",
+      "Creative production workflow",
+      "Tracking/pixel setup",
+      "Post-production pipeline",
+      "QA",
+      "Monthly reporting structure",
+      "Client training"
+    ],
+    "priceMode": "custom-quote",
+    "startingFrom": null,
+    "notes": [
+      "Avoid guaranteeing distribution or campaign performance."
+    ]
+  }
+]

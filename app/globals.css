@@ -1,7 +1,66 @@
 @import "tailwindcss";
 
+/* ── Neue Montreal ─────────────────────────────────────────────────── */
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-LightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-MediumItalic.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Neue Montreal", ui-sans-serif, system-ui, sans-serif;
 
   /* Off-white warm neutral — beige stripped ~90% */
   --color-bg: #FAFAF8;
@@ -59,6 +118,20 @@ body {
   }
   50% {
     transform: translateY(6px);
+  }
+}
+
+@keyframes globe-arc-pulse {
+  0%,
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.16;
+  }
+  45% {
+    opacity: 0.44;
+  }
+  100% {
+    stroke-dashoffset: -8;
   }
 }
 
@@ -278,6 +351,20 @@ body {
   opacity: 0.25 !important;
   filter: blur(1px) !important;
 }
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+/* marquee-left: strip must be 2× identical halves so translateX(-50%) loops seamlessly */
+.animate-marquee-left  { animation: marquee-left  58s linear infinite; }
+.animate-marquee-right { animation: marquee-right 36s linear infinite; }
+/* Testimonials strip — same keyframes, longer duration for easier reading */
+.animate-marquee-right-slow { animation: marquee-right 48s linear infinite; }
 
 /* Respect OS-level reduced-motion. Strips decorative transitions/animations
    globally; functional feedback (opacity, color) still reads fine without
