@@ -92,6 +92,7 @@ export default function VideoHero() {
         muted
         loop
         playsInline
+        poster="/background.png"
         className="absolute inset-0 h-full w-full object-cover"
         style={{ objectPosition: "65% center" }}
       />

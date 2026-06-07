@@ -143,6 +143,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <head>
+        {/* Preload the two fonts used on every page — eliminates their
+            appearance in the critical-path dependency chain */}
+        <link rel="preload" href="/fonts/NeueMontreal-Regular.otf" as="font" type="font/otf" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/NeueMontreal-Medium.otf" as="font" type="font/otf" crossOrigin="anonymous" />
         <Script
           id="org-jsonld"
           type="application/ld+json"

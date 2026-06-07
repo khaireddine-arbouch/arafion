@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ALL_PORTFOLIO_PROJECTS } from "@/lib/map-projects";
@@ -186,10 +187,12 @@ export default async function CaseStudyPage({
           }}>
             {heroImage ? (
               <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={heroImage}
                   alt={`${project.displayTitle} screenshot`}
+                  width={1200}
+                  height={675}
+                  priority
                   style={{ width: "100%", height: "auto", display: "block", maxHeight: "600px", objectFit: "cover", objectPosition: "top" }}
                 />
                 {/* Overlay bar */}
@@ -200,13 +203,14 @@ export default async function CaseStudyPage({
                   display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem",
                 }}>
                   {logo && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
+                    <Image
                       src={logo.src}
                       alt=""
+                      width={140}
+                      height={28}
                       style={{
                         height: "28px", width: "auto",
-                        filter: logo.invert ? "brightness(0) invert(1)" : "brightness(0) invert(1)",
+                        filter: "brightness(0) invert(1)",
                         opacity: 0.75,
                       }}
                     />

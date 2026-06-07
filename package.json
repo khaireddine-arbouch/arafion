@@ -22,6 +22,14 @@
     "react-simple-maps": "^3.0.0",
     "topojson-client": "^3.1.0"
   },
+  "browserslist": [
+    "chrome >= 94",
+    "safari >= 15.4",
+    "firefox >= 93",
+    "edge >= 94",
+    "ios_saf >= 15.4",
+    "not dead"
+  ],
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/d3-geo": "^3.1.0",

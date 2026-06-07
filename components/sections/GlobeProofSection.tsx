@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import NextImage from "next/image";
 import createGlobe from "cobe";
 import GlobeProjectCard from "@/components/map/GlobeProjectCard";
 import { FONT_INTER_STACK } from "@/lib/font-stacks";
@@ -507,12 +508,13 @@ export default function GlobeProofSection() {
                 key={i}
                 className="flex h-12 min-w-[4.5rem] shrink-0 items-center justify-center sm:h-14 sm:min-w-[5.5rem]"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <NextImage
                   src={logo.src}
                   alt={logo.alt}
-                  decoding="async"
+                  width={160}
+                  height={44}
                   className="max-h-10 w-auto max-w-[160px] object-contain opacity-70 sm:max-h-11"
+                  style={{ height: "auto" }}
                 />
               </div>
             ))}

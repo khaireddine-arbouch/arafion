@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -35,13 +36,15 @@ export default function CTABanner() {
       style={{ fontFamily: NM }}
     >
       {/* Full image — unclipped, full natural height */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src="/image.avif"
         alt=""
         aria-hidden="true"
+        width={1920}
+        height={1080}
         className="relative z-0 block w-full h-auto"
         style={{ display: "block" }}
+        loading="lazy"
       />
 
       {/* Dark gradient overlay — heavier on left/bottom for text legibility */}
