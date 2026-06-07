@@ -547,7 +547,6 @@ export default function AboutPage() {
                   gap: "1rem", padding: "2rem 0",
                   borderTop: i === 0 ? "1px solid rgba(0,0,0,0.07)" : "none",
                   borderBottom: "1px solid rgba(0,0,0,0.07)",
-                  alignItems: "start",
                 }}
               >
                 <div>
