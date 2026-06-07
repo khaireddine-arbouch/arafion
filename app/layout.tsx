@@ -59,10 +59,10 @@ export const metadata: Metadata = {
       "We build websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and architectural visualization systems for businesses that need serious digital execution.",
     images: [
       {
-        url: "/Arafion%20Icon.png",
-        width: 512,
-        height: 512,
-        alt: "Arafion",
+        url: "/background.png",
+        width: 1200,
+        height: 630,
+        alt: "Arafion — Product Engineering Lab",
       },
     ],
   },
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     title: "Arafion — Product Engineering Lab",
     description:
       "We build websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and architectural visualization systems.",
-    images: ["/Arafion%20Icon.png"],
+    images: ["/background.png"],
     creator: "@arafionhq",
     site: "@arafionhq",
   },

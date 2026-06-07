@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import createGlobe from "cobe";
-import SidePanel from "@/components/panel/SidePanel";
+import GlobeProjectCard from "@/components/map/GlobeProjectCard";
 import { FONT_INTER_STACK } from "@/lib/font-stacks";
 import { ALL_MAP_PROJECTS } from "@/lib/map-projects";
 import type { MapProject } from "@/types";
@@ -153,8 +153,6 @@ export default function GlobeProofSection() {
 
   /* state */
   const [selectedProject, setSelectedProject] = useState<MapProject | null>(null);
-  const [panelSize, setPanelSize]   = useState<"min" | "md">("md");
-  const [isMobile, setIsMobile]     = useState(false);
 
   /* derived */
   const markers = useMemo(() => clusterProjects(ALL_MAP_PROJECTS, 4), []);
@@ -178,7 +176,6 @@ export default function GlobeProofSection() {
 
   const handleSelectProject = useCallback((project: MapProject) => {
     setSelectedProject(project);
-    setPanelSize("md");
     isPausedRef.current = true;
   }, []);
 
@@ -234,11 +231,7 @@ export default function GlobeProofSection() {
     reducedMotionRef.current = mq.matches;
     const handler = (ev: MediaQueryListEvent) => { reducedMotionRef.current = ev.matches; };
     mq.addEventListener("change", handler);
-    const vmq = window.matchMedia("(max-width: 767px)");
-    const vhandler = (ev: MediaQueryListEvent | MediaQueryList) => setIsMobile(ev.matches);
-    vhandler(vmq);
-    vmq.addEventListener("change", vhandler);
-    return () => { mq.removeEventListener("change", handler); vmq.removeEventListener("change", vhandler); };
+    return () => mq.removeEventListener("change", handler);
   }, []);
 
   /* pointer + wheel event listeners */
@@ -365,21 +358,45 @@ export default function GlobeProofSection() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.07),transparent_30%),radial-gradient(circle_at_50%_38%,rgba(255,149,0,0.035),transparent_34%),linear-gradient(180deg,#090a0d_0%,#050506_100%)]" />
 
       {/* ── Globe ──────────────────────────────────────────────────────── */}
-      <div className="flex flex-col items-center px-5 pt-10 md:pt-12">
+      <div className="flex flex-col items-center px-5 pt-14 md:pt-16">
 
-        {/* Section eyebrow */}
-        <div className="mb-8 flex flex-col items-center gap-2 text-center">
-          <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "11px", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.28)" }}>
-            Our deployed projects
-          </p>
-          <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "11px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.38)" }}>
-            Operating across 4 continents
+        {/* Section header */}
+        <div className="mb-10 flex flex-col items-center gap-3 text-center">
+          <span style={{
+            display: "inline-flex", alignItems: "center", gap: "6px",
+            fontFamily: NM, fontWeight: 400, fontSize: "11px",
+            letterSpacing: "0.14em", textTransform: "uppercase",
+            color: "rgba(255,255,255,0.32)",
+          }}>
+            <span style={{ width: "18px", height: "1px", background: "rgba(255,255,255,0.2)", display: "inline-block" }} />
+            Deployed projects
+            <span style={{ width: "18px", height: "1px", background: "rgba(255,255,255,0.2)", display: "inline-block" }} />
+          </span>
+          <h2 style={{
+            fontFamily: NM, fontWeight: 400,
+            fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)",
+            lineHeight: 1.12, letterSpacing: "-0.03em",
+            color: "rgba(255,255,255,0.88)",
+          }}>
+            Operating across 4 continents.
+          </h2>
+          <p style={{
+            fontFamily: NM, fontWeight: 400,
+            fontSize: "clamp(13px, 1.2vw, 14.5px)",
+            lineHeight: 1.7, color: "rgba(255,255,255,0.36)",
+            maxWidth: "420px",
+          }}>
+            Each dot is a live or delivered engagement. Click any marker to see project details.
           </p>
         </div>
 
+        {/* ── Globe + Card side-by-side row ─────────────────────────── */}
+        <div className="flex w-full flex-col items-center gap-6 lg:flex-row lg:items-center lg:justify-center">
+
         <div
           ref={containerRef}
-          className="globe-markers-container relative mx-auto aspect-square w-[min(82vw,660px)] touch-none"
+          className="globe-markers-container relative aspect-square touch-none"
+          style={{ width: "min(82vw, 660px)", flexShrink: 0 }}
         >
           <canvas
             ref={canvasRef}
@@ -449,6 +466,15 @@ export default function GlobeProofSection() {
             );
           })}
         </div>
+
+        {/* Card — appears beside globe on lg+, below on mobile */}
+        {selectedProject && (
+          <div className="w-full max-w-[320px] lg:w-[300px]" style={{ flexShrink: 0 }}>
+            <GlobeProjectCard project={selectedProject} onClose={handleCloseProject} />
+          </div>
+        )}
+
+        </div>{/* end globe+card row */}
 
         {/* hub fly-to buttons */}
         <div className="mt-2 mb-0 flex flex-wrap justify-center gap-2">
@@ -525,18 +551,6 @@ export default function GlobeProofSection() {
         </div>
       </div>
 
-      {/* side panel for selected project */}
-      {selectedProject && (
-        <SidePanel
-          entity={null}
-          facility={selectedProject}
-          onCloseFacility={handleCloseProject}
-          size={panelSize}
-          onSizeChange={setPanelSize}
-          isMobileViewport={isMobile}
-          visibility={1}
-        />
-      )}
     </section>
   );
 }
