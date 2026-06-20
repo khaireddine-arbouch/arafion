@@ -6,9 +6,11 @@ import createGlobe from "cobe";
 import GlobeProjectCard from "@/components/map/GlobeProjectCard";
 import { FONT_INTER_STACK } from "@/lib/font-stacks";
 import { ALL_MAP_PROJECTS } from "@/lib/map-projects";
+import { useLanguage } from "@/lib/i18n/context";
+import { getGlobeContent } from "@/lib/i18n/globe-content";
 import type { MapProject } from "@/types";
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 const { PI, sin, cos } = Math;
 
 /* ── constants (identical to CinematicGlobeHero) ───────────────────────── */
@@ -20,10 +22,10 @@ const LABEL_PAD_X = 76;
 const LABEL_PAD_Y = 24;
 
 const HUBS = [
-  { id: "morocco",       label: "Morocco",       location: [31.7917,  -7.0926] as [number, number] },
-  { id: "turkey",        label: "Türkiye",       location: [39.9334,  32.8597] as [number, number] },
-  { id: "europe",        label: "Europe",        location: [48.8566,   2.3522] as [number, number] },
-  { id: "international", label: "International", location: [ 1.3521, 103.8198] as [number, number] },
+  { id: "morocco",       location: [31.7917,  -7.0926] as [number, number] },
+  { id: "turkey",        location: [39.9334,  32.8597] as [number, number] },
+  { id: "europe",        location: [48.8566,   2.3522] as [number, number] },
+  { id: "international", location: [ 1.3521, 103.8198] as [number, number] },
 ];
 
 const ARC_PAIRS = [
@@ -32,17 +34,6 @@ const ARC_PAIRS = [
   ["europe",  "international"],
   ["international", "morocco"],
 ] as const;
-
-const REGION_LABELS: Record<string, string> = {
-  "United States": "North America - Business Intelligence Systems",
-  Canada:          "North America - Business Intelligence Systems",
-  Morocco:         "Morocco - Data Operations",
-  Turkey:          "Türkiye - Software Systems",
-  France:          "Europe - Software Engineering",
-  Germany:         "Europe - Software Engineering",
-  "United Kingdom":"Europe - Software Engineering",
-  Singapore:       "Global - SaaS Infrastructure",
-};
 
 /* ── logos / testimonials ───────────────────────────────────────────────── */
 const LOGOS = [
@@ -55,15 +46,6 @@ const LOGOS = [
   { src: "/logos/BK%20logo.svg",                    alt: "BK"                 },
   { src: "/logos/SignalsFrame%20logo.png",          alt: "SignalsFrame"       },
   { src: "/logos/nile-route-os-logo.png",           alt: "Nile Route OS"     },
-];
-
-const TESTIMONIALS = [
-  { quote: "Shipped our core analytics dashboard in five weeks. Changed how we run daily operations.",   author: "Atlas Intelligence" },
-  { quote: "Technical depth that matched our brief better than any agency we had worked with before.",  author: "Geoflex"            },
-  { quote: "From concept to production-ready in under eight weeks. Genuinely impressive execution.",    author: "EVO2"               },
-  { quote: "The automation workflows they built delivered measurable time savings from day one.",        author: "Toomore"            },
-  { quote: "Clean architecture, zero handholding. Code our team can actually own and build on.",        author: "Chafai Architects"  },
-  { quote: "Flawless cross-timezone collaboration. The results exceeded every expectation we had set.", author: "Almajliss"          },
 ];
 
 /* ── types ──────────────────────────────────────────────────────────────── */
@@ -133,6 +115,9 @@ function targetPhiFor(location: [number, number]): number {
 
 /* ── component ──────────────────────────────────────────────────────────── */
 export default function GlobeProofSection() {
+  const { t, locale } = useLanguage();
+  const globe = getGlobeContent(locale);
+  const regionLabels = t.globe.regionLabels as Record<string, string>;
   /* globe refs */
   const canvasRef       = useRef<HTMLCanvasElement>(null);
   const containerRef    = useRef<HTMLDivElement>(null);
@@ -370,7 +355,7 @@ export default function GlobeProofSection() {
             color: "rgba(255,255,255,0.32)",
           }}>
             <span style={{ width: "18px", height: "1px", background: "rgba(255,255,255,0.2)", display: "inline-block" }} />
-            Deployed projects
+            {t.globe.eyebrow}
             <span style={{ width: "18px", height: "1px", background: "rgba(255,255,255,0.2)", display: "inline-block" }} />
           </span>
           <h2 style={{
@@ -379,7 +364,7 @@ export default function GlobeProofSection() {
             lineHeight: 1.12, letterSpacing: "-0.03em",
             color: "rgba(255,255,255,0.88)",
           }}>
-            Operating across 4 continents.
+            {t.globe.heading}
           </h2>
           <p style={{
             fontFamily: NM, fontWeight: 400,
@@ -387,7 +372,7 @@ export default function GlobeProofSection() {
             lineHeight: 1.7, color: "rgba(255,255,255,0.36)",
             maxWidth: "420px",
           }}>
-            Each dot is a live or delivered engagement. Click any marker to see project details.
+            {t.globe.subheading}
           </p>
         </div>
 
@@ -424,7 +409,9 @@ export default function GlobeProofSection() {
           </svg>
 
           {/* hub region labels */}
-          {HUBS.slice(0, 4).map((hub) => (
+          {HUBS.slice(0, 4).map((hub) => {
+            const hubLabel = globe.hubs.find((item) => item.id === hub.id)?.label ?? hub.id;
+            return (
             <div
               key={hub.id}
               ref={(el) => { if (el) hubRefs.current.set(hub.id, el); else hubRefs.current.delete(hub.id); }}
@@ -434,14 +421,14 @@ export default function GlobeProofSection() {
                 className="rounded-full border border-white/14 bg-white/[.045] px-2.5 py-1 text-[10px] font-medium text-white/48 backdrop-blur"
                 style={{ fontFamily: NM }}
               >
-                {hub.label}
+                {hubLabel}
               </div>
             </div>
-          ))}
+          );})}
 
           {/* project markers */}
           {markers.slice(0, 12).map((marker, index) => {
-            const label = REGION_LABELS[marker.project.country ?? ""] ?? `${marker.project.regionLabel ?? "Global"} - Software Systems`;
+            const label = regionLabels[marker.project.country ?? ""] ?? `${marker.project.regionLabel ?? "Global"} - Software systems`;
             const isTop = topIds.has(marker.id);
             return (
               <button
@@ -454,7 +441,7 @@ export default function GlobeProofSection() {
                 onFocus={() => { isPausedRef.current = true; }}
                 onBlur={() => { resumeAfterIdle(900); }}
                 onClick={() => handleSelectProject(marker.project)}
-                aria-label={`Open ${label}`}
+                aria-label={`${t.globe.openMarker}: ${label}`}
               >
                 <span className="globe-marker-icon block size-2.5 rounded-full bg-[#ffb14a] ring-2 ring-white/72 shadow-[0_0_16px_rgba(255,177,74,0.28)]" />
                 <span className="absolute -inset-4 md:hidden" />
@@ -479,7 +466,10 @@ export default function GlobeProofSection() {
 
         {/* hub fly-to buttons */}
         <div className="mt-2 mb-0 flex flex-wrap justify-center gap-2">
-          {HUBS.map((hub) => (
+          {HUBS.map((hub) => {
+            const hubLabel = globe.hubs.find((item) => item.id === hub.id)?.label ?? hub.id;
+
+            return (
             <button
               key={hub.id}
               type="button"
@@ -487,9 +477,10 @@ export default function GlobeProofSection() {
               className="rounded-full border border-white/8 bg-white/[.03] px-3 py-1.5 text-[11px] font-medium text-white/48 transition-colors hover:border-white/18 hover:text-white/80 focus:outline-none focus:ring-2 focus:ring-white/30"
               style={{ fontFamily: NM }}
             >
-              {hub.label}
+              {hubLabel}
             </button>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -499,7 +490,7 @@ export default function GlobeProofSection() {
       {/* ── Logo strip ─────────────────────────────────────────────────── */}
       <div className="pt-6">
         <p className="mb-9 text-center" style={{ fontFamily: NM, fontWeight: 500, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)" }}>
-          Trusted by
+          {globe.trustedBy}
         </p>
         <div className="overflow-hidden" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)" }}>
           <div className="flex w-max animate-marquee-left items-center" style={{ gap: "3.5rem" }}>
@@ -527,7 +518,7 @@ export default function GlobeProofSection() {
       <div className="mt-10 pb-14">
         <div className="overflow-hidden" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)" }}>
           <div className="flex w-max animate-marquee-right-slow items-stretch" style={{ gap: 0 }}>
-            {[...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
+            {[...globe.testimonials, ...globe.testimonials, ...globe.testimonials, ...globe.testimonials].map((t, i) => (
               <div key={i} className="flex shrink-0 items-center">
                 <blockquote style={{ width: "360px", padding: "0 2rem" }}>
                   <p

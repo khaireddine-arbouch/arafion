@@ -6,64 +6,56 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { FONT_INTER_STACK } from "@/lib/font-stacks";
+import { useLanguage } from "@/lib/i18n/context";
 
 gsap.registerPlugin(useGSAP);
 
-const features = [
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" className="size-[15px]">
-        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-      </svg>
-    ),
-    title: "Real-Time Intelligence",
-    desc: "Dashboards that surface insights the moment they matter.",
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" className="size-[15px]">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-      </svg>
-    ),
-    title: "Automated Workflows",
-    desc: "Systems that eliminate friction and scale without overhead.",
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" className="size-[15px]">
-        <rect x="3" y="3" width="7" height="7" rx="1" />
-        <rect x="14" y="3" width="7" height="7" rx="1" />
-        <rect x="3" y="14" width="7" height="7" rx="1" />
-        <path d="M17.5 14v6M14.5 17h6" />
-      </svg>
-    ),
-    title: "Data Visualizations",
-    desc: "Complex datasets made clear through bespoke interactive interfaces.",
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" className="size-[15px]">
-        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
-    ),
-    title: "Marketing Systems",
-    desc: "CRM pipelines and campaign infrastructure built to convert.",
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" className="size-[15px]">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-      </svg>
-    ),
-    title: "Cross-Market Engineering",
-    desc: "Software built for global teams, from Morocco to Singapore.",
-  },
+const FEATURE_ICONS = [
+  (
+    <span key="real-time-intelligence">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" className="size-[15px]">
+      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+    </svg>
+    </span>
+  ),
+  (
+    <span key="automated-workflows">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" className="size-[15px]">
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+    </svg>
+    </span>
+  ),
+  (
+    <span key="data-visualizations">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" className="size-[15px]">
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <path d="M17.5 14v6M14.5 17h6" />
+    </svg>
+    </span>
+  ),
+  (
+    <span key="marketing-systems">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" className="size-[15px]">
+      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+    </span>
+  ),
+  (
+    <span key="cross-market-engineering">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" className="size-[15px]">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+    </svg>
+    </span>
+  ),
 ];
 
 export default function VideoHero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
 
   useGSAP(
     () => {
@@ -76,6 +68,8 @@ export default function VideoHero() {
     },
     { scope: sectionRef },
   );
+
+  const features = t.hero.features;
 
   return (
     <section
@@ -149,11 +143,12 @@ export default function VideoHero() {
               maxWidth: "13ch",
             }}
           >
-            Build Beyond.
+            {t.hero.line1}
             <br />
-            <span style={{ fontWeight: 600 }}>Ship</span> with
+            <span style={{ fontWeight: 600 }}>{t.hero.line2.split(" ")[0]}</span>{" "}
+            {t.hero.line2.split(" ").slice(1).join(" ")}
             <br />
-            Precision.
+            {t.hero.line3}
           </h1>
         </div>
 
@@ -175,9 +170,8 @@ export default function VideoHero() {
               maxWidth: "26ch",
             }}
           >
-            Your operations hold the potential—
-            {" "}we help you{" "}
-            <span style={{ fontWeight: 600, color: "#fff" }}>build on it.</span>
+            {t.hero.tagline}{" "}{t.hero.tagline2}{" "}
+            <span style={{ fontWeight: 600, color: "#fff" }}>{t.hero.taglineBold}</span>
           </p>
 
           <div className="flex flex-col gap-2.5">
@@ -191,7 +185,7 @@ export default function VideoHero() {
                 letterSpacing: "-0.018em",
               }}
             >
-              Start a project
+              {t.hero.cta}
               <span className="flex size-5 items-center justify-center rounded-full bg-black/[0.08] transition-transform group-hover:translate-x-0.5">
                 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-2.5">
                   <path d="M2 5h6M5 2l3 3-3 3" />
@@ -207,7 +201,7 @@ export default function VideoHero() {
                 letterSpacing: "0.01em",
               }}
             >
-              Reply within one business day
+              {t.hero.reply}
             </span>
           </div>
         </div>
@@ -223,13 +217,13 @@ export default function VideoHero() {
           <div className="flex items-end justify-between gap-14">
             {/* Feature tiles */}
             <ul className="flex flex-wrap gap-x-8 gap-y-5 lg:max-w-[660px]">
-              {features.map((f) => (
+              {features.map((f, idx) => (
                 <li
                   key={f.title}
                   className="vh-feature flex items-start gap-2.5"
                   style={{ minWidth: 152, maxWidth: 192 }}
                 >
-                  <span className="mt-0.5 shrink-0 text-white/40">{f.icon}</span>
+                  <span className="mt-0.5 shrink-0 text-white/40">{FEATURE_ICONS[idx]}</span>
                   <div>
                     <p
                       style={{
@@ -273,10 +267,10 @@ export default function VideoHero() {
                   color: "rgba(255,255,255,0.78)",
                 }}
               >
-                Your operations hold the potential—
+                {t.hero.tagline}
                 <br />
-                we help you{" "}
-                <span style={{ fontWeight: 600, color: "#fff" }}>build on it.</span>
+                {t.hero.tagline2}{" "}
+                <span style={{ fontWeight: 600, color: "#fff" }}>{t.hero.taglineBold}</span>
               </p>
 
               <div className="flex flex-col items-end gap-3">
@@ -290,7 +284,7 @@ export default function VideoHero() {
                     letterSpacing: "-0.018em",
                   }}
                 >
-                  Start a project
+                  {t.hero.cta}
                   <span className="flex size-5 items-center justify-center rounded-full bg-black/[0.08] transition-transform group-hover:translate-x-0.5">
                     <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-2.5">
                       <path d="M2 5h6M5 2l3 3-3 3" />
@@ -306,7 +300,7 @@ export default function VideoHero() {
                     letterSpacing: "0.01em",
                   }}
                 >
-                  Reply within one business day
+                  {t.hero.reply}
                 </span>
               </div>
             </div>

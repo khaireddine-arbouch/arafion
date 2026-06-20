@@ -6,11 +6,13 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ALL_PORTFOLIO_PROJECTS } from "@/lib/map-projects";
+import { regionLabel, serviceLabel, statusLabel } from "@/lib/i18n/labels";
 import type { PortfolioProject } from "@/lib/portfolio-view";
+import { useLanguage } from "@/lib/i18n/context";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 /** Hero screenshots for the dark panel (path relative to /public). */
 const CASE_STUDY_SCREENSHOT: Record<string, string> = {
@@ -40,14 +42,18 @@ function truncate(s: string, max: number): string {
   return `${s.slice(0, max - 1)}…`;
 }
 
-function caseStudyStats(p: PortfolioProject): { value: string; label: string }[] {
+function caseStudyStats(
+  p: PortfolioProject,
+  locale: "en" | "fr" | "tr" | "ar",
+  labels: { status: string; region: string; focus: string; stack: string },
+): { value: string; label: string }[] {
   const a = p.stackTags[0] ?? "—";
   const b = p.stackTags[1];
   return [
-    { value: p.statusLabel, label: "Status" },
-    { value: truncate(p.locationLabel, 32), label: "Region" },
-    { value: truncate(p.serviceLabels[0] ?? "—", 36), label: "Focus" },
-    { value: b ? truncate(`${a} · ${b}`, 40) : truncate(a, 40), label: "Stack" },
+    { value: statusLabel(locale, p.status), label: labels.status },
+    { value: truncate(regionLabel(locale, p.regionLabel), 32), label: labels.region },
+    { value: truncate(serviceLabel(locale, p.serviceCategories[0] ?? ""), 36), label: labels.focus },
+    { value: b ? truncate(`${a} · ${b}`, 40) : truncate(a, 40), label: labels.stack },
   ];
 }
 
@@ -61,6 +67,7 @@ function statusAccent(status: string): string {
 export default function CaseStudySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { t, locale } = useLanguage();
 
   const studies = useMemo(
     () =>
@@ -121,7 +128,7 @@ export default function CaseStudySection() {
                 color: "#86868B", letterSpacing: "0.01em", marginBottom: "1.1rem",
               }}
             >
-              Case studies
+              {t.sections.caseStudies.eyebrow}
             </p>
             <h2
               className="cs-headline"
@@ -132,13 +139,13 @@ export default function CaseStudySection() {
                 color: "#1D1D1F", marginBottom: "1rem",
               }}
             >
-              Production work with live or public demos.
+              {t.sections.caseStudies.heading}
             </h2>
             <p
               style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#86868B", letterSpacing: "0.02em" }}
             >
-              <span className="hidden sm:inline">Shift + mouse wheel for horizontal scroll; arrow keys when focused.</span>
-              <span className="sm:hidden">Swipe sideways to see more.</span>
+              <span className="hidden sm:inline">{t.sections.caseStudies.subheading}</span>
+              <span className="sm:hidden">{t.sections.caseStudies.subheading}</span>
             </p>
           </div>
           <Link
@@ -146,7 +153,7 @@ export default function CaseStudySection() {
             className="shrink-0 self-start sm:self-auto inline-flex items-center gap-2 rounded-full border border-black/[0.14] px-5 py-2.5 transition-colors hover:border-black/30"
             style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#1D1D1F", letterSpacing: "-0.01em", textDecoration: "none" }}
           >
-            View all case studies
+            {t.sections.caseStudies.viewAll}
             <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-[9px]">
               <path d="M2 5h6M5 2l3 3-3 3" />
             </svg>
@@ -158,7 +165,7 @@ export default function CaseStudySection() {
             ref={scrollRef}
             className="cs-scroll flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-visible scroll-smooth rounded-xl px-5 py-3 [-ms-overflow-style:none] [scrollbar-width:thin] md:gap-6 md:px-8 lg:gap-7 lg:px-10 [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-black/10 [&::-webkit-scrollbar-track]:bg-transparent"
             role="region"
-            aria-label="Case study projects"
+            aria-label={t.sections.caseStudies.heading}
             tabIndex={0}
             onKeyDown={(e) => {
               const el = scrollRef.current;
@@ -174,7 +181,12 @@ export default function CaseStudySection() {
             }}
           >
             {studies.map((project) => (
-              <CaseStudyCard key={project.id} project={project} />
+              <CaseStudyCard
+                key={project.id}
+                project={project}
+              labels={t.sections.caseStudies.labels}
+              locale={locale}
+              />
             ))}
           </div>
         </div>
@@ -183,11 +195,21 @@ export default function CaseStudySection() {
   );
 }
 
-function CaseStudyCard({ project }: { project: PortfolioProject & { publicUrl: string } }) {
+function CaseStudyCard({
+  project,
+  labels,
+  locale,
+}: {
+  project: PortfolioProject & { publicUrl: string };
+  labels: { status: string; region: string; focus: string; stack: string };
+  locale: "en" | "fr" | "tr" | "ar";
+}) {
   const logo = CASE_STUDY_LOGO[project.id];
   const screenshot = CASE_STUDY_SCREENSHOT[project.id];
-  const stats = caseStudyStats(project);
+  const stats = caseStudyStats(project, locale, labels);
   const stack = project.stackTags.slice(0, 5);
+  const service = serviceLabel(locale, project.serviceCategories[0] ?? "");
+  const region = regionLabel(locale, project.regionLabel);
 
   return (
     <article
@@ -278,7 +300,7 @@ function CaseStudyCard({ project }: { project: PortfolioProject & { publicUrl: s
             }}
           >
             {project.displayTitle}
-            {project.locationLabel ? ` · ${truncate(project.locationLabel, 38)}` : ""}
+            {region ? ` · ${truncate(region, 38)}` : ""}
           </span>
           <div className="flex flex-wrap justify-end gap-1.5">
             {stack.map((s) => (
@@ -404,7 +426,7 @@ function CaseStudyCard({ project }: { project: PortfolioProject & { publicUrl: s
               letterSpacing: "0.01em",
             }}
           >
-            {project.serviceLabels[0] ?? ""}
+            {service}
           </span>
           <Link
             href={project.publicUrl}

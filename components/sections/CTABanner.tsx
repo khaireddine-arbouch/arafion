@@ -6,13 +6,15 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useLanguage } from "@/lib/i18n/context";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 export default function CTABanner() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
 
   useGSAP(
     () => {
@@ -71,11 +73,11 @@ export default function CTABanner() {
               marginBottom: "1.2rem",
             }}
           >
-            Backed by craft.
+            {t.cta.line1}
             <br />
-            Built for scale.
+            {t.cta.line2}
             <br />
-            Engineered for you.
+            {t.cta.line3}
           </h2>
 
           <p
@@ -89,8 +91,7 @@ export default function CTABanner() {
               marginBottom: "2.2rem",
             }}
           >
-            Tell us what you're building. We'll tell you how to ship it — faster,
-            cleaner, and built to last.
+            {t.cta.desc}
           </p>
 
           <div className="cb-cta flex flex-wrap items-center gap-4">
@@ -99,7 +100,7 @@ export default function CTABanner() {
               className="inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 transition-colors hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/30"
               style={{ fontFamily: NM, fontWeight: 500, fontSize: "13.5px", color: "#1D1D1F", letterSpacing: "-0.01em" }}
             >
-              Start a project
+              {t.cta.startProject}
               <span
                 className="flex size-[26px] items-center justify-center rounded-full bg-[#1D1D1F]"
               >
@@ -114,7 +115,7 @@ export default function CTABanner() {
               className="inline-flex items-center gap-2 transition-opacity hover:opacity-70"
               style={{ fontFamily: NM, fontWeight: 400, fontSize: "13.5px", color: "rgba(255,255,255,0.72)", letterSpacing: "-0.01em" }}
             >
-              See our work
+              {t.cta.seeWork}
               <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-[9px]">
                 <path d="M2 5h6M5 2l3 3-3 3" />
               </svg>

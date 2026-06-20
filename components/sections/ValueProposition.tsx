@@ -7,7 +7,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 const pillars = [
   {

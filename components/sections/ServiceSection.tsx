@@ -4,32 +4,16 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useLanguage } from "@/lib/i18n/context";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
-
-const STEPS = [
-  {
-    n: "1",
-    title: "Diagnose",
-    body: "We understand the business goal, users, workflow, assets, constraints, and what needs to be built. No guessing, no generic templates.",
-  },
-  {
-    n: "2",
-    title: "Build",
-    body: "We design the experience, implement the system, connect the tools, prepare the content, and test the full flow before launch.",
-  },
-  {
-    n: "3",
-    title: "Launch & Improve",
-    body: "We deploy, hand over, train the client, track performance, and support the next iteration through maintenance, campaigns, or new modules.",
-  },
-];
 
 export default function ServiceSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
 
   useGSAP(
     () => {
@@ -52,7 +36,7 @@ export default function ServiceSection() {
 
         {/* Eyebrow */}
         <p className="hw-eyebrow mb-5" style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#86868B" }}>
-          How we work
+          {t.sections.process.eyebrow}
         </p>
 
         {/* Headline */}
@@ -65,7 +49,7 @@ export default function ServiceSection() {
             color: "#1D1D1F", maxWidth: "780px",
           }}
         >
-          From idea to shipped system — without vague execution.
+          {t.sections.process.heading}
         </h2>
 
         {/* Supporting paragraph */}
@@ -76,14 +60,12 @@ export default function ServiceSection() {
             lineHeight: 1.7, color: "#86868B", maxWidth: "680px",
           }}
         >
-          We turn unclear business needs into scoped, designed, built, and launched digital systems.
-          Whether it is a website, SaaS platform, AI workflow, dashboard, campaign pipeline, or 3D visual
-          experience, the process stays structured from the first call to delivery.
+          {t.sections.process.subheading}
         </p>
 
         {/* Three columns */}
         <div className="hw-steps grid grid-cols-1 gap-16 sm:grid-cols-3 sm:gap-12 pb-28 border-t border-black/8 pt-12">
-          {STEPS.map((step) => (
+          {t.sections.process.steps.map((step) => (
             <div key={step.n} className="hw-step">
               <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "#86868B", letterSpacing: "0.04em", marginBottom: "1.1rem" }}>
                 {step.n}

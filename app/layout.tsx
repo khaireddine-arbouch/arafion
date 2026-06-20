@@ -1,14 +1,25 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Cairo } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import FloatingDockNav from "@/components/ui/FloatingDockNav";
 import SiteFooter from "@/components/footer/SiteFooter";
+import { LanguageProvider } from "@/lib/i18n/context";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { translations } from "@/lib/i18n/translations";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const cairo = Cairo({
+  subsets: ["arabic", "latin"],
+  weight: ["200", "300", "400", "500", "600", "700", "800", "900", "1000"],
+  variable: "--font-cairo",
+  display: "swap",
 });
 
 const SITE_URL = "https://arafion.com";
@@ -135,13 +146,16 @@ const websiteJsonLd = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getRequestLocale();
+  const dir = translations[locale]?.dir ?? "ltr";
+
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang={locale} dir={dir} className={`${inter.variable} ${cairo.variable}`}>
       <head>
         {/* Preload the two fonts used on every page — eliminates their
             appearance in the critical-path dependency chain */}
@@ -166,9 +180,11 @@ export default function RootLayout({
             __html: `if ('scrollRestoration' in history) history.scrollRestoration = 'manual';`,
           }}
         />
-        {children}
-        <SiteFooter />
-        <FloatingDockNav />
+        <LanguageProvider>
+          {children}
+          <SiteFooter />
+          <FloatingDockNav />
+        </LanguageProvider>
         <Analytics />
       </body>
     </html>

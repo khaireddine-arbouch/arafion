@@ -3,7 +3,7 @@
 import Link from "next/link";
 import type { BlogPost } from "@/data/arafion-data/blog-posts";
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 export default function RelatedPosts({ posts }: { posts: BlogPost[] }) {
   if (posts.length === 0) return null;

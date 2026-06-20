@@ -5,13 +5,15 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useLanguage } from "@/lib/i18n/context";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
 
   useGSAP(
     () => {
@@ -55,7 +57,7 @@ export default function AboutSection() {
                 letterSpacing: "0.01em",
               }}
             >
-              About us
+              {t.about.label}
             </span>
           </div>
 
@@ -71,14 +73,9 @@ export default function AboutSection() {
                 color: "#1D1D1F",
               }}
             >
-              Arafion is a product engineering lab that designs and builds
-              high-leverage digital systems for companies moving across markets.
-              We turn scattered operations into clear execution — shipping
-              dashboards, automation systems, SaaS products, and data
-              infrastructure that{" "}
+              {t.about.body1}{" "}
               <span style={{ color: "#86868B" }}>
-                compound over time. Anchored in Morocco and Türkiye, serving
-                teams across Europe and beyond.
+                {t.about.body2}
               </span>
             </p>
             <div className="flex flex-wrap gap-3">
@@ -87,7 +84,7 @@ export default function AboutSection() {
                 className="inline-flex items-center gap-2 rounded-full border border-black/[0.14] px-5 py-2.5 transition-colors hover:border-black/30"
                 style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#1D1D1F", letterSpacing: "-0.01em", textDecoration: "none" }}
               >
-                Learn about us
+                {t.about.learnMore}
                 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-[9px]">
                   <path d="M2 5h6M5 2l3 3-3 3" />
                 </svg>
@@ -97,7 +94,7 @@ export default function AboutSection() {
                 className="inline-flex items-center gap-2 rounded-full border border-black/[0.14] px-5 py-2.5 transition-colors hover:border-black/30"
                 style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#86868B", letterSpacing: "-0.01em", textDecoration: "none" }}
               >
-                View services
+                {t.about.viewServices}
                 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-[9px]">
                   <path d="M2 5h6M5 2l3 3-3 3" />
                 </svg>

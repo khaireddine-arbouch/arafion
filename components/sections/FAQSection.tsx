@@ -5,37 +5,11 @@ import { useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useLanguage } from "@/lib/i18n/context";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
-
-const FAQS = [
-  {
-    q: "How long does it take to build a product with Arafion?",
-    a: "Timelines depend on scope. A focused MVP or internal tool takes 4–8 weeks. A multi-tenant SaaS platform with AI and integrations is typically 10–16 weeks. We give an accurate estimate after a scoping call — not before.",
-  },
-  {
-    q: "Do you work with early-stage startups or only established companies?",
-    a: "Both. Some of our best work has been with founders at zero-to-one stage who needed a production-grade system, not a prototype. We care more about clarity of problem than size of company.",
-  },
-  {
-    q: "What does your pricing model look like?",
-    a: "We work on fixed-scope projects for defined deliverables, or on a monthly retainer for ongoing engineering. We don't do hourly billing — it misaligns incentives. Every engagement starts with a scoping phase so both sides know exactly what's being built.",
-  },
-  {
-    q: "Can you take over an existing codebase or do you only start from scratch?",
-    a: "We take on existing codebases regularly. We'll do an audit first to understand what we're inheriting — technical debt, architecture decisions, test coverage — then propose a path forward. Some systems we refactor, others we rebuild from a clean foundation.",
-  },
-  {
-    q: "Do you offer support and maintenance after the project ships?",
-    a: "Yes. We offer post-launch retainers covering monitoring, iteration, and feature development. Most long-term clients started with a single project and moved to a retainer once the system was live.",
-  },
-  {
-    q: "What makes Arafion different from a typical product agency?",
-    a: "We're engineers first. We don't outsource delivery or hand off designs to a separate dev team. The people who scope the work build it. We've also built our own systems — NileRoute OS, internal tooling — so we understand production constraints from the inside.",
-  },
-];
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 const TEAM_INITIALS = ["KA", "ZR", "MB", "OC"];
 const TEAM_COLORS = ["#2A2A2A", "#3D3D3D", "#555", "#6B6B6B"];
@@ -43,6 +17,7 @@ const TEAM_COLORS = ["#2A2A2A", "#3D3D3D", "#555", "#6B6B6B"];
 export default function FAQSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   useGSAP(
     () => {
@@ -54,6 +29,8 @@ export default function FAQSection() {
     },
     { scope: sectionRef },
   );
+
+  const faqs = t.faq.items;
 
   return (
     <section
@@ -69,7 +46,7 @@ export default function FAQSection() {
           className="fq-eyebrow mb-5"
           style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#86868B" }}
         >
-          FAQ
+          {t.faq.eyebrow}
         </p>
         <h2
           className="fq-headline mb-16"
@@ -83,12 +60,12 @@ export default function FAQSection() {
             maxWidth: "700px",
           }}
         >
-          Everything you need to know before working with Arafion.
+          {t.faq.heading}
         </h2>
 
         {/* FAQ list */}
         <div className="fq-list">
-          {FAQS.map((item, i) => {
+          {faqs.map((item, i) => {
             const isOpen = openIndex === i;
             return (
               <div
@@ -174,12 +151,12 @@ export default function FAQSection() {
               <p
                 style={{ fontFamily: NM, fontWeight: 400, fontSize: "15.5px", letterSpacing: "-0.018em", color: "#1D1D1F", lineHeight: 1.3 }}
               >
-                Ready to build something that lasts?
+                {t.faq.cta}
               </p>
               <p
                 style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#86868B", marginTop: "3px" }}
               >
-                Talk to the team — usually reply within one business day.
+                {t.faq.ctaSub}
               </p>
             </div>
           </div>
@@ -190,7 +167,7 @@ export default function FAQSection() {
             className="shrink-0 inline-flex items-center gap-2.5 rounded-full bg-[#1D1D1F] px-7 py-3.5 text-white transition-colors hover:bg-black focus:outline-none focus:ring-2 focus:ring-black/20"
             style={{ fontFamily: NM, fontWeight: 500, fontSize: "13.5px", letterSpacing: "-0.01em" }}
           >
-            Start a project
+            {t.faq.startProject}
             <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-[10px]">
               <path d="M2 5h6M5 2l3 3-3 3" />
             </svg>

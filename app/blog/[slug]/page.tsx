@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
 import {
   BLOG_POSTS,
   getPost,
@@ -10,7 +11,7 @@ import {
 import ReadingProgress from "@/components/blog/ReadingProgress";
 import RelatedPosts from "@/components/blog/RelatedPosts";
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 export async function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({ slug: post.slug }));
@@ -217,6 +218,15 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const related = getRelated(slug, 3);
+  const locale = await getRequestLocale();
+  const copy =
+    locale === "fr"
+      ? { back: "Du laboratoire", readTime: "lecture", more: "Plus du laboratoire", cta: "Prêt à construire quelque chose de sérieux ?", start: "Démarrer un projet" }
+      : locale === "tr"
+        ? { back: "Laboratuvardan", readTime: "okuma", more: "Laboratuvardan daha fazlası", cta: "Ciddi bir şey inşa etmeye hazır mısınız?", start: "Projeye başlayın" }
+        : locale === "ar"
+          ? { back: "من المختبر", readTime: "قراءة", more: "المزيد من المختبر", cta: "هل أنت مستعد لبناء شيء جاد؟", start: "ابدأ مشروعاً" }
+          : { back: "From the Lab", readTime: "read", more: "More from the Lab", cta: "Ready to build something serious?", start: "Start a project" };
 
   return (
     <>
@@ -270,7 +280,7 @@ export default async function BlogPostPage({
               >
                 <path d="M8 5H2M5 8l-3-3 3-3" />
               </svg>
-              From the Lab
+              {copy.back}
             </Link>
             <Link
               href="/"
@@ -327,7 +337,7 @@ export default async function BlogPostPage({
                 color: "#86868B",
               }}
             >
-              {post.readTime} read
+              {post.readTime} {copy.readTime}
             </span>
             <span style={{ color: "rgba(0,0,0,0.2)", fontSize: "10px" }}>·</span>
             <span
@@ -432,7 +442,7 @@ export default async function BlogPostPage({
                 letterSpacing: "-0.005em",
               }}
             >
-              More from the Lab
+              {copy.more}
             </p>
             <RelatedPosts posts={related} />
           </div>
@@ -467,7 +477,7 @@ export default async function BlogPostPage({
                 maxWidth: "520px",
               }}
             >
-              Ready to build something serious?
+              {copy.cta}
             </p>
             <Link
               href="/contact"
@@ -486,7 +496,7 @@ export default async function BlogPostPage({
                 gap: "8px",
               }}
             >
-              Start a project
+              {copy.start}
               <svg
                 viewBox="0 0 10 10"
                 fill="none"

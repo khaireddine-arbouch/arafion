@@ -1,3 +1,6 @@
+import type { Locale } from "@/lib/i18n/translations";
+import { getCaseStudyText } from "@/lib/i18n/case-study-content";
+
 /**
  * Extended metadata for case study detail pages.
  * Keyed by project slug (matching projects.json id/slug).
@@ -135,8 +138,17 @@ const CS: Record<string, CaseStudyMeta> = {
   },
 };
 
-export function getCaseStudyMeta(slug: string): CaseStudyMeta | null {
-  return CS[slug] ?? null;
+export function getCaseStudyMeta(slug: string, locale: Locale = "en"): CaseStudyMeta | null {
+  const base = CS[slug] ?? null;
+  if (!base) return null;
+  const localized = getCaseStudyText(locale, slug);
+  if (!localized) return base;
+  return {
+    ...base,
+    overview: localized.overview ?? base.overview,
+    challenge: localized.challenge ?? base.challenge,
+    outcome: localized.outcome ?? base.outcome,
+  };
 }
 
 export function imageUrl(folder: string, filename: string): string {

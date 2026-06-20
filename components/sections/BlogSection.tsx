@@ -5,114 +5,25 @@ import { useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useLanguage } from "@/lib/i18n/context";
+import { getBlogIndexContent } from "@/lib/i18n/blog-content";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
-
-const CATEGORIES = [
-  { label: "All",          slug: "all"          },
-  { label: "Software",     slug: "software"     },
-  { label: "AI",           slug: "ai"           },
-  { label: "Data",         slug: "data"         },
-  { label: "Architecture", slug: "architecture" },
-  { label: "Growth",       slug: "growth"       },
-  { label: "Production",   slug: "production"   },
-];
-
-const ARTICLES = [
-  {
-    featured: true,
-    category: "Product Engineering",
-    slug: "software",
-    title: "Why most SaaS MVPs fail before they ever reach users",
-    thesis: "The problem is never the technology. It's the missing data model, weak role logic, and undefined business workflows that collapse the product before it ever ships.",
-    readTime: "12 min",
-    tags: ["SaaS Architecture", "Product Scope", "Workflows"],
-    href: "/blog/why-saas-mvps-fail",
-  },
-  {
-    featured: false,
-    category: "Architecture Visualization",
-    slug: "architecture",
-    title: "From 2D plans to cinematic renders: our visualization pipeline",
-    thesis: "Plans → model → materials → lighting → camera → QA → delivery formats.",
-    readTime: "8 min",
-    tags: ["3D Rendering", "Interior Design", "Sales Visuals"],
-    href: "/blog/2d-plans-to-renders-pipeline",
-  },
-  {
-    featured: false,
-    category: "AI Systems",
-    slug: "ai",
-    title: "Building AI copilots that actually fit business workflows",
-    thesis: "Copilots should connect to workflows, data, permissions, and outputs — not just chat.",
-    readTime: "10 min",
-    tags: ["AI Copilots", "LLM Integration", "Automation"],
-    href: "/blog/ai-copilots-business-workflows",
-  },
-  {
-    featured: false,
-    category: "Data & Intelligence",
-    slug: "data",
-    title: "Why dashboards fail when the data model is wrong",
-    thesis: "Dashboards are not charts. They are decision systems built on top of data architecture.",
-    readTime: "9 min",
-    tags: ["Dashboard Design", "Data Modelling", "BI"],
-    href: "/blog/dashboards-data-model",
-  },
-  {
-    featured: false,
-    category: "Product Engineering",
-    slug: "software",
-    title: "How we build internal operating systems for business workflows",
-    thesis: "Admin dashboards, RBAC, document flows, and audit trails — built as a system, not a set of pages.",
-    readTime: "11 min",
-    tags: ["Internal Tools", "RBAC", "Operations"],
-    href: "/blog/internal-operating-systems",
-  },
-  {
-    featured: false,
-    category: "Strategy & Delivery",
-    slug: "growth",
-    title: "How we design quote selectors for high-ticket service businesses",
-    thesis: "Package logic, add-ons, scope control, and lead qualification — not just a pricing page.",
-    readTime: "7 min",
-    tags: ["Lead Qualification", "Pricing UX", "Conversion"],
-    href: "/blog/quote-selectors-high-ticket",
-  },
-  {
-    featured: false,
-    category: "Marketing & Production",
-    slug: "production",
-    title: "Campaign infrastructure is more than running ads",
-    thesis: "Tracking, landing pages, CRM, creative pipeline, reporting, and training — the full system behind a campaign.",
-    readTime: "8 min",
-    tags: ["Campaign Setup", "Tracking", "Creative Pipeline"],
-    href: "/blog/campaign-infrastructure",
-  },
-  {
-    featured: false,
-    category: "Architecture Visualization",
-    slug: "architecture",
-    title: "How to turn architectural visuals into a sales system",
-    thesis: "Renders + portfolio + virtual walkthrough + social crops + lead capture = a complete sales machine.",
-    readTime: "9 min",
-    tags: ["Architecture Sales", "3D Portfolio", "Lead Capture"],
-    href: "/blog/architectural-visuals-sales-system",
-  },
-];
-
-const featured = ARTICLES[0];
-const rest = ARTICLES.slice(1);
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 export default function BlogSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeCategory, setActiveCategory] = useState("all");
+  const { locale } = useLanguage();
+  const blog = getBlogIndexContent(locale);
+  const featured = blog.articles[0];
+  const rest = blog.articles.slice(1);
 
   const filtered = activeCategory === "all"
     ? rest
-    : rest.filter((a) => a.slug === activeCategory);
+    : rest.filter((a) => a.categorySlug === activeCategory);
+  const categories = blog.categories;
 
   useGSAP(
     () => {
@@ -136,7 +47,7 @@ export default function BlogSection() {
         <div className="bl-header flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between mb-16">
           <div style={{ maxWidth: "660px" }}>
             <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#86868B", marginBottom: "1rem" }}>
-              From the Lab
+              {blog.eyebrow}
             </p>
             <h2
               style={{
@@ -146,12 +57,10 @@ export default function BlogSection() {
                 color: "#1D1D1F", marginBottom: "0.85rem",
               }}
             >
-              Engineering notes, system breakdowns, and production playbooks.
+              {blog.heading}
             </h2>
             <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "14.5px", lineHeight: 1.65, color: "#86868B" }}>
-              We publish how we think through software architecture, AI workflows, dashboards,
-              campaign systems, and architectural visualization — from decisions and tradeoffs
-              to delivery pipelines.
+              {blog.subheading}
             </p>
           </div>
           <Link
@@ -159,7 +68,7 @@ export default function BlogSection() {
             className="shrink-0 self-start sm:self-auto inline-flex items-center gap-2 rounded-full border border-black/[0.14] px-5 py-2.5 transition-colors hover:border-black/30"
             style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#1D1D1F", letterSpacing: "-0.01em" }}
           >
-            View all notes
+            {blog.viewAll}
             <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-[9px]">
               <path d="M2 5h6M5 2l3 3-3 3" />
             </svg>
@@ -187,13 +96,13 @@ export default function BlogSection() {
               </span>
               <span style={{ color: "rgba(255,255,255,0.15)" }}>·</span>
               <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "rgba(255,255,255,0.28)" }}>
-                {featured.readTime} read
+                {featured.readTime}
               </span>
               <span
                 className="ml-1 rounded-full border border-white/12 px-2.5 py-0.5"
                 style={{ fontFamily: NM, fontWeight: 400, fontSize: "10.5px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.04em" }}
               >
-                Featured
+                {blog.featured}
               </span>
             </div>
 
@@ -241,7 +150,7 @@ export default function BlogSection() {
                 className="inline-flex items-center gap-2 transition-opacity group-hover:opacity-60"
                 style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "rgba(255,255,255,0.5)" }}
               >
-                Read article
+                {blog.readArticle}
                 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-[9px] transition-transform group-hover:translate-x-0.5">
                   <path d="M2 5h6M5 2l3 3-3 3" />
                 </svg>
@@ -252,11 +161,11 @@ export default function BlogSection() {
 
         {/* Category tabs */}
         <div className="bl-tabs flex flex-wrap gap-1.5 mb-6 pt-2">
-          {CATEGORIES.map((cat) => {
+          {categories.map((cat) => {
             const isActive = activeCategory === cat.slug;
-            const count = cat.slug === "all" ? rest.length : rest.filter((a) => a.slug === cat.slug).length;
+            const count = cat.slug === "all" ? rest.length : rest.filter((a) => a.categorySlug === cat.slug).length;
             return (
-              <button
+            <button
                 key={cat.slug}
                 onClick={() => setActiveCategory(cat.slug)}
                 className="rounded-full px-4 py-1.5 transition-all focus:outline-none"
@@ -284,7 +193,7 @@ export default function BlogSection() {
         {/* Article grid */}
         {filtered.length === 0 ? (
           <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "14px", color: "#86868B", padding: "2rem 0" }}>
-            No articles in this category yet.
+            {blog.noArticles}
           </p>
         ) : (
           <div className="grid grid-cols-1 gap-px bg-black/[0.07] overflow-hidden rounded-2xl sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

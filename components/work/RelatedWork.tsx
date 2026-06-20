@@ -2,10 +2,13 @@
 
 import Link from "next/link";
 import type { PortfolioProject } from "@/lib/portfolio-view";
+import { useLanguage } from "@/lib/i18n/context";
+import { regionLabel, serviceLabel, statusLabel } from "@/lib/i18n/labels";
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 export default function RelatedWork({ projects }: { projects: PortfolioProject[] }) {
+  const { locale } = useLanguage();
   if (projects.length === 0) return null;
 
   return (
@@ -31,7 +34,7 @@ export default function RelatedWork({ projects }: { projects: PortfolioProject[]
               letterSpacing: "0.1em", textTransform: "uppercase",
               color: "#86868B", display: "block", marginBottom: "0.5rem",
             }}>
-              {p.serviceLabels[0]}
+              {serviceLabel(locale, p.serviceCategories[0] ?? "")}
             </span>
             <p style={{
               fontFamily: NM, fontWeight: 400, fontSize: "14.5px",
@@ -41,7 +44,7 @@ export default function RelatedWork({ projects }: { projects: PortfolioProject[]
               {p.displayTitle}
             </p>
             <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "11.5px", color: "#86868B" }}>
-              {p.statusLabel} · {p.regionLabel}
+              {statusLabel(locale, p.status)} · {regionLabel(locale, p.regionLabel)}
             </span>
           </div>
         </Link>

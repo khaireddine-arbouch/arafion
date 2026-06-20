@@ -2,25 +2,18 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BLOG_POSTS } from "@/data/arafion-data/blog-posts";
+import { useLanguage } from "@/lib/i18n/context";
+import { getBlogIndexContent } from "@/lib/i18n/blog-content";
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
-
-const CATEGORIES = [
-  { label: "All",          slug: "all"          },
-  { label: "Software",     slug: "software"     },
-  { label: "AI",           slug: "ai"           },
-  { label: "Data",         slug: "data"         },
-  { label: "Architecture", slug: "architecture" },
-  { label: "Growth",       slug: "growth"       },
-  { label: "Production",   slug: "production"   },
-];
-
-const featured = BLOG_POSTS[0];
-const rest = BLOG_POSTS.slice(1);
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState("all");
+  const { locale } = useLanguage();
+  const blog = getBlogIndexContent(locale);
+  const featured = blog.articles[0];
+  const rest = blog.articles.slice(1);
+  const readLabel = locale === "fr" ? "lecture" : locale === "tr" ? "okuma" : locale === "ar" ? "قراءة" : "read";
 
   const filtered =
     activeCategory === "all"
@@ -76,7 +69,7 @@ export default function BlogPage() {
               textTransform: "uppercase",
             }}
           >
-            From the Lab
+            {blog.eyebrow}
           </span>
         </div>
       </div>
@@ -89,16 +82,16 @@ export default function BlogPage() {
           padding: "clamp(3rem, 5vw, 5rem) 1.25rem clamp(2.5rem, 4vw, 4rem)",
         }}
       >
-        <p
-          style={{
-            fontFamily: NM,
-            fontWeight: 400,
-            fontSize: "13px",
-            color: "#86868B",
-            marginBottom: "1.25rem",
-          }}
-        >
-          From the Lab — {BLOG_POSTS.length} articles
+          <p
+            style={{
+              fontFamily: NM,
+              fontWeight: 400,
+              fontSize: "13px",
+              color: "#86868B",
+              marginBottom: "1.25rem",
+            }}
+          >
+          {blog.eyebrow} — {blog.articles.length} {locale === "fr" ? "articles" : locale === "tr" ? "makale" : locale === "ar" ? "مقالًا" : "articles"}
         </p>
         <h1
           style={{
@@ -112,7 +105,7 @@ export default function BlogPage() {
             marginBottom: "1.5rem",
           }}
         >
-          Engineering notes, system breakdowns, and production playbooks.
+          {blog.heading}
         </h1>
         <p
           style={{
@@ -124,9 +117,7 @@ export default function BlogPage() {
             maxWidth: "580px",
           }}
         >
-          We publish how we think through software architecture, AI workflows, dashboards,
-          campaign systems, and architectural visualization — from decisions and tradeoffs
-          to delivery pipelines.
+          {blog.subheading}
         </p>
       </div>
 
@@ -139,7 +130,7 @@ export default function BlogPage() {
         }}
       >
         <Link
-          href={`/blog/${featured.slug}`}
+          href={featured.href}
           style={{ textDecoration: "none", display: "block" }}
         >
           <div
@@ -174,7 +165,7 @@ export default function BlogPage() {
                   color: "rgba(255,255,255,0.28)",
                 }}
               >
-                {featured.readTime} read
+                {featured.readTime} {readLabel}
               </span>
               <span
                 style={{
@@ -188,7 +179,7 @@ export default function BlogPage() {
                   letterSpacing: "0.04em",
                 }}
               >
-                Featured
+                {blog.featured}
               </span>
             </div>
 
@@ -261,7 +252,7 @@ export default function BlogPage() {
                   gap: "0.5rem",
                 }}
               >
-                Read article
+                {blog.readArticle}
                 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "9px", height: "9px" }}>
                   <path d="M2 5h6M5 2l3 3-3 3" />
                 </svg>
@@ -289,7 +280,7 @@ export default function BlogPage() {
             gap: "0.4rem",
           }}
         >
-          {CATEGORIES.map((cat) => {
+          {blog.categories.map((cat) => {
             const isActive = activeCategory === cat.slug;
             const count =
               cat.slug === "all"
@@ -297,7 +288,7 @@ export default function BlogPage() {
                 : rest.filter((a) => a.categorySlug === cat.slug).length;
             return (
               <button
-                key={cat.slug}
+              key={cat.slug}
                 onClick={() => setActiveCategory(cat.slug)}
                 style={{
                   fontFamily: NM,
@@ -337,7 +328,7 @@ export default function BlogPage() {
                 padding: "2rem 0",
               }}
             >
-              No articles in this category yet.
+              {blog.noArticles}
             </p>
           ) : (
             <div
@@ -352,8 +343,8 @@ export default function BlogPage() {
             >
               {filtered.map((article) => (
                 <Link
-                  key={article.slug}
-                  href={`/blog/${article.slug}`}
+                key={article.href}
+                  href={article.href}
                   style={{ textDecoration: "none" }}
                 >
                   <div
@@ -498,7 +489,13 @@ export default function BlogPage() {
               maxWidth: "520px",
             }}
           >
-            Ready to build something that lasts?
+            {locale === "fr"
+              ? "Prêt à construire quelque chose qui dure ?"
+              : locale === "tr"
+                ? "Uzun ömürlü bir şey inşa etmeye hazır mısınız?"
+                : locale === "ar"
+                  ? "هل أنت مستعد لبناء شيء يدوم؟"
+                  : "Ready to build something that lasts?"}
           </p>
           <Link
             href="/contact"
@@ -517,7 +514,7 @@ export default function BlogPage() {
               gap: "8px",
             }}
           >
-            Start a project
+            {locale === "fr" ? "Démarrer un projet" : locale === "tr" ? "Projeye başlayın" : locale === "ar" ? "ابدأ مشروعاً" : "Start a project"}
             <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" style={{ width: "10px", height: "10px" }}>
               <path d="M2 5h6M5 2l3 3-3 3" />
             </svg>

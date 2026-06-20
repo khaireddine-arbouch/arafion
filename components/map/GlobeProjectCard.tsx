@@ -3,8 +3,10 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import type { MapProject } from "@/types";
+import { useLanguage } from "@/lib/i18n/context";
+import { regionLabel, serviceLabel, statusLabel } from "@/lib/i18n/labels";
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
   live:          { label: "Live",        color: "#30D158", bg: "rgba(48,209,88,0.12)"  },
@@ -18,11 +20,14 @@ interface Props {
 }
 
 export default function GlobeProjectCard({ project, onClose }: Props) {
+  const { locale } = useLanguage();
   const status = STATUS_CONFIG[project.status] ?? STATUS_CONFIG["concept"];
   const title  = project.displayTitle ?? project.globeLabel ?? project.operator;
-  const services = project.serviceLabels ?? project.serviceCategories ?? [];
+  const services = (project.serviceCategories ?? []).map((category) => serviceLabel(locale, category));
   const stack    = project.stackTags ?? [];
   const hasSlug  = Boolean(project.slug);
+  const localizedStatus = statusLabel(locale, project.status);
+  const localizedRegion = project.regionLabel ? regionLabel(locale, project.regionLabel) : "";
 
   /* ESC to close */
   useEffect(() => {
@@ -58,7 +63,7 @@ export default function GlobeProjectCard({ project, onClose }: Props) {
               marginBottom: "0.55rem",
             }}>
               <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: status.color, display: "inline-block" }} />
-              {status.label}
+              {localizedStatus}
             </span>
             <p style={{
               fontFamily: NM, fontWeight: 400,
@@ -100,7 +105,7 @@ export default function GlobeProjectCard({ project, onClose }: Props) {
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ width: "10px", height: "10px", color: "rgba(255,255,255,0.28)", flexShrink: 0 }}>
                 <circle cx="6" cy="6" r="4.5" /><path d="M6 1.5a6 4.5 0 0 1 0 9M1.5 6h9" />
               </svg>
-              <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "rgba(255,255,255,0.46)" }}>{project.regionLabel}</span>
+              <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "rgba(255,255,255,0.46)" }}>{localizedRegion}</span>
             </div>
           )}
           {project.location && (
@@ -159,9 +164,11 @@ export default function GlobeProjectCard({ project, onClose }: Props) {
       {hasSlug ? (
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", padding: "0.75rem 1.25rem" }}>
           <Link href={`/work/${project.slug}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", textDecoration: "none" }}>
-            <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12.5px", color: "rgba(255,255,255,0.42)" }}>View case study</span>
+              <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12.5px", color: "rgba(255,255,255,0.42)" }}>
+                {locale === "fr" ? "Voir l'étude de cas" : locale === "tr" ? "Vaka çalışmasını görüntüle" : locale === "ar" ? "عرض دراسة الحالة" : "View case study"}
+              </span>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontFamily: NM, fontWeight: 500, fontSize: "12px", color: "rgba(255,255,255,0.88)" }}>
-              Open
+              {locale === "fr" ? "Ouvrir" : locale === "tr" ? "Aç" : locale === "ar" ? "افتح" : "Open"}
               <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" style={{ width: "9px", height: "9px" }}>
                 <path d="M2 5h6M5 2l3 3-3 3" />
               </svg>
@@ -170,7 +177,9 @@ export default function GlobeProjectCard({ project, onClose }: Props) {
         </div>
       ) : project.isConfidential ? (
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", padding: "0.75rem 1.25rem" }}>
-          <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "rgba(255,255,255,0.22)" }}>Confidential engagement</span>
+          <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "rgba(255,255,255,0.22)" }}>
+            {locale === "fr" ? "Mission confidentielle" : locale === "tr" ? "Gizli çalışma" : locale === "ar" ? "مهمة سرية" : "Confidential engagement"}
+          </span>
         </div>
       ) : null}
     </div>

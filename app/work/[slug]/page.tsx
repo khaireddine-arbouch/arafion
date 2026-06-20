@@ -3,15 +3,19 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ALL_PORTFOLIO_PROJECTS } from "@/lib/map-projects";
+import { getRequestLocale } from "@/lib/i18n/server";
 import { getCaseStudyMeta, imageUrl } from "@/data/arafion-data/case-studies-meta";
 import type { ArafionProjectRow } from "@/lib/portfolio-view";
 import rawProjects from "@/data/arafion-data/projects.json";
+import { regionLabel, serviceLabel, statusLabel } from "@/lib/i18n/labels";
+import { getWhatWeBuilt } from "@/lib/i18n/whatwebuilt-content";
+import { getClientBrief } from "@/lib/i18n/work-content";
 
 const RAW = rawProjects as unknown as ArafionProjectRow[];
 import ReadingProgress from "@/components/blog/ReadingProgress";
 import RelatedWork from "@/components/work/RelatedWork";
 
-const NM = '"Neue Montreal", ui-sans-serif, system-ui, sans-serif';
+const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 const LOGO_MAP: Record<string, { src: string; invert?: boolean }> = {
   "nileroute-os":               { src: "/logos/nile-route-os-logo.png", invert: true },
@@ -75,11 +79,21 @@ export default async function CaseStudyPage({
   const project = ALL_PORTFOLIO_PROJECTS.find((p) => p.slug === slug);
   if (!project) notFound();
 
-  const meta = getCaseStudyMeta(slug);
+  const locale = await getRequestLocale();
+  const meta = getCaseStudyMeta(slug, locale);
   const raw = RAW.find((r) => (r.slug ?? r.id) === slug);
-  const whatWeBuilt: string[] = raw?.whatWeBuilt ?? [];
+  const whatWeBuilt: string[] = getWhatWeBuilt(locale, slug, raw?.whatWeBuilt ?? []);
   const logo = LOGO_MAP[project.id];
   const dotColor = STATUS_DOT[project.status] ?? "#86868B";
+  const clientBrief = getClientBrief(locale, slug);
+  const copy =
+    locale === "fr"
+      ? { back: "Travaux", live: "Voir le projet en ligne", overview: "Aperçu", built: "Ce que nous avons construit", screenshots: "Captures d'écran", challenge: "Le défi", outcome: "Le résultat", more: "Plus de travaux", cta: "Vous avez un système à construire ? ", start: "Démarrer un projet", stack: "Stack technique", wantThis: "Envie de construire quelque chose comme ça ?", viewLive: "Voir le projet en ligne" }
+      : locale === "tr"
+        ? { back: "İşler", live: "Canlı projeyi görüntüle", overview: "Genel bakış", built: "Ne inşa ettik", screenshots: "Ekran görüntüleri", challenge: "Zorluk", outcome: "Sonuç", more: "Daha fazla iş", cta: "İnşa edilmesi gereken bir sisteminiz mi var?", start: "Projeye başlayın", stack: "Teknik altyapı", wantThis: "Böyle bir şey mi inşa etmek istiyorsunuz?", viewLive: "Canlı projeyi görüntüle" }
+        : locale === "ar"
+          ? { back: "الأعمال", live: "عرض المشروع المباشر", overview: "نظرة عامة", built: "ما الذي بنيناه", screenshots: "لقطات الشاشة", challenge: "التحدي", outcome: "النتيجة", more: "المزيد من الأعمال", cta: "هل لديك نظام يحتاج إلى بناء؟", start: "ابدأ مشروعاً", stack: "المكونات التقنية", wantThis: "تريد بناء شيء مثل هذا؟", viewLive: "عرض المشروع المباشر" }
+          : { back: "Work", live: "View live project", overview: "Overview", built: "What we built", screenshots: "Screenshots", challenge: "The challenge", outcome: "The outcome", more: "More work", cta: "Have a system, product, campaign, or visual experience that needs building?", start: "Start a project", stack: "Technical stack", wantThis: "Want to build something like this?", viewLive: "View live project" };
 
   // 3 related projects (same service category, excluding current)
   const related = ALL_PORTFOLIO_PROJECTS.filter(
@@ -116,7 +130,7 @@ export default async function CaseStudyPage({
               <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "9px", height: "9px" }}>
                 <path d="M8 5H2M5 8l-3-3 3-3" />
               </svg>
-              Work
+              {copy.back}
             </Link>
             <Link href="/" style={{ fontFamily: NM, fontWeight: 500, fontSize: "14px", color: "#1D1D1F", letterSpacing: "-0.02em", textDecoration: "none" }}>
               Arafion
@@ -132,18 +146,18 @@ export default async function CaseStudyPage({
             <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
               <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: dotColor, display: "inline-block" }} />
               <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", letterSpacing: "0.06em", textTransform: "uppercase", color: "#86868B" }}>
-                {project.statusLabel}
+                {statusLabel(locale, project.status)}
               </span>
             </span>
             <span style={{ color: "rgba(0,0,0,0.18)", fontSize: "10px" }}>·</span>
-            {project.serviceLabels.slice(0, 2).map((label, i) => (
+            {project.serviceCategories.slice(0, 2).map((category, i) => (
               <span key={i} style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "#86868B" }}>
-                {label}{i < Math.min(project.serviceLabels.length, 2) - 1 ? " ·" : ""}
+                {serviceLabel(locale, category)}{i < Math.min(project.serviceCategories.length, 2) - 1 ? " ·" : ""}
               </span>
             ))}
             <span style={{ color: "rgba(0,0,0,0.18)", fontSize: "10px" }}>·</span>
             <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "#86868B" }}>
-              {project.regionLabel}
+              {regionLabel(locale, project.regionLabel)}
             </span>
           </div>
 
@@ -163,7 +177,7 @@ export default async function CaseStudyPage({
             lineHeight: 1.65, color: "#86868B",
             maxWidth: "680px", marginBottom: "2rem",
           }}>
-            {project.shortDescription}
+            {clientBrief || project.shortDescription}
           </p>
 
           {/* Tag chips */}
@@ -230,7 +244,7 @@ export default async function CaseStudyPage({
                         marginLeft: "auto",
                       }}
                     >
-                      View live project
+                      {copy.live}
                       <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "8px", height: "8px" }}>
                         <path d="M2 5h6M5 2l3 3-3 3" />
                       </svg>
@@ -269,7 +283,7 @@ export default async function CaseStudyPage({
                   display: "flex", alignItems: "center", justifyContent: "space-between",
                 }}>
                   <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "10.5px", color: "rgba(255,255,255,0.22)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                    {project.displayTitle} · {project.regionLabel}
+                    {project.displayTitle} · {regionLabel(locale, project.regionLabel)}
                   </span>
                   {project.publicUrl && (
                     <Link href={project.publicUrl} target="_blank" rel="noopener noreferrer" style={{
@@ -278,7 +292,7 @@ export default async function CaseStudyPage({
                       display: "inline-flex", alignItems: "center", gap: "5px",
                       border: "1px solid rgba(255,255,255,0.1)", borderRadius: "100px", padding: "4px 12px",
                     }}>
-                      View live
+                      {locale === "fr" ? "Voir en ligne" : locale === "tr" ? "Canlı görüntüle" : locale === "ar" ? "عرض مباشر" : "View live"}
                       <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "8px", height: "8px" }}>
                         <path d="M2 5h6M5 2l3 3-3 3" />
                       </svg>
@@ -310,7 +324,7 @@ export default async function CaseStudyPage({
                   letterSpacing: "0.1em", textTransform: "uppercase",
                   color: "#86868B", marginBottom: "1.75rem",
                 }}>
-                  Overview
+                  {copy.overview}
                 </p>
                 {meta.overview.map((para, i) => (
                   <p key={i} style={{
@@ -335,7 +349,7 @@ export default async function CaseStudyPage({
                   letterSpacing: "0.1em", textTransform: "uppercase",
                   color: "#86868B", marginBottom: "1.75rem",
                 }}>
-                  What we built
+                  {copy.built}
                 </p>
                 <div style={{
                   display: "grid",
@@ -383,7 +397,7 @@ export default async function CaseStudyPage({
               letterSpacing: "0.1em", textTransform: "uppercase",
               color: "#86868B", marginBottom: "1.75rem",
             }}>
-              Screenshots
+              {copy.screenshots}
             </p>
 
             {/* First image full width */}
@@ -438,7 +452,7 @@ export default async function CaseStudyPage({
                     letterSpacing: "0.1em", textTransform: "uppercase",
                     color: "#86868B", marginBottom: "0.85rem",
                   }}>
-                    The challenge
+                    {copy.challenge}
                   </p>
                   <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "14.5px", lineHeight: 1.7, color: "#1D1D1F" }}>
                     {meta.challenge}
@@ -454,7 +468,7 @@ export default async function CaseStudyPage({
                     letterSpacing: "0.1em", textTransform: "uppercase",
                     color: "rgba(255,255,255,0.35)", marginBottom: "0.85rem",
                   }}>
-                    The outcome
+                    {copy.outcome}
                   </p>
                   <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "14.5px", lineHeight: 1.7, color: "rgba(255,255,255,0.75)" }}>
                     {meta.outcome}
@@ -477,7 +491,7 @@ export default async function CaseStudyPage({
               letterSpacing: "0.1em", textTransform: "uppercase",
               color: "#86868B", margin: "2rem 0 1.25rem",
             }}>
-              Technical stack
+              {copy.stack}
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
               {project.stackTags.map((tag) => (
@@ -504,7 +518,7 @@ export default async function CaseStudyPage({
               fontFamily: NM, fontWeight: 400, fontSize: "13px",
               color: "#86868B", marginBottom: "2rem",
             }}>
-              More work
+              {copy.more}
             </p>
             <RelatedWork projects={related} />
           </div>
@@ -524,10 +538,10 @@ export default async function CaseStudyPage({
                 lineHeight: 1.2, letterSpacing: "-0.025em",
                 color: "#1D1D1F", marginBottom: "0.5rem", maxWidth: "480px",
               }}>
-                Want to build something like this?
+                {copy.wantThis}
               </p>
               <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "14px", color: "#86868B" }}>
-                Tell us what you&rsquo;re working on — we&rsquo;ll tell you what&rsquo;s possible.
+                {copy.cta}
               </p>
             </div>
             <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
@@ -545,7 +559,7 @@ export default async function CaseStudyPage({
                     alignItems: "center", gap: "7px",
                   }}
                 >
-                  View live project
+                  {copy.viewLive}
                   <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "9px", height: "9px" }}>
                     <path d="M2 5h6M5 2l3 3-3 3" />
                   </svg>
@@ -560,7 +574,7 @@ export default async function CaseStudyPage({
                   textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "8px",
                 }}
               >
-                Start a project
+                {copy.start}
                 <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" style={{ width: "10px", height: "10px" }}>
                   <path d="M2 5h6M5 2l3 3-3 3" />
                 </svg>
