@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import { useLanguage } from "@/lib/i18n/context";
+import { LOCALES, type Locale } from "@/lib/i18n/translations";
 
 const ARAFION_ICON_SRC = "/Arafion%20Icon.png";
 
@@ -58,7 +59,7 @@ export default function FloatingDockNav() {
   const [hasEverScrolled, setHasEverScrolled] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { t } = useLanguage();
+  const { t, locale, setLocale } = useLanguage();
 
   const NAV = [
     { href: "/work",     label: t.nav.work },
@@ -187,15 +188,34 @@ export default function FloatingDockNav() {
                 })}
               </nav>
 
-              {/* Language + contact — pinned at the bottom of the sheet, never scrolled out of view */}
+              {/* Language + contact — pinned at the bottom of the sheet, never scrolled out of view.
+                  Inline chip picker instead of a floating dropdown: there's no room above this row
+                  for a popover to open into without overlapping the nav links. */}
               <div
-                className="flex shrink-0 items-center gap-2.5 border-t border-white/10 px-5 pt-4"
+                className="flex shrink-0 flex-col gap-3 border-t border-white/10 px-5 pt-4"
                 style={{ paddingBottom: "max(1.25rem, calc(env(safe-area-inset-bottom, 0px) + 1rem))" }}
               >
-                <LanguageSwitcher dark />
+                <div className="flex flex-wrap gap-1.5" role="listbox" aria-label={t.common.language}>
+                  {LOCALES.map((l) => {
+                    const active = l.code === locale;
+                    return (
+                      <button
+                        key={l.code}
+                        role="option"
+                        aria-selected={active}
+                        onClick={() => setLocale(l.code as Locale)}
+                        className={`rounded-full px-3.5 py-2 text-[13px] font-medium transition-colors ${
+                          active ? "bg-white text-[#141414]" : "bg-white/[0.08] text-white/70 active:bg-white/[0.14]"
+                        }`}
+                      >
+                        {l.nativeName}
+                      </button>
+                    );
+                  })}
+                </div>
                 <a
                   href="mailto:contact@arafion.com"
-                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-4 py-3 text-[13.5px] font-semibold text-[#141414]"
+                  className="flex items-center justify-center gap-2 rounded-full bg-white px-4 py-3 text-[13.5px] font-semibold text-[#141414]"
                 >
                   <MailIcon className="size-4 shrink-0" />
                   <span className="truncate">contact@arafion.com</span>
