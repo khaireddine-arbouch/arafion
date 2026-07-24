@@ -75,12 +75,12 @@ export default async function ContactPage() {
             }
           : {
               eyebrow: "Start a project",
-              title: "Let&rsquo;s build something that ships.",
-              body: "Share a bit of context — what you&rsquo;re building, what constraints you&rsquo;re operating under, and what a great outcome looks like. We typically reply within one business day.",
+              title: "Let’s build something that ships.",
+              body: "Share a bit of context — what you’re building, what constraints you’re operating under, and what a great outcome looks like. We typically reply within one business day.",
               touch: "Get in touch",
               help: "What we can help with",
               ctaTitle: "Ready to scope your project?",
-              ctaBody: "Email us directly or reach out on LinkedIn — we&rsquo;ll set up a scoping call.",
+              ctaBody: "Email us directly or reach out on LinkedIn — we’ll set up a scoping call.",
             };
 
   return (
