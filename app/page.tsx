@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import VideoHero from "@/components/hero/VideoHero";
 import { getRequestLocale } from "@/lib/i18n/server";
-import GlobeProofSection from "@/components/sections/GlobeProofSection";
 import AboutSection from "@/components/sections/AboutSection";
 import CaseStudySection from "@/components/sections/CaseStudySection";
 import ServiceSection from "@/components/sections/ServiceSection";
@@ -66,7 +65,6 @@ export default function Page() {
   return (
     <>
       <VideoHero />
-      <GlobeProofSection />
       <AboutSection />
       <CaseStudySection />
       <ServicesGridSection />

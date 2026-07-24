@@ -59,12 +59,16 @@ export default function VideoHero() {
 
   useGSAP(
     () => {
+      // fromTo (not from) with explicit end values: the elements render with
+      // an "opacity-0" class server-side so nothing flashes fully visible
+      // before hydration, and the tween's end state doesn't depend on
+      // whatever CSS happens to say at mount time.
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.from(".vh-brand",    { y: -14, opacity: 0, duration: 0.5 })
-        .from(".vh-headline", { y: 52, opacity: 0, filter: "blur(14px)", duration: 1.1 }, "-=0.28")
-        .from(".vh-divider",  { scaleX: 0, opacity: 0, duration: 0.55, transformOrigin: "left center" }, "-=0.3")
-        .from(".vh-feature",  { y: 16, opacity: 0, duration: 0.55, stagger: 0.065 }, "-=0.42")
-        .from(".vh-tagline",  { y: 16, opacity: 0, duration: 0.55 }, "-=0.5");
+      tl.fromTo(".vh-brand",    { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 })
+        .fromTo(".vh-headline", { y: 52, opacity: 0, filter: "blur(14px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.1 }, "-=0.28")
+        .fromTo(".vh-divider",  { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.55, transformOrigin: "left center" }, "-=0.3")
+        .fromTo(".vh-feature",  { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, stagger: 0.065 }, "-=0.42")
+        .fromTo(".vh-tagline",  { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, "-=0.5");
     },
     { scope: sectionRef },
   );
@@ -112,7 +116,7 @@ export default function VideoHero() {
         {/* Brand */}
         <Link
           href="/"
-          className="vh-brand inline-flex items-center gap-2.5 self-start focus:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
+          className="vh-brand opacity-0 inline-flex items-center gap-2.5 self-start focus:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
         >
           <Image
             src="/Arafion%20Icon.png"
@@ -133,7 +137,7 @@ export default function VideoHero() {
         {/* Headline */}
         <div className="mt-8 lg:mt-[4.25rem]">
           <h1
-            className="vh-headline text-white"
+            className="vh-headline opacity-0 text-white"
             style={{
               fontFamily: FONT_INTER_STACK,
               fontWeight: 300,
@@ -159,7 +163,7 @@ export default function VideoHero() {
         <div className="flex flex-col gap-4 lg:hidden">
           {/* Compact tagline */}
           <p
-            className="vh-tagline"
+            className="vh-tagline opacity-0"
             style={{
               fontFamily: FONT_INTER_STACK,
               fontWeight: 300,
@@ -210,7 +214,7 @@ export default function VideoHero() {
         <div className="hidden lg:flex lg:shrink-0 lg:flex-col lg:pb-2">
           {/* Thin divider */}
           <div
-            className="vh-divider mb-6 h-px w-full lg:max-w-[640px]"
+            className="vh-divider opacity-0 mb-6 h-px w-full lg:max-w-[640px]"
             style={{ background: "rgba(255,255,255,0.12)" }}
           />
 
@@ -220,7 +224,7 @@ export default function VideoHero() {
               {features.map((f, idx) => (
                 <li
                   key={f.title}
-                  className="vh-feature flex items-start gap-2.5"
+                  className="vh-feature opacity-0 flex items-start gap-2.5"
                   style={{ minWidth: 152, maxWidth: 192 }}
                 >
                   <span className="mt-0.5 shrink-0 text-white/40">{FEATURE_ICONS[idx]}</span>
@@ -256,7 +260,7 @@ export default function VideoHero() {
             </ul>
 
             {/* Tagline + CTA */}
-            <div className="vh-tagline relative z-20 flex w-auto max-w-[400px] shrink-0 flex-col items-end gap-7 pl-6 text-right xl:pl-10">
+            <div className="vh-tagline opacity-0 relative z-20 flex w-auto max-w-[400px] shrink-0 flex-col items-end gap-7 pl-6 text-right xl:pl-10">
               <p
                 style={{
                   fontFamily: FONT_INTER_STACK,
