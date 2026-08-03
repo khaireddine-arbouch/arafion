@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { getAboutContent } from "@/lib/i18n/about-content";
 import { applySiteCopy, getSiteConfig } from "@/lib/site/config";
+import { getHreflangAlternates, getNorexSeo } from "@/lib/site/seo";
 
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
@@ -12,34 +13,49 @@ export async function generateMetadata(): Promise<Metadata> {
   const site = getSiteConfig();
 
   const description = applySiteCopy(
-    locale === "fr"
-      ? "{brand} est un studio d'execution hybride qui conçoit des sites web, des produits SaaS, des workflows IA, des tableaux de bord et des systemes de visualisation."
-      : locale === "tr"
-        ? "{brand}, web siteleri, SaaS urunleri, AI is akislari, panolar ve gorsellestirme sistemleri kuran hibrit bir uygulama stüdyosudur."
-        : locale === "ar"
-          ? "{brand} هو استوديو تنفيذ هجين يبني المواقع ومنتجات SaaS ومسارات الذكاء الاصطناعي ولوحات البيانات وانظمة التصور."
-          : "{brand} is a hybrid execution studio combining software engineering, AI, data systems, creative production, and architectural visualization into one execution pipeline.",
+    site.id === "norex"
+      ? getNorexSeo(locale).aboutDescription
+      : locale === "fr"
+        ? "{brand} est un studio d'execution hybride qui conçoit des sites web, des produits SaaS, des workflows IA, des tableaux de bord et des systemes de visualisation."
+        : locale === "tr"
+          ? "{brand}, web siteleri, SaaS urunleri, AI is akislari, panolar ve gorsellestirme sistemleri kuran hibrit bir uygulama stüdyosudur."
+          : locale === "ar"
+            ? "{brand} هو استوديو تنفيذ هجين يبني المواقع ومنتجات SaaS ومسارات الذكاء الاصطناعي ولوحات البيانات وانظمة التصور."
+            : locale === "he"
+              ? "{brand} היא מעבדת הנדסת מוצר שמתכננת ובונה מערכות דיגיטליות — SaaS, AI, דשבורדים ואתרים."
+              : "{brand} is a hybrid execution studio combining software engineering, AI, data systems, creative production, and architectural visualization into one execution pipeline.",
   );
+
+  const ogDescription =
+    site.id === "norex"
+      ? getNorexSeo(locale).aboutOgDescription
+      : locale === "fr"
+        ? "Nous construisons des sites, des produits SaaS, des workflows IA, des tableaux de bord et des systemes visuels."
+        : locale === "tr"
+          ? "Web siteleri, SaaS ürünleri, AI is akislari, panolar ve görsel sistemler kuruyoruz."
+          : locale === "ar"
+            ? "نبني المواقع ومنتجات SaaS ومسارات الذكاء الاصطناعي ولوحات البيانات والانظمة البصرية."
+            : locale === "he"
+              ? "אנחנו בונים אתרים, מוצרי SaaS, זרימות AI ודשבורדים."
+              : "We build websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and 3D visualization systems.";
 
   return {
     title: locale === "en" ? "About" : copy.topBar,
     description,
     openGraph: {
       title:
-        locale === "en"
-          ? `About ${site.shortName} - Product Engineering Lab`
-          : `${copy.topBar} - ${site.shortName}`,
-      description:
-        locale === "fr"
-          ? "Nous construisons des sites, des produits SaaS, des workflows IA, des tableaux de bord et des systemes visuels."
-          : locale === "tr"
-            ? "Web siteleri, SaaS ürünleri, AI is akislari, panolar ve görsel sistemler kuruyoruz."
-            : locale === "ar"
-              ? "نبني المواقع ومنتجات SaaS ومسارات الذكاء الاصطناعي ولوحات البيانات والانظمة البصرية."
-              : "We build websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and 3D visualization systems.",
+        site.id === "norex"
+          ? getNorexSeo(locale).aboutOgTitle
+          : locale === "en"
+            ? `About ${site.shortName} - Product Engineering Lab`
+            : `${copy.topBar} - ${site.shortName}`,
+      description: ogDescription,
       url: `${site.siteUrl}/about`,
     },
-    alternates: { canonical: `${site.siteUrl}/about` },
+    alternates:
+      site.id === "norex"
+        ? getHreflangAlternates("/about")
+        : { canonical: `${site.siteUrl}/about` },
   };
 }
 

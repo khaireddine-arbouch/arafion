@@ -79,7 +79,7 @@ const NOREX: SiteConfig = {
   defaultLocale: "he",
   tagline: "Product Engineering Lab",
   description:
-    "Norex Systems is a product engineering lab building websites, SaaS products, AI workflows, dashboards, and digital infrastructure. Serious technical execution for teams that ship.",
+    "Norex Systems is an Israeli product engineering lab building SaaS products, AI workflows, dashboards, websites, and digital infrastructure for teams that ship.",
   iconPath: "/norex/Norex%20Logo.png",
   twitterHandle: "@norexsystems",
   linkedInUrl: "https://www.linkedin.com/company/norexsystems",

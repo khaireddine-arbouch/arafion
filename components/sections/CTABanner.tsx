@@ -67,11 +67,11 @@ export default function CTABanner() {
     >
       {/* Full image — unclipped, full natural height */}
       <Image
-        src="/image.avif"
+        src="/cta-clean.jpg"
         alt=""
         aria-hidden="true"
-        width={1920}
-        height={1080}
+        width={1600}
+        height={1200}
         className="relative z-0 block w-full h-auto"
         style={{ display: "block" }}
         loading="lazy"
@@ -87,9 +87,9 @@ export default function CTABanner() {
         }}
       />
 
-      {/* Text — absolutely anchored bottom-left */}
+      {/* Text — start-anchored so LTR/RTL both keep copy on the readable dark side */}
       <div className="absolute inset-0 z-20 flex flex-col justify-end px-8 pb-14 md:px-14 lg:px-20 lg:pb-18">
-        <div className="cb-text cb-animate max-w-[640px]">
+        <div className="cb-text cb-animate max-w-[640px] ltr:me-auto rtl:ms-auto">
           <h2
             style={{
               fontFamily: NM,

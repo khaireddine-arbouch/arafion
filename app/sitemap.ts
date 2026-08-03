@@ -4,61 +4,86 @@ import { getPublishedPosts } from "@/data/arafion-data/blog-posts";
 import { getSiteConfig } from "@/lib/site/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const BASE = getSiteConfig().siteUrl;
+  const site = getSiteConfig();
+  const BASE = site.siteUrl;
   const now = new Date();
 
+  const languages =
+    site.id === "norex"
+      ? {
+          "he-IL": BASE,
+          "en-IL": BASE,
+          "x-default": BASE,
+        }
+      : undefined;
+
+  const withLang = (
+    path: string,
+    entry: Omit<MetadataRoute.Sitemap[number], "url">,
+  ): MetadataRoute.Sitemap[number] => {
+    const url = path === "/" ? BASE : `${BASE}${path}`;
+    if (!languages) return { url, ...entry };
+    const langUrls = Object.fromEntries(
+      Object.entries(languages).map(([code]) => [
+        code,
+        path === "/" ? BASE : `${BASE}${path}`,
+      ]),
+    );
+    return {
+      url,
+      ...entry,
+      alternates: { languages: langUrls },
+    };
+  };
+
   const staticRoutes: MetadataRoute.Sitemap = [
-    {
-      url: BASE,
+    withLang("/", {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1.0,
-    },
-    {
-      url: `${BASE}/services`,
+    }),
+    withLang("/services", {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.9,
-    },
-    {
-      url: `${BASE}/work`,
+    }),
+    withLang("/work", {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
-    },
-    {
-      url: `${BASE}/about`,
+    }),
+    withLang("/about", {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
-    },
-    {
-      url: `${BASE}/blog`,
+    }),
+    withLang("/blog", {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.8,
-    },
-    {
-      url: `${BASE}/contact`,
+    }),
+    withLang("/contact", {
       lastModified: now,
       changeFrequency: "yearly",
       priority: 0.7,
-    },
+    }),
   ];
 
-  const workRoutes: MetadataRoute.Sitemap = ALL_PORTFOLIO_PROJECTS.map((p) => ({
-    url: `${BASE}/work/${p.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.75,
-  }));
+  const workRoutes: MetadataRoute.Sitemap = ALL_PORTFOLIO_PROJECTS.map((p) =>
+    withLang(`/work/${p.slug}`, {
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    }),
+  );
 
-  const blogRoutes: MetadataRoute.Sitemap = getPublishedPosts().map((post) => ({
-    url: `${BASE}/blog/${post.slug}`,
-    lastModified: new Date(post.publishedAt),
-    changeFrequency: "yearly" as const,
-    priority: 0.65,
-  }));
+  const blogRoutes: MetadataRoute.Sitemap = getPublishedPosts().map((post) =>
+    withLang(`/blog/${post.slug}`, {
+      lastModified: new Date(post.publishedAt),
+      changeFrequency: "yearly",
+      priority: 0.65,
+    }),
+  );
 
   return [...staticRoutes, ...workRoutes, ...blogRoutes];
 }

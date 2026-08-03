@@ -5,6 +5,7 @@ import { translations, type Locale } from "@/lib/i18n/translations";
 import { applySiteCopy, getSiteConfig } from "@/lib/site/config";
 import { filterServiceCategories } from "@/lib/site/offerings";
 import { homeMarketLabel, isIsraelOnlySite } from "@/lib/site/geography";
+import { getHreflangAlternates } from "@/lib/site/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
@@ -34,12 +35,25 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
+    keywords:
+      site.id === "norex"
+        ? [
+            "contact Norex",
+            "software development Israel",
+            "hire product engineers Israel",
+            "צור קשר Norex",
+            "פיתוח תוכנה ישראל",
+          ]
+        : undefined,
     openGraph: {
       title: locale === "en" ? `Contact ${site.shortName} - Start a Project` : title,
       description,
       url: `${site.siteUrl}/contact`,
     },
-    alternates: { canonical: `${site.siteUrl}/contact` },
+    alternates:
+      site.id === "norex"
+        ? getHreflangAlternates("/contact")
+        : { canonical: `${site.siteUrl}/contact` },
   };
 }
 

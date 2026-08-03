@@ -9,6 +9,11 @@ import BlogSection from "@/components/sections/BlogSection";
 import FAQSection from "@/components/sections/FAQSection";
 import CTABanner from "@/components/sections/CTABanner";
 import { applySiteCopy, getSiteConfig } from "@/lib/site/config";
+import {
+  getHreflangAlternates,
+  getNorexSeo,
+  getOgLocale,
+} from "@/lib/site/seo";
 
 const HOME_METADATA: Record<string, { title: string; description: string; ogDescription: string }> = {
   en: {
@@ -39,18 +44,35 @@ const HOME_METADATA: Record<string, { title: string; description: string; ogDesc
     ogDescription:
       "نبني مواقع ويب ومنتجات SaaS وسير عمل ذكاء اصطناعي ولوحات تحكم وبنية تحتية تسويقية وأنظمة تصور ثلاثي الأبعاد. مبني ومُسلَّم.",
   },
-  he: {
-    title: "{brand} — Product Engineering Lab",
-    description:
-      "{brand} builds websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and architectural visualization systems. Serious digital execution, end to end.",
-    ogDescription:
-      "We build websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and 3D visualization systems. Built and shipped.",
-  },
 };
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
   const site = getSiteConfig();
+
+  if (site.id === "norex") {
+    const seo = getNorexSeo(locale);
+    return {
+      title: { absolute: seo.homeTitle },
+      description: seo.homeDescription,
+      keywords: seo.keywords,
+      openGraph: {
+        title: seo.homeTitle,
+        description: seo.homeOgDescription,
+        url: site.siteUrl,
+        type: "website",
+        locale: getOgLocale(locale, site),
+        siteName: site.name,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: seo.homeTitle,
+        description: seo.homeOgDescription,
+      },
+      alternates: getHreflangAlternates("/"),
+    };
+  }
+
   const m = applySiteCopy(HOME_METADATA[locale] ?? HOME_METADATA.en);
   return {
     title: m.title,
