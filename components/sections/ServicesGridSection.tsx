@@ -7,25 +7,26 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useLanguage } from "@/lib/i18n/context";
 import { getServiceCapabilities, getServiceCapabilitiesFull } from "@/lib/i18n/service-content";
+import {
+  contactHrefForService,
+  getVisibleServiceIndices,
+} from "@/lib/site/offerings";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
-const SERVICE_HREFS = [
-  "/contact?service=software",
-  "/contact?service=websites",
-  "/contact?service=ai",
-  "/contact?service=marketing",
-  "/contact?service=3d",
-  "/contact?service=strategy",
-];
-
 export default function ServicesGridSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const { t, locale } = useLanguage();
+  const services = t.services.categories;
+  const visibleIndices = getVisibleServiceIndices();
+  const allCapabilities = getServiceCapabilities(locale);
+  const allCapabilitiesFull = getServiceCapabilitiesFull(locale);
+  const capabilities = visibleIndices.map((i) => allCapabilities[i] ?? []);
+  const capabilitiesFull = visibleIndices.map((i) => allCapabilitiesFull[i] ?? []);
   const [expanded, setExpanded] = useState<boolean[]>(
-    new Array(6).fill(false),
+    () => new Array(services.length).fill(false),
   );
 
   const toggle = (i: number) => {
@@ -51,10 +52,6 @@ export default function ServicesGridSection() {
     },
     { scope: sectionRef },
   );
-
-  const services = t.services.categories;
-  const capabilities = getServiceCapabilities(locale);
-  const capabilitiesFull = getServiceCapabilitiesFull(locale);
 
   return (
     <section
@@ -178,14 +175,20 @@ export default function ServicesGridSection() {
                 >
                   {t.services.weBuild}
                 </p>
-                <ul className="flex flex-col gap-1.5 mb-5">
-                  {capabilities[i].map((h) => (
+                <ul className="mb-5 flex flex-col gap-1.5">
+                  {(capabilities[i] ?? []).map((h) => (
                     <li
                       key={h}
-                      className="flex items-start gap-2.5"
+                      className="relative ps-4"
                       style={{ fontFamily: NM, fontWeight: 400, fontSize: "13.5px", color: "#1D1D1F", lineHeight: 1.4 }}
                     >
-                      <span style={{ color: "#86868B", marginTop: "1px", flexShrink: 0 }}>—</span>
+                      <span
+                        aria-hidden
+                        className="absolute start-0 top-0"
+                        style={{ color: "#86868B" }}
+                      >
+                        —
+                      </span>
                       {h}
                     </li>
                   ))}
@@ -239,12 +242,12 @@ export default function ServicesGridSection() {
               {/* Card CTA — pinned to bottom */}
               <div className="border-t border-black/6 px-7 py-4">
                 <Link
-                  href={SERVICE_HREFS[i]}
+                  href={contactHrefForService(svc.id)}
                   className="inline-flex items-center gap-2 transition-opacity hover:opacity-70"
                   style={{ fontFamily: NM, fontWeight: 500, fontSize: "13px", color: "#1D1D1F", letterSpacing: "-0.01em" }}
                 >
                   {svc.cta}
-                  <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-[9px]">
+                  <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-[9px] rtl:-scale-x-100">
                     <path d="M2 5h6M5 2l3 3-3 3" />
                   </svg>
                 </Link>

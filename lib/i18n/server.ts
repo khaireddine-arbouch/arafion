@@ -1,11 +1,13 @@
 import { cookies } from "next/headers";
 import { type Locale, translations } from "./translations";
-
-const STORAGE_KEY = "arafion-locale";
+import { getSiteConfig, isLocaleAllowed } from "@/lib/site/config";
 
 export async function getRequestLocale(): Promise<Locale> {
-  const cookieStore = await cookies();
-  const value = cookieStore.get(STORAGE_KEY)?.value;
-  if (value && value in translations) return value as Locale;
-  return "en";
+  const site = getSiteConfig();
+  const jar = await cookies();
+  const value = jar.get(site.localeCookieKey)?.value;
+  if (value && isLocaleAllowed(value, site) && value in translations) {
+    return value as Locale;
+  }
+  return site.defaultLocale;
 }

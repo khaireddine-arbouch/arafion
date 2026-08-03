@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { PortfolioProject } from "@/lib/portfolio-view";
 import { useLanguage } from "@/lib/i18n/context";
 import { regionLabel, serviceLabel, statusLabel } from "@/lib/i18n/labels";
+import { getProjectDisplayTitle } from "@/lib/i18n/project-content";
 
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
@@ -41,7 +42,7 @@ export default function RelatedWork({ projects }: { projects: PortfolioProject[]
               letterSpacing: "-0.012em", color: "#1D1D1F",
               lineHeight: 1.35, marginBottom: "0.5rem",
             }}>
-              {p.displayTitle}
+              {getProjectDisplayTitle(locale, p.slug, p.title || p.displayTitle)}
             </p>
             <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "11.5px", color: "#86868B" }}>
               {statusLabel(locale, p.status)} · {regionLabel(locale, p.regionLabel)}

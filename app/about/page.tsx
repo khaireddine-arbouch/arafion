@@ -2,25 +2,33 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { getAboutContent } from "@/lib/i18n/about-content";
+import { applySiteCopy, getSiteConfig } from "@/lib/site/config";
 
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
   const copy = getAboutContent(locale);
+  const site = getSiteConfig();
+
+  const description = applySiteCopy(
+    locale === "fr"
+      ? "{brand} est un studio d'execution hybride qui conçoit des sites web, des produits SaaS, des workflows IA, des tableaux de bord et des systemes de visualisation."
+      : locale === "tr"
+        ? "{brand}, web siteleri, SaaS urunleri, AI is akislari, panolar ve gorsellestirme sistemleri kuran hibrit bir uygulama stüdyosudur."
+        : locale === "ar"
+          ? "{brand} هو استوديو تنفيذ هجين يبني المواقع ومنتجات SaaS ومسارات الذكاء الاصطناعي ولوحات البيانات وانظمة التصور."
+          : "{brand} is a hybrid execution studio combining software engineering, AI, data systems, creative production, and architectural visualization into one execution pipeline.",
+  );
 
   return {
     title: locale === "en" ? "About" : copy.topBar,
-    description:
-      locale === "fr"
-        ? "Arafion est un studio d'execution hybride qui conçoit des sites web, des produits SaaS, des workflows IA, des tableaux de bord et des systemes de visualisation."
-        : locale === "tr"
-          ? "Arafion, web siteleri, SaaS urunleri, AI is akislari, panolar ve gorsellestirme sistemleri kuran hibrit bir uygulama stüdyosudur."
-          : locale === "ar"
-            ? "Arafion هو استوديو تنفيذ هجين يبني المواقع ومنتجات SaaS ومسارات الذكاء الاصطناعي ولوحات البيانات وانظمة التصور."
-            : "Arafion is a hybrid execution studio combining software engineering, AI, data systems, creative production, and architectural visualization into one execution pipeline.",
+    description,
     openGraph: {
-      title: locale === "en" ? "About Arafion - Product Engineering Lab" : `${copy.topBar} - Arafion`,
+      title:
+        locale === "en"
+          ? `About ${site.shortName} - Product Engineering Lab`
+          : `${copy.topBar} - ${site.shortName}`,
       description:
         locale === "fr"
           ? "Nous construisons des sites, des produits SaaS, des workflows IA, des tableaux de bord et des systemes visuels."
@@ -29,9 +37,9 @@ export async function generateMetadata(): Promise<Metadata> {
             : locale === "ar"
               ? "نبني المواقع ومنتجات SaaS ومسارات الذكاء الاصطناعي ولوحات البيانات والانظمة البصرية."
               : "We build websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and 3D visualization systems.",
-      url: "https://arafion.com/about",
+      url: `${site.siteUrl}/about`,
     },
-    alternates: { canonical: "https://arafion.com/about" },
+    alternates: { canonical: `${site.siteUrl}/about` },
   };
 }
 

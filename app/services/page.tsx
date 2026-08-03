@@ -6,20 +6,15 @@ import ServicesGridSection from "@/components/sections/ServicesGridSection";
 import ServiceSection from "@/components/sections/ServiceSection";
 import FAQSection from "@/components/sections/FAQSection";
 import CTABanner from "@/components/sections/CTABanner";
+import { getSiteConfig } from "@/lib/site/config";
+import { contactHrefForService, isTechnicalOnlySite } from "@/lib/site/offerings";
 
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
-
-const SERVICE_TARGETS: Record<string, string> = {
-  software: "/contact?service=software",
-  websites: "/contact?service=websites",
-  intelligence: "/contact?service=ai",
-  marketing: "/contact?service=marketing",
-  visualization: "/contact?service=3d",
-  strategy: "/contact?service=strategy",
-};
+const site = getSiteConfig();
 
 export default function ServicesPage() {
   const { t } = useLanguage();
+  const showRenderQuote = !isTechnicalOnlySite(site.id);
   const renderQuoteLabel =
     t.services.categories.find((c) => c.id === "visualization")?.cta ?? "Get a render quote";
 
@@ -51,8 +46,8 @@ export default function ServicesPage() {
               gap: "7px",
             }}
           >
-            <img src="/Arafion Icon.png" alt="" style={{ height: "20px", width: "20px", objectFit: "contain" }} />
-            Arafion
+            <img src={site.iconPath} alt="" style={{ height: "20px", width: "20px", objectFit: "contain" }} />
+            {site.shortName}
           </Link>
           <span
             style={{
@@ -154,8 +149,9 @@ export default function ServicesPage() {
           >
             {t.common.viewWork}
           </Link>
+          {showRenderQuote ? (
           <Link
-            href={SERVICE_TARGETS.visualization}
+            href={contactHrefForService("visualization")}
             style={{
               fontFamily: NM,
               fontWeight: 400,
@@ -169,6 +165,7 @@ export default function ServicesPage() {
           >
             {renderQuoteLabel}
           </Link>
+          ) : null}
         </div>
       </div>
 
@@ -197,7 +194,7 @@ export default function ServicesPage() {
             {t.services.categories.map((item) => (
               <Link
                 key={item.id}
-                href={SERVICE_TARGETS[item.id] ?? "/contact"}
+                href={contactHrefForService(item.id)}
                 style={{
                   fontFamily: NM,
                   fontWeight: 400,

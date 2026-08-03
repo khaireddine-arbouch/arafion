@@ -376,6 +376,22 @@ body {
 /* Testimonials strip — same keyframes, longer duration for easier reading */
 .animate-marquee-right-slow { animation: marquee-right 48s linear infinite; }
 
+/*
+ * Hero intro FOUC guard: hide animated nodes in CSS before JS hydrates.
+ * GSAP autoAlpha overrides these with inline styles when the tween runs.
+ * Keep outside prefers-reduced-motion so reduced-motion still starts hidden
+ * (JS will reveal instantly).
+ */
+.vh-animate {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.cb-animate {
+  opacity: 0;
+  visibility: hidden;
+}
+
 /* Respect OS-level reduced-motion. Strips decorative transitions/animations
    globally; functional feedback (opacity, color) still reads fine without
    movement. Keep this last so it overrides utility classes. */

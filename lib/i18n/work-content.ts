@@ -1,6 +1,8 @@
 import { type Locale } from "./translations";
+import type { LocaleRecord } from "./locale-record";
+import { scrubNonIsraelPlaces } from "@/lib/site/geography";
 
-const CLIENT_BRIEFS: Record<Locale, Record<string, string>> = {
+const CLIENT_BRIEFS: LocaleRecord<Record<string, string>> = {
   en: {
     "nileroute-os":
       "A full internal operating system for a freight logistics business - not a simple dashboard, but a real multi-tenant platform that could handle customers, shipments, containers, documents, and an AI assistant in a single authenticated workspace.",
@@ -81,17 +83,47 @@ const CLIENT_BRIEFS: Record<Locale, Record<string, string>> = {
     "chiro-site":
       "موقع صحي نظيف وموثوق لعيادة تقويم العمود الفقري مع عرض الخدمات وملفات الفريق ومسار تواصل / حجز للمريض.",
   },
+  he: {
+    "nileroute-os":
+      "מערכת תפעול פנימית מלאה לעסק לוגיסטיקת מטענים — לא דשבורד פשוט, אלא פלטפורמה רב־דיירית אמיתית לניהול לקוחות, משלוחים, מכולות, מסמכים ועוזר AI במרחב עבודה מאומת אחד.",
+    "evo2-variant-intelligence":
+      "ממשק ברמה מחקרית לחיזוי פתוגניות של וריאנטים, שמחבר את מודל הבסיס Evo2 לקונסולת ניתוח שמישה עם ויזואליזציית חלבון תלת־ממדית, הערות קליניות והיסטוריית סשנים.",
+    "signalsframe":
+      "פלטפורמת עריכת וידאו ואודיו בדפדפן שעובדת לגמרי בלי תוספים — מנוע טיימליין מלא, צינור ייצוא ופריסטים לרשתות, הכול בדפדפן.",
+    "intelligence-console":
+      "פלטפורמת דמו למודיעין ארגוני שמציגה סיכון שרשרת אספקה, ניקוד ESG, מידול תרחישים ודשבורדים למנהלים — מיועדת להעביר יכולת מוצר לקונים בתחומי רכש וסיכון.",
+    "atlas-intelligence":
+      "מסגרת UI למודיעין לשימוש חוזר עם ארבעה מצבי תפעול (Scan, Investigate, Decide, Execute) שניתן להתאים לשימושי מודיעין ארגוניים שונים בלי לבנות מאפס.",
+    "atlas-geoint":
+      "אבטיפוס של תחנת עבודה למודיעין גיאו־מרחבי להצגת אירועים, ישויות ומסדרונות על מפה אינטראקטיבית — עם ניקוד ביטחון, קישור ראיות ותיוג החלטות.",
+    draftly:
+      "פלטפורמת עיצוב שיתופית שבה צוותים מנהלים פרויקטי עיצוב, לוחות השראה ונכסים במרחבי עבודה מאומתים — נבנתה כאבטיפוס מוצר.",
+    geoflex360:
+      "אתר שיווקי רב־לשוני בצרפתית לחברת הנדסה טופוגרפית ממרוקו — עם הצגת שירותים, תיק פרויקטים, תשתית SEO וטופס יצירת קשר פעיל.",
+    "chiro-site":
+      "אתר בריאות נקי ואמין לקליניקת כירופרקטיקה עם הצגת שירותים, פרופילי צוות וזרימת יצירת קשר / הזמנת תור.",
+    "cabinet-chiropratique-chaima-hosni":
+      "אתר בריאות נקי ואמין לקליניקת כירופרקטיקה עם הצגת שירותים, פרופילי צוות וזרימת יצירת קשר / הזמנת תור.",
+  },
 };
 
-const MORE_LABEL: Record<Locale, string> = {
+const MORE_LABEL: LocaleRecord<string> = {
   en: "more",
   fr: "de plus",
   tr: "daha",
   ar: "أخرى",
+  he: "עוד",
 };
 
 export function getClientBrief(locale: Locale, slug: string) {
-  return CLIENT_BRIEFS[locale][slug] ?? CLIENT_BRIEFS.en[slug] ?? "";
+  const localized = CLIENT_BRIEFS[locale]?.[slug];
+  if (localized) return scrubNonIsraelPlaces(localized, locale);
+  // Avoid English brief flash for translated locales — callers fall through
+  // to localized short descriptions instead.
+  if (locale === "en") {
+    return scrubNonIsraelPlaces(CLIENT_BRIEFS.en[slug] ?? "", locale);
+  }
+  return "";
 }
 
 export function getMoreLabel(locale: Locale) {

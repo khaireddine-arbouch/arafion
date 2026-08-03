@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
+import { getSiteConfig } from "@/lib/site/config";
 
 export default function robots(): MetadataRoute.Robots {
+  const site = getSiteConfig();
   return {
     rules: [
       {
@@ -9,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/_next/", "/legislation/"],
       },
     ],
-    sitemap: "https://arafion.com/sitemap.xml",
-    host: "https://arafion.com",
+    sitemap: `${site.siteUrl}/sitemap.xml`,
+    host: site.siteUrl,
   };
 }

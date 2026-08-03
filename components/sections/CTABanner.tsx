@@ -14,21 +14,49 @@ const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 export default function CTABanner() {
   const sectionRef = useRef<HTMLElement>(null);
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
 
   useGSAP(
     () => {
-      const d = { ease: "power3.out", immediateRender: false };
-      gsap.from(".cb-text", {
-        ...d, y: 36, opacity: 0, duration: 1.0,
-        scrollTrigger: { trigger: ".cb-text", start: "top 86%" },
-      });
-      gsap.from(".cb-cta", {
-        ...d, y: 20, opacity: 0, duration: 0.7, delay: 0.2,
-        scrollTrigger: { trigger: ".cb-cta", start: "top 90%" },
-      });
+      const targets = gsap.utils.toArray<HTMLElement>(".cb-animate");
+      gsap.set(targets, { autoAlpha: 0 });
+
+      const reduceMotion =
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduceMotion) {
+        gsap.set(targets, { autoAlpha: 1, y: 0 });
+        return;
+      }
+
+      gsap.fromTo(
+        ".cb-text",
+        { y: 36, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 1.0,
+          ease: "power3.out",
+          immediateRender: false,
+          scrollTrigger: { trigger: ".cb-text", start: "top 86%" },
+        },
+      );
+      gsap.fromTo(
+        ".cb-cta",
+        { y: 20, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.7,
+          delay: 0.15,
+          ease: "power3.out",
+          immediateRender: false,
+          scrollTrigger: { trigger: ".cb-cta", start: "top 90%" },
+        },
+      );
     },
-    { scope: sectionRef },
+    { scope: sectionRef, dependencies: [locale], revertOnUpdate: true },
   );
 
   return (
@@ -61,7 +89,7 @@ export default function CTABanner() {
 
       {/* Text — absolutely anchored bottom-left */}
       <div className="absolute inset-0 z-20 flex flex-col justify-end px-8 pb-14 md:px-14 lg:px-20 lg:pb-18">
-        <div className="cb-text max-w-[640px]">
+        <div className="cb-text cb-animate max-w-[640px]">
           <h2
             style={{
               fontFamily: NM,
@@ -94,7 +122,7 @@ export default function CTABanner() {
             {t.cta.desc}
           </p>
 
-          <div className="cb-cta flex flex-wrap items-center gap-4">
+          <div className="cb-cta cb-animate flex flex-wrap items-center gap-4">
             <Link
               href="/contact"
               className="inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 transition-colors hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/30"

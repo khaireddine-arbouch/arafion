@@ -2,8 +2,10 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { translations } from "@/lib/i18n/translations";
+import { getSiteConfig } from "@/lib/site/config";
 
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
+const site = getSiteConfig();
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
@@ -95,12 +97,12 @@ export default async function NotFound() {
       <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "1.5rem", marginTop: "-1rem" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/Arafion%20Icon.png"
-          alt="Arafion"
+          src={site.iconPath}
+          alt={site.shortName}
           style={{ height: "20px", width: "20px", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.6 }}
         />
         <span style={{ fontFamily: NM, fontWeight: 500, fontSize: "14px", color: "rgba(255,255,255,0.5)", letterSpacing: "-0.02em" }}>
-          Arafion
+          {site.shortName}
         </span>
       </div>
 

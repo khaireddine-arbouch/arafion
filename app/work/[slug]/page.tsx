@@ -10,11 +10,17 @@ import rawProjects from "@/data/arafion-data/projects.json";
 import { regionLabel, serviceLabel, statusLabel } from "@/lib/i18n/labels";
 import { getWhatWeBuilt } from "@/lib/i18n/whatwebuilt-content";
 import { getClientBrief } from "@/lib/i18n/work-content";
+import {
+  getProjectDisplayTitle,
+  getProjectShortDescription,
+} from "@/lib/i18n/project-content";
+import { getSiteConfig } from "@/lib/site/config";
 
 const RAW = rawProjects as unknown as ArafionProjectRow[];
 import ReadingProgress from "@/components/blog/ReadingProgress";
 import RelatedWork from "@/components/work/RelatedWork";
 
+const site = getSiteConfig();
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
 const LOGO_MAP: Record<string, { src: string; invert?: boolean }> = {
@@ -46,24 +52,35 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = ALL_PORTFOLIO_PROJECTS.find((p) => p.slug === slug);
   if (!project) return { title: "Not Found" };
-  const url = `https://arafion.com/work/${slug}`;
+  const locale = await getRequestLocale();
+  const title = getProjectDisplayTitle(
+    locale,
+    slug,
+    project.title || project.displayTitle,
+  );
+  const description = getProjectShortDescription(
+    locale,
+    slug,
+    project.shortDescription,
+  );
+  const url = `${site.siteUrl}/work/${slug}`;
   const meta = getCaseStudyMeta(slug);
   const heroImg = meta ? imageUrl(meta.imageFolder, meta.images[0]) : null;
   return {
-    title: project.displayTitle,
-    description: project.shortDescription,
-    keywords: [...project.stackTags, ...project.serviceLabels, "Arafion", "case study"],
+    title,
+    description,
+    keywords: [...project.stackTags, ...project.serviceLabels, site.shortName, "case study"],
     openGraph: {
-      title: `${project.displayTitle} — Arafion Case Study`,
-      description: project.shortDescription,
+      title: `${title} — ${site.shortName} Case Study`,
+      description,
       url,
       type: "article",
-      ...(heroImg ? { images: [{ url: heroImg, alt: project.displayTitle }] } : {}),
+      ...(heroImg ? { images: [{ url: heroImg, alt: title }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
-      title: `${project.displayTitle} — Arafion`,
-      description: project.shortDescription,
+      title: `${title} — ${site.shortName}`,
+      description,
       ...(heroImg ? { images: [heroImg] } : {}),
     },
     alternates: { canonical: url },
@@ -86,6 +103,11 @@ export default async function CaseStudyPage({
   const logo = LOGO_MAP[project.id];
   const dotColor = STATUS_DOT[project.status] ?? "#86868B";
   const clientBrief = getClientBrief(locale, slug);
+  const title = getProjectDisplayTitle(
+    locale,
+    slug,
+    project.title || project.displayTitle,
+  );
   const copy =
     locale === "fr"
       ? { back: "Travaux", live: "Voir le projet en ligne", overview: "Aperçu", built: "Ce que nous avons construit", screenshots: "Captures d'écran", challenge: "Le défi", outcome: "Le résultat", more: "Plus de travaux", cta: "Vous avez un système à construire ? ", start: "Démarrer un projet", stack: "Stack technique", wantThis: "Envie de construire quelque chose comme ça ?", viewLive: "Voir le projet en ligne" }
@@ -93,7 +115,9 @@ export default async function CaseStudyPage({
         ? { back: "İşler", live: "Canlı projeyi görüntüle", overview: "Genel bakış", built: "Ne inşa ettik", screenshots: "Ekran görüntüleri", challenge: "Zorluk", outcome: "Sonuç", more: "Daha fazla iş", cta: "İnşa edilmesi gereken bir sisteminiz mi var?", start: "Projeye başlayın", stack: "Teknik altyapı", wantThis: "Böyle bir şey mi inşa etmek istiyorsunuz?", viewLive: "Canlı projeyi görüntüle" }
         : locale === "ar"
           ? { back: "الأعمال", live: "عرض المشروع المباشر", overview: "نظرة عامة", built: "ما الذي بنيناه", screenshots: "لقطات الشاشة", challenge: "التحدي", outcome: "النتيجة", more: "المزيد من الأعمال", cta: "هل لديك نظام يحتاج إلى بناء؟", start: "ابدأ مشروعاً", stack: "المكونات التقنية", wantThis: "تريد بناء شيء مثل هذا؟", viewLive: "عرض المشروع المباشر" }
-          : { back: "Work", live: "View live project", overview: "Overview", built: "What we built", screenshots: "Screenshots", challenge: "The challenge", outcome: "The outcome", more: "More work", cta: "Have a system, product, campaign, or visual experience that needs building?", start: "Start a project", stack: "Technical stack", wantThis: "Want to build something like this?", viewLive: "View live project" };
+          : locale === "he"
+            ? { back: "עבודות", live: "צפו בפרויקט החי", overview: "סקירה", built: "מה בנינו", screenshots: "צילומי מסך", challenge: "האתגר", outcome: "התוצאה", more: "עוד עבודות", cta: "יש לכם מערכת שצריך לבנות?", start: "התחילו פרויקט", stack: "סטאק טכני", wantThis: "רוצים לבנות משהו כזה?", viewLive: "צפו בפרויקט החי" }
+            : { back: "Work", live: "View live project", overview: "Overview", built: "What we built", screenshots: "Screenshots", challenge: "The challenge", outcome: "The outcome", more: "More work", cta: "Have a system, product, campaign, or visual experience that needs building?", start: "Start a project", stack: "Technical stack", wantThis: "Want to build something like this?", viewLive: "View live project" };
 
   // 3 related projects (same service category, excluding current)
   const related = ALL_PORTFOLIO_PROJECTS.filter(
@@ -133,7 +157,7 @@ export default async function CaseStudyPage({
               {copy.back}
             </Link>
             <Link href="/" style={{ fontFamily: NM, fontWeight: 500, fontSize: "14px", color: "#1D1D1F", letterSpacing: "-0.02em", textDecoration: "none" }}>
-              Arafion
+              {site.shortName}
             </Link>
           </div>
         </div>
@@ -168,7 +192,7 @@ export default async function CaseStudyPage({
             lineHeight: 1.06, letterSpacing: "-0.038em",
             color: "#1D1D1F", maxWidth: "900px", marginBottom: "1.5rem",
           }}>
-            {project.displayTitle}
+            {title}
           </h1>
 
           {/* Description */}
@@ -177,7 +201,8 @@ export default async function CaseStudyPage({
             lineHeight: 1.65, color: "#86868B",
             maxWidth: "680px", marginBottom: "2rem",
           }}>
-            {clientBrief || project.shortDescription}
+            {clientBrief ||
+              getProjectShortDescription(locale, slug, project.shortDescription)}
           </p>
 
           {/* Tag chips */}
@@ -203,7 +228,7 @@ export default async function CaseStudyPage({
               <>
                 <Image
                   src={heroImage}
-                  alt={`${project.displayTitle} screenshot`}
+                  alt={`${title} screenshot`}
                   width={1200}
                   height={675}
                   priority
@@ -264,7 +289,7 @@ export default async function CaseStudyPage({
                 }} />
                 {logo ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={logo.src} alt={project.displayTitle} style={{
+                  <img src={logo.src} alt={title} style={{
                     height: "56px", width: "auto", maxWidth: "min(320px, 80vw)", objectFit: "contain",
                     filter: logo.invert ? "brightness(0) invert(1)" : undefined, opacity: 0.9,
                   }} />
@@ -274,7 +299,7 @@ export default async function CaseStudyPage({
                     lineHeight: 1.1, letterSpacing: "-0.035em",
                     color: "rgba(255,255,255,0.88)", textAlign: "center",
                   }}>
-                    {project.displayTitle}
+                    {title}
                   </p>
                 )}
                 <div style={{
@@ -283,7 +308,7 @@ export default async function CaseStudyPage({
                   display: "flex", alignItems: "center", justifyContent: "space-between",
                 }}>
                   <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "10.5px", color: "rgba(255,255,255,0.22)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                    {project.displayTitle} · {regionLabel(locale, project.regionLabel)}
+                    {title} · {regionLabel(locale, project.regionLabel)}
                   </span>
                   {project.publicUrl && (
                     <Link href={project.publicUrl} target="_blank" rel="noopener noreferrer" style={{
@@ -292,7 +317,7 @@ export default async function CaseStudyPage({
                       display: "inline-flex", alignItems: "center", gap: "5px",
                       border: "1px solid rgba(255,255,255,0.1)", borderRadius: "100px", padding: "4px 12px",
                     }}>
-                      {locale === "fr" ? "Voir en ligne" : locale === "tr" ? "Canlı görüntüle" : locale === "ar" ? "عرض مباشر" : "View live"}
+                      {locale === "fr" ? "Voir en ligne" : locale === "tr" ? "Canlı görüntüle" : locale === "ar" ? "عرض مباشر" : locale === "he" ? "צפו בחי" : "View live"}
                       <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "8px", height: "8px" }}>
                         <path d="M2 5h6M5 2l3 3-3 3" />
                       </svg>
@@ -405,7 +430,7 @@ export default async function CaseStudyPage({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={gallery[0]}
-                alt={`${project.displayTitle} screenshot`}
+                alt={`${title} screenshot`}
                 style={{ width: "100%", height: "auto", display: "block" }}
               />
             </div>
@@ -422,7 +447,7 @@ export default async function CaseStudyPage({
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={src}
-                      alt={`${project.displayTitle} screenshot ${i + 2}`}
+                      alt={`${title} screenshot ${i + 2}`}
                       style={{ width: "100%", height: "auto", display: "block" }}
                     />
                   </div>

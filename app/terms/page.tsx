@@ -2,8 +2,10 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { getTermsContent } from "@/lib/i18n/legal-content";
+import { getSiteConfig } from "@/lib/site/config";
 
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
+const site = getSiteConfig();
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
@@ -12,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: copy.title,
     description: copy.intro,
-    alternates: { canonical: "https://arafion.com/terms" },
+    alternates: { canonical: `${site.siteUrl}/terms` },
   };
 }
 
@@ -26,8 +28,8 @@ export default async function TermsPage() {
         <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 1.25rem", height: "52px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <Link href="/" style={{ fontFamily: NM, fontWeight: 500, fontSize: "14px", color: "#1D1D1F", letterSpacing: "-0.02em", textDecoration: "none", display: "flex", alignItems: "center", gap: "8px" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/Arafion%20Icon.png" alt="" style={{ height: "18px", width: "18px", objectFit: "contain" }} />
-            Arafion
+            <img src={site.iconPath} alt="" style={{ height: "18px", width: "18px", objectFit: "contain" }} />
+            {site.shortName}
           </Link>
           <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "#86868B", letterSpacing: "0.04em", textTransform: "uppercase" }}>
             {copy.topBar}
@@ -70,7 +72,7 @@ export default async function TermsPage() {
       <div style={{ borderTop: "1px solid rgba(0,0,0,0.07)", background: "#F5F5F7" }}>
         <div style={{ maxWidth: "760px", margin: "0 auto", padding: "2.5rem 1.25rem", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
           <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#86868B" }}>
-            {copy.footerQuestions} <a href="mailto:contact@arafion.com" style={{ color: "#1D1D1F", textDecoration: "none" }}>contact@arafion.com</a>
+            {copy.footerQuestions} <a href={`mailto:${site.email}`} style={{ color: "#1D1D1F", textDecoration: "none" }}>{site.email}</a>
           </span>
           <div style={{ display: "flex", gap: "1.5rem" }}>
             <Link href={copy.footerOtherHref} style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#86868B", textDecoration: "none" }}>

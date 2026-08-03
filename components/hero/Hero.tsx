@@ -4,6 +4,9 @@ import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import type { Region } from "@/types";
+import { getSiteConfig } from "@/lib/site/config";
+
+const site = getSiteConfig();
 
 // GlobeHero's d3-geo orthographic projection produces SVG path strings that
 // depend on viewport size, so the SSR'd path never matches the client path
@@ -92,7 +95,7 @@ export default function Hero({ progress, onRegionClick }: Props) {
         {/* Top lockup: reads as a real header, less vertical drift than stacked + huge top offset */}
         <div className="flex items-center justify-center gap-2.5 md:gap-3 mb-4 md:mb-5">
           <Image
-            src="/Arafion%20Icon.png"
+            src={site.iconPath}
             alt=""
             width={64}
             height={64}
@@ -103,10 +106,10 @@ export default function Hero({ progress, onRegionClick }: Props) {
             className="text-[10px] sm:text-[11px] md:text-xs font-semibold tracking-[0.32em] uppercase text-muted"
             aria-hidden
           >
-            Arafion
+            {site.shortName}
           </span>
         </div>
-        <p className="sr-only">Arafion</p>
+        <p className="sr-only">{site.shortName}</p>
         <h1 className="text-3xl sm:text-[2.65rem] md:text-[3.15rem] font-semibold tracking-[-0.02em] text-ink leading-[1.08] md:leading-[1.04]">
           Product engineering
         </h1>

@@ -1,4 +1,6 @@
 import type { Locale } from "./translations";
+import type { LocaleRecord } from "./locale-record";
+import { isBlogCategoryAllowed, isBlogPostAllowed, isTechnicalOnlySite } from "@/lib/site/offerings";
 
 export type BlogCard = {
   category: string;
@@ -22,7 +24,7 @@ export type BlogIndexContent = {
   articles: BlogCard[];
 };
 
-const BLOG_INDEX_CONTENT: Record<Locale, BlogIndexContent> = {
+const BLOG_INDEX_CONTENT: LocaleRecord<BlogIndexContent> = {
   en: {
     eyebrow: "From the Lab",
     heading: "Engineering notes, system breakdowns, and production playbooks.",
@@ -399,8 +401,79 @@ const BLOG_INDEX_CONTENT: Record<Locale, BlogIndexContent> = {
       },
     ],
   },
+  he: {
+    eyebrow: "מהמעבדה",
+    heading: "הערות הנדסה, פירוקי מערכות ומדריכי ייצור.",
+    subheading:
+      "אנחנו מפרסמים איך חושבים על ארכיטקטורת תוכנה, זרימות AI, דשבורדים ומערכות דיגיטליות שנשלחות לייצור.",
+    viewAll: "כל ההערות",
+    featured: "מומלץ",
+    readArticle: "קריאת המאמר",
+    noArticles: "עדיין אין מאמרים בקטגוריה הזו.",
+    categories: [
+      { label: "הכול", slug: "all" },
+      { label: "תוכנה", slug: "software" },
+      { label: "AI", slug: "ai" },
+      { label: "נתונים", slug: "data" },
+      { label: "אדריכלות", slug: "architecture" },
+      { label: "צמיחה", slug: "growth" },
+      { label: "ייצור", slug: "production" },
+    ],
+    articles: [
+      {
+        category: "הנדסת מוצר",
+        categorySlug: "software",
+        title: "למה רוב ה־MVP של SaaS נכשלים לפני שהם מגיעים למשתמשים",
+        thesis:
+          "הבעיה כמעט אף פעם אינה הטכנולוגיה. זה מודל הנתונים החסר, לוגיקת תפקידים חלשה וזרימות עסקיות לא מוגדרות שקורסות את המוצר לפני שהוא נשלח.",
+        readTime: "12 דק׳",
+        tags: ["ארכיטקטורת SaaS", "היקף מוצר", "זרימות עבודה"],
+        href: "/blog/why-saas-mvps-fail",
+      },
+      {
+        category: "מערכות AI",
+        categorySlug: "ai",
+        title: "בניית קופיילוטים של AI שבאמת מתאימים לזרימות עבודה עסקיות",
+        thesis: "קופיילוטים צריכים להתחבר לזרימות, נתונים, הרשאות ופלטים — לא רק לצ׳אט.",
+        readTime: "10 דק׳",
+        tags: ["AI Copilots", "אינטגרציית LLM", "אוטומציה"],
+        href: "/blog/ai-copilots-business-workflows",
+      },
+      {
+        category: "נתונים ומודיעין",
+        categorySlug: "data",
+        title: "למה דשבורדים נכשלים כשמודל הנתונים שגוי",
+        thesis: "דשבורדים אינם גרפים. הם מערכות החלטה שנבנות על ארכיטקטורת נתונים.",
+        readTime: "9 דק׳",
+        tags: ["עיצוב דשבורד", "מודל נתונים", "BI"],
+        href: "/blog/dashboards-data-model",
+      },
+      {
+        category: "הנדסת מוצר",
+        categorySlug: "software",
+        title: "איך בונים מערכות תפעול פנימיות לזרימות עבודה עסקיות",
+        thesis: "דשבורדי ניהול, RBAC, זרימות מסמכים ומסלולי ביקורת — כמערכת, לא כאוסף עמודים.",
+        readTime: "11 דק׳",
+        tags: ["כלים פנימיים", "RBAC", "תפעול"],
+        href: "/blog/internal-operating-systems",
+      },
+    ],
+  },
 };
 
 export function getBlogIndexContent(locale: Locale): BlogIndexContent {
-  return BLOG_INDEX_CONTENT[locale] ?? BLOG_INDEX_CONTENT.en;
+  const base = BLOG_INDEX_CONTENT[locale] ?? BLOG_INDEX_CONTENT.en;
+  if (!isTechnicalOnlySite()) return base;
+
+  return {
+    ...base,
+    subheading:
+      locale === "he"
+        ? "אנחנו מפרסמים איך חושבים על ארכיטקטורת תוכנה, זרימות AI, דשבורדים ומערכות דיגיטליות שנשלחות לייצור."
+        : "We publish how we think through software architecture, AI workflows, dashboards, and shipping production systems.",
+    categories: base.categories.filter(
+      (c) => c.slug === "all" || isBlogCategoryAllowed(c.slug),
+    ),
+    articles: base.articles.filter((a) => isBlogPostAllowed(a)),
+  };
 }

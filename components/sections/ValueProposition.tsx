@@ -4,10 +4,13 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { getSiteConfig } from "@/lib/site/config";
+import { isIsraelOnlySite } from "@/lib/site/geography";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
+const site = getSiteConfig();
 
 const pillars = [
   {
@@ -22,8 +25,10 @@ const pillars = [
   },
   {
     num: "03",
-    title: "Cross-border fluency",
-    body: "Anchored in Morocco and Turkey, operating across European and international markets. We understand the friction of global builds.",
+    title: isIsraelOnlySite(site.id) ? "Israel-based execution" : "Cross-border fluency",
+    body: isIsraelOnlySite(site.id)
+      ? "Based in Israel and focused on local teams. We understand the market, the constraints, and how to ship here."
+      : "Anchored in Morocco and Turkey, operating across European and international markets. We understand the friction of global builds.",
   },
   {
     num: "04",

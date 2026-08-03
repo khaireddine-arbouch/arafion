@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { getSiteConfig } from "@/lib/site/config";
+
+const site = getSiteConfig();
 
 export const metadata: Metadata = {
   title: "Work",
@@ -9,12 +12,12 @@ export const metadata: Metadata = {
     "Atlas Intelligence", "intelligence dashboard", "software portfolio", "web development portfolio",
   ],
   openGraph: {
-    title: "Work — Arafion Case Studies",
+    title: `Work — ${site.shortName} Case Studies`,
     description:
       "Systems built across software, AI, data, and design. From multi-tenant SaaS to genomics research tools and intelligence dashboards.",
-    url: "https://arafion.com/work",
+    url: `${site.siteUrl}/work`,
   },
-  alternates: { canonical: "https://arafion.com/work" },
+  alternates: { canonical: `${site.siteUrl}/work` },
 };
 
 export default function WorkLayout({ children }: { children: React.ReactNode }) {

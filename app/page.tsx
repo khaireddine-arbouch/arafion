@@ -8,26 +8,27 @@ import ServicesGridSection from "@/components/sections/ServicesGridSection";
 import BlogSection from "@/components/sections/BlogSection";
 import FAQSection from "@/components/sections/FAQSection";
 import CTABanner from "@/components/sections/CTABanner";
+import { applySiteCopy, getSiteConfig } from "@/lib/site/config";
 
 const HOME_METADATA: Record<string, { title: string; description: string; ogDescription: string }> = {
   en: {
-    title: "Arafion — Product Engineering Lab",
+    title: "{brand} — Product Engineering Lab",
     description:
-      "Arafion builds websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and architectural visualization systems. Serious digital execution, end to end.",
+      "{brand} builds websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and architectural visualization systems. Serious digital execution, end to end.",
     ogDescription:
       "We build websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and 3D visualization systems. Built and shipped.",
   },
   fr: {
-    title: "Arafion — Laboratoire d'ingénierie produit",
+    title: "{brand} — Laboratoire d'ingénierie produit",
     description:
-      "Arafion construit des sites web, des produits SaaS, des workflows IA, des tableaux de bord, une infrastructure marketing et des systèmes de visualisation architecturale. Une exécution numérique sérieuse, de bout en bout.",
+      "{brand} construit des sites web, des produits SaaS, des workflows IA, des tableaux de bord, une infrastructure marketing et des systèmes de visualisation architecturale. Une exécution numérique sérieuse, de bout en bout.",
     ogDescription:
       "Nous construisons des sites web, des produits SaaS, des workflows IA, des tableaux de bord, une infrastructure marketing et des systèmes de visualisation 3D. Construit et livré.",
   },
   tr: {
-    title: "Arafion — Ürün Mühendisliği Laboratuvarı",
+    title: "{brand} — Ürün Mühendisliği Laboratuvarı",
     description:
-      "Arafion; web siteleri, SaaS ürünleri, yapay zeka iş akışları, gösterge tabloları, pazarlama altyapısı ve mimari görselleştirme sistemleri geliştirir. Baştan sona ciddi dijital uygulama.",
+      "{brand}; web siteleri, SaaS ürünleri, yapay zeka iş akışları, gösterge tabloları, pazarlama altyapısı ve mimari görselleştirme sistemleri geliştirir. Baştan sona ciddi dijital uygulama.",
     ogDescription:
       "Web siteleri, SaaS ürünleri, yapay zeka iş akışları, gösterge tabloları, pazarlama altyapısı ve 3D görselleştirme sistemleri geliştiriyoruz. İnşa edildi ve teslim edildi.",
   },
@@ -38,11 +39,19 @@ const HOME_METADATA: Record<string, { title: string; description: string; ogDesc
     ogDescription:
       "نبني مواقع ويب ومنتجات SaaS وسير عمل ذكاء اصطناعي ولوحات تحكم وبنية تحتية تسويقية وأنظمة تصور ثلاثي الأبعاد. مبني ومُسلَّم.",
   },
+  he: {
+    title: "{brand} — Product Engineering Lab",
+    description:
+      "{brand} builds websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and architectural visualization systems. Serious digital execution, end to end.",
+    ogDescription:
+      "We build websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and 3D visualization systems. Built and shipped.",
+  },
 };
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  const m = HOME_METADATA[locale] ?? HOME_METADATA.en;
+  const site = getSiteConfig();
+  const m = applySiteCopy(HOME_METADATA[locale] ?? HOME_METADATA.en);
   return {
     title: m.title,
     description: m.description,
@@ -54,10 +63,10 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: m.title,
       description: m.ogDescription,
-      url: "https://arafion.com",
+      url: site.siteUrl,
       type: "website",
     },
-    alternates: { canonical: "https://arafion.com" },
+    alternates: { canonical: site.siteUrl },
   };
 }
 

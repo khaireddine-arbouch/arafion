@@ -1,5 +1,6 @@
 import type { Locale } from "@/lib/i18n/translations";
 import { getCaseStudyText } from "@/lib/i18n/case-study-content";
+import { scrubNonIsraelPlaces } from "@/lib/site/geography";
 
 /**
  * Extended metadata for case study detail pages.
@@ -142,13 +143,15 @@ export function getCaseStudyMeta(slug: string, locale: Locale = "en"): CaseStudy
   const base = CS[slug] ?? null;
   if (!base) return null;
   const localized = getCaseStudyText(locale, slug);
-  if (!localized) return base;
-  return {
+  const merged: CaseStudyMeta = {
     ...base,
-    overview: localized.overview ?? base.overview,
-    challenge: localized.challenge ?? base.challenge,
-    outcome: localized.outcome ?? base.outcome,
+    overview: localized?.overview ?? base.overview,
+    challenge: localized?.challenge ?? base.challenge,
+    outcome: localized?.outcome ?? base.outcome,
   };
+  return JSON.parse(
+    scrubNonIsraelPlaces(JSON.stringify(merged), locale),
+  ) as CaseStudyMeta;
 }
 
 export function imageUrl(folder: string, filename: string): string {

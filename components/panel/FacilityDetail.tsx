@@ -6,6 +6,7 @@ import { IMPACT_TAG_LABEL } from "@/types";
 import { PROJECT_PIN_COLOR } from "@/components/map/MapProjectDots";
 import { ProposalProgress } from "@/components/ui/ProposalProgress";
 import { findActionsForMapProject } from "@/lib/action-project-link";
+import { SITE_ATTRIBUTION } from "@/lib/map-projects";
 import { getMunicipalitiesByState } from "@/lib/municipal-data";
 import { STANCE_HEX } from "@/lib/map-utils";
 import type { StanceType } from "@/types";
@@ -353,7 +354,7 @@ export default function FacilityDetail({
         {/* Source attribution — single muted line, not a badge */}
         <p className="text-[11px] text-muted/80">
           {facility.source === "arafion"
-            ? "Arafion — arafion.com"
+            ? SITE_ATTRIBUTION
             : "Sourced from public reporting"}
         </p>
       </div>

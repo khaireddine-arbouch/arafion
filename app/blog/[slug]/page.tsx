@@ -3,18 +3,21 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import {
-  BLOG_POSTS,
+  getPublishedPosts,
   getPost,
   getRelated,
   type ContentBlock,
 } from "@/data/arafion-data/blog-posts";
 import ReadingProgress from "@/components/blog/ReadingProgress";
 import RelatedPosts from "@/components/blog/RelatedPosts";
+import { getLocalizedBlogPost } from "@/lib/i18n/blog-post-content";
+import { getSiteConfig } from "@/lib/site/config";
 
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
+const site = getSiteConfig();
 
 export async function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.slug }));
+  return getPublishedPosts().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -23,14 +26,16 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
-  if (!post) return { title: "Not Found" };
-  const url = `https://arafion.com/blog/${post.slug}`;
+  const locale = await getRequestLocale();
+  const raw = getPost(slug);
+  if (!raw) return { title: "Not Found" };
+  const post = getLocalizedBlogPost(locale, raw);
+  const url = `${site.siteUrl}/blog/${post.slug}`;
   return {
     title: post.title,
     description: post.thesis,
     keywords: post.tags,
-    authors: [{ name: "Arafion", url: "https://arafion.com" }],
+    authors: [{ name: site.name, url: site.siteUrl }],
     openGraph: {
       title: post.title,
       description: post.thesis,
@@ -38,7 +43,7 @@ export async function generateMetadata({
       url,
       publishedTime: post.publishedAt,
       tags: post.tags,
-      authors: ["https://arafion.com"],
+      authors: [site.siteUrl],
     },
     twitter: {
       card: "summary_large_image",
@@ -214,11 +219,12 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPost(slug);
-  if (!post) notFound();
-
-  const related = getRelated(slug, 3);
   const locale = await getRequestLocale();
+  const raw = getPost(slug);
+  if (!raw) notFound();
+  const post = getLocalizedBlogPost(locale, raw);
+
+  const related = getRelated(slug, 3).map((p) => getLocalizedBlogPost(locale, p));
   const copy =
     locale === "fr"
       ? { back: "Du laboratoire", readTime: "lecture", more: "Plus du laboratoire", cta: "Prêt à construire quelque chose de sérieux ?", start: "Démarrer un projet" }
@@ -226,7 +232,9 @@ export default async function BlogPostPage({
         ? { back: "Laboratuvardan", readTime: "okuma", more: "Laboratuvardan daha fazlası", cta: "Ciddi bir şey inşa etmeye hazır mısınız?", start: "Projeye başlayın" }
         : locale === "ar"
           ? { back: "من المختبر", readTime: "قراءة", more: "المزيد من المختبر", cta: "هل أنت مستعد لبناء شيء جاد؟", start: "ابدأ مشروعاً" }
-          : { back: "From the Lab", readTime: "read", more: "More from the Lab", cta: "Ready to build something serious?", start: "Start a project" };
+          : locale === "he"
+            ? { back: "מהמעבדה", readTime: "קריאה", more: "עוד מהמעבדה", cta: "מוכנים לבנות משהו רציני?", start: "התחלת פרויקט" }
+            : { back: "From the Lab", readTime: "read", more: "More from the Lab", cta: "Ready to build something serious?", start: "Start a project" };
 
   return (
     <>

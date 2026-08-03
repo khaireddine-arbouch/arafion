@@ -60,10 +60,10 @@ test("buildPortfolioProjects uses region centroids for missing coordinates", () 
   assert.equal(project.lng, 2.3522);
 });
 
-test("buildPortfolioProjects anonymizes confidential clients", () => {
+test("buildPortfolioProjects keeps project title for confidential clients", () => {
   const [project] = buildPortfolioProjects([baseProject]);
 
-  assert.equal(project.displayTitle, "Confidential engagement");
+  assert.equal(project.displayTitle, "Signal Console");
   assert.equal(project.globeLabel, "AI systems · Europe");
 });
 

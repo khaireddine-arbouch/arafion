@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/lib/i18n/context";
 import { LOCALES, type Locale } from "@/lib/i18n/translations";
+import { getAvailableLocales } from "@/lib/site/config";
 
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
 
@@ -17,6 +18,8 @@ export default function LanguageSwitcher({ dark = false, compact = false }: Prop
   const { locale, setLocale, t } = useLanguage();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const available = getAvailableLocales();
+  const locales = LOCALES.filter((l) => available.includes(l.code));
 
   // Close on outside click
   useEffect(() => {
@@ -38,7 +41,7 @@ export default function LanguageSwitcher({ dark = false, compact = false }: Prop
     return () => document.removeEventListener("keydown", handle);
   }, [open]);
 
-  const current = LOCALES.find((l) => l.code === locale) ?? LOCALES[0];
+  const current = locales.find((l) => l.code === locale) ?? locales[0];
 
   const triggerBg   = dark ? "hover:bg-white/10"       : "hover:bg-black/[0.07]";
   const triggerRing = dark ? "focus-visible:ring-white/30" : "focus-visible:ring-black/30";
@@ -125,7 +128,7 @@ export default function LanguageSwitcher({ dark = false, compact = false }: Prop
           }}
         >
           <div className="p-1">
-            {LOCALES.map((l) => {
+            {locales.map((l) => {
               const isActive = l.code === locale;
               return (
                 <button

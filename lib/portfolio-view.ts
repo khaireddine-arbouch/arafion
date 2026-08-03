@@ -5,6 +5,8 @@ export interface ArafionProjectRow {
   status: string;
   projectType?: string;
   visibility?: string;
+  /** Which marketing sites show this project. Missing = both. */
+  sites?: Array<"arafion" | "norex">;
   targetMarkets?: string[];
   client: {
     name: string;
@@ -205,8 +207,13 @@ export function statusLabel(status: string): string {
 }
 
 export function publicProjectTitle(row: ArafionProjectRow): string {
-  if (row.client.isConfidential) return "Confidential engagement";
-  if (row.client.publicName && row.client.publicName !== "Arafion Internal Product") {
+  // Keep the public project title; confidentiality only hides the client name.
+  if (row.client.isConfidential) return row.title;
+  if (
+    row.client.publicName &&
+    row.client.publicName !== "Arafion Internal Product" &&
+    row.client.publicName !== row.title
+  ) {
     return `${row.client.publicName} - ${row.title}`;
   }
   return row.title;

@@ -30,6 +30,7 @@ const REGION_COLOR: Record<string, string> = {
   "Asia Pacific": "bg-purple-500",
   International: "bg-gray-400",
   "Morocco / International": "bg-orange-500",
+  Israel: "bg-sky-500",
 };
 
 export default function ClientMarquee() {

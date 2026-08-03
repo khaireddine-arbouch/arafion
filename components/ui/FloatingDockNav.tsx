@@ -8,8 +8,12 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import { useLanguage } from "@/lib/i18n/context";
 import { LOCALES, type Locale } from "@/lib/i18n/translations";
+import { getAvailableLocales, getSiteConfig } from "@/lib/site/config";
 
-const ARAFION_ICON_SRC = "/Arafion%20Icon.png";
+const site = getSiteConfig();
+const ICON_SRC = site.iconPath;
+const availableLocales = getAvailableLocales();
+const SITE_LOCALES = LOCALES.filter((l) => availableLocales.includes(l.code));
 
 function MailIcon({ className }: { className?: string }) {
   return (
@@ -152,8 +156,8 @@ export default function FloatingDockNav() {
               {/* Brand row */}
               <div className="flex shrink-0 items-center justify-between px-5 pt-2 pb-4">
                 <Link href="/" className="flex items-center gap-2.5" onClick={() => setMenuOpen(false)}>
-                  <Image src={ARAFION_ICON_SRC} alt="" width={22} height={22} className="size-[20px] object-contain" />
-                  <span className="text-[14px] font-medium tracking-[-0.02em] text-white">Arafion</span>
+                  <Image src={ICON_SRC} alt="" width={22} height={22} className="size-[20px] object-contain" />
+                  <span className="text-[14px] font-medium tracking-[-0.02em] text-white">{site.shortName}</span>
                 </Link>
                 <button
                   onClick={() => setMenuOpen(false)}
@@ -196,7 +200,7 @@ export default function FloatingDockNav() {
                 style={{ paddingBottom: "max(1.25rem, calc(env(safe-area-inset-bottom, 0px) + 1rem))" }}
               >
                 <div className="flex flex-wrap gap-1.5" role="listbox" aria-label={t.common.language}>
-                  {LOCALES.map((l) => {
+                  {SITE_LOCALES.map((l) => {
                     const active = l.code === locale;
                     return (
                       <button
@@ -214,11 +218,11 @@ export default function FloatingDockNav() {
                   })}
                 </div>
                 <a
-                  href="mailto:contact@arafion.com"
+                  href={`mailto:${site.email}`}
                   className="flex items-center justify-center gap-2 rounded-full bg-white px-4 py-3 text-[13.5px] font-semibold text-[#141414]"
                 >
                   <MailIcon className="size-4 shrink-0" />
-                  <span className="truncate">contact@arafion.com</span>
+                  <span className="truncate">{site.email}</span>
                 </a>
               </div>
             </motion.div>
@@ -282,7 +286,7 @@ export default function FloatingDockNav() {
               }`}
               aria-label={t.nav.home}
             >
-              <Image src={ARAFION_ICON_SRC} alt="" width={24} height={24} className="size-[18px] object-contain" priority />
+              <Image src={ICON_SRC} alt="" width={24} height={24} className="size-[18px] object-contain" priority />
             </Link>
           </motion.div>
 
@@ -313,7 +317,7 @@ export default function FloatingDockNav() {
               }`}
               aria-label={t.nav.home}
             >
-              <Image src={ARAFION_ICON_SRC} alt="" width={24} height={24} className="size-6 object-contain" priority />
+              <Image src={ICON_SRC} alt="" width={24} height={24} className="size-6 object-contain" priority />
             </Link>
           </motion.div>
 
@@ -371,11 +375,11 @@ export default function FloatingDockNav() {
               transition={{ type: "spring", stiffness: 450, damping: 24 }}
             >
               <a
-                href="mailto:contact@arafion.com"
-                aria-label="Email contact@arafion.com"
+                href={`mailto:${site.email}`}
+                aria-label={`Email ${site.email}`}
                 className="inline-flex h-11 items-center justify-center rounded-full bg-white px-4 py-2.5 text-[12px] font-semibold text-[#141414] shadow-sm ring-1 ring-black/4 transition-shadow hover:shadow-md"
               >
-                <span className="max-w-44 truncate md:max-w-none">contact@arafion.com</span>
+                <span className="max-w-44 truncate md:max-w-none">{site.email}</span>
               </a>
             </motion.div>
           </div>

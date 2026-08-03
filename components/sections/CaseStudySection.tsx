@@ -7,8 +7,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ALL_PORTFOLIO_PROJECTS } from "@/lib/map-projects";
 import { regionLabel, serviceLabel, statusLabel } from "@/lib/i18n/labels";
+import type { Locale } from "@/lib/i18n/translations";
 import type { PortfolioProject } from "@/lib/portfolio-view";
 import { useLanguage } from "@/lib/i18n/context";
+import { getProjectShortDescription, getProjectDisplayTitle } from "@/lib/i18n/project-content";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -44,7 +46,7 @@ function truncate(s: string, max: number): string {
 
 function caseStudyStats(
   p: PortfolioProject,
-  locale: "en" | "fr" | "tr" | "ar",
+  locale: Locale,
   labels: { status: string; region: string; focus: string; stack: string },
 ): { value: string; label: string }[] {
   const a = p.stackTags[0] ?? "—";
@@ -184,8 +186,9 @@ export default function CaseStudySection() {
               <CaseStudyCard
                 key={project.id}
                 project={project}
-              labels={t.sections.caseStudies.labels}
-              locale={locale}
+                labels={t.sections.caseStudies.labels}
+                locale={locale}
+                viewProjectLabel={t.common.viewProject}
               />
             ))}
           </div>
@@ -199,10 +202,12 @@ function CaseStudyCard({
   project,
   labels,
   locale,
+  viewProjectLabel,
 }: {
   project: PortfolioProject & { publicUrl: string };
   labels: { status: string; region: string; focus: string; stack: string };
-  locale: "en" | "fr" | "tr" | "ar";
+  locale: Locale;
+  viewProjectLabel: string;
 }) {
   const logo = CASE_STUDY_LOGO[project.id];
   const screenshot = CASE_STUDY_SCREENSHOT[project.id];
@@ -210,6 +215,17 @@ function CaseStudyCard({
   const stack = project.stackTags.slice(0, 5);
   const service = serviceLabel(locale, project.serviceCategories[0] ?? "");
   const region = regionLabel(locale, project.regionLabel);
+  const description = getProjectShortDescription(
+    locale,
+    project.slug,
+    project.shortDescription,
+  );
+  const status = statusLabel(locale, project.status);
+  const title = getProjectDisplayTitle(
+    locale,
+    project.slug,
+    project.title || project.displayTitle,
+  );
 
   return (
     <article
@@ -226,7 +242,7 @@ function CaseStudyCard({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={screenshot}
-              alt={project.displayTitle}
+              alt={title}
               className="absolute inset-0 h-full w-full object-cover object-top"
             />
             {/* Dark gradient so footer strip stays legible */}
@@ -256,7 +272,7 @@ function CaseStudyCard({
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={logo.src}
-                alt={project.displayTitle}
+                alt={title}
                 style={{
                   height: "48px",
                   width: "auto",
@@ -278,7 +294,7 @@ function CaseStudyCard({
                   textAlign: "center",
                 }}
               >
-                {project.displayTitle}
+                {title}
               </p>
             )}
           </div>
@@ -299,7 +315,7 @@ function CaseStudyCard({
               textTransform: "uppercase",
             }}
           >
-            {project.displayTitle}
+            {title}
             {region ? ` · ${truncate(region, 38)}` : ""}
           </span>
           <div className="flex flex-wrap justify-end gap-1.5">
@@ -343,7 +359,7 @@ function CaseStudyCard({
               color: "#86868B",
             }}
           >
-            {project.statusLabel}
+            {status}
           </span>
         </div>
 
@@ -360,7 +376,7 @@ function CaseStudyCard({
               marginBottom: "1rem",
             }}
           >
-            {project.displayTitle}
+            {title}
           </h3>
 
           <p
@@ -373,7 +389,7 @@ function CaseStudyCard({
               maxWidth: "400px",
             }}
           >
-            {project.shortDescription}
+            {description}
           </p>
         </div>
 
@@ -442,13 +458,13 @@ function CaseStudyCard({
               textDecoration: "none",
             }}
           >
-            View project
+            {viewProjectLabel}
             <svg
               viewBox="0 0 10 10"
               fill="none"
               stroke="currentColor"
               strokeWidth="1.6"
-              className="size-[9px] transition-transform group-hover:translate-x-0.5"
+              className="size-[9px] transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
             >
               <path d="M2 5h6M5 2l3 3-3 3" />
             </svg>

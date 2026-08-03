@@ -32,6 +32,11 @@ This folder contains JSON data for rebuilding the Arafion website from the old T
    - No clinical/medical-grade claims for Evo2.
    - No live intelligence/market/feed claims for demo dashboards unless implemented.
    - No guaranteed campaign performance.
+7. **Dual-site visibility (`sites`)**: optional `sites: ["arafion"] | ["norex"] | ["arafion","norex"]` on each project in `projects.json`.
+   - Omit `sites` → project appears on **both** arafion.com and norexsystems.com.
+   - `"sites": ["norex"]` → Israel/Palestine-only (hidden on Arafion).
+   - `"sites": ["arafion"]` → Arafion-only.
+   - Set this whenever a project must not appear on both brands. Filtered in `lib/map-projects.ts` via `SITE_ID` / `NEXT_PUBLIC_SITE_ID`.
 
 ## Recommended first integration
 

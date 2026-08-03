@@ -88,6 +88,7 @@
     "doNotClaim": [
       "string"
     ],
-    "featured": "boolean"
+    "featured": "boolean",
+    "sites": ["arafion | norex — optional; omit to show on both marketing sites"]
   }
 }

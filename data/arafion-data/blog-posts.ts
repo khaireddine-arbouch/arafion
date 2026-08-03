@@ -1,3 +1,5 @@
+import { isBlogPostAllowed } from "@/lib/site/offerings";
+
 export type ContentBlock =
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
@@ -756,21 +758,23 @@ export const BLOG_POSTS: BlogPost[] = [
   },
 ];
 
+export function getPublishedPosts(): BlogPost[] {
+  return BLOG_POSTS.filter((p) => isBlogPostAllowed(p));
+}
+
 export function getPost(slug: string): BlogPost | undefined {
-  return BLOG_POSTS.find((p) => p.slug === slug);
+  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  if (!post || !isBlogPostAllowed(post)) return undefined;
+  return post;
 }
 
 export function getRelated(slug: string, limit = 3): BlogPost[] {
   const post = getPost(slug);
-  if (!post) return BLOG_POSTS.slice(0, limit);
-  return BLOG_POSTS.filter(
-    (p) => p.slug !== slug && p.categorySlug === post.categorySlug,
-  )
+  const pool = getPublishedPosts();
+  if (!post) return pool.slice(0, limit);
+  return pool
+    .filter((p) => p.slug !== slug && p.categorySlug === post.categorySlug)
     .slice(0, limit)
-    .concat(
-      BLOG_POSTS.filter(
-        (p) => p.slug !== slug && p.categorySlug !== post.categorySlug,
-      ),
-    )
+    .concat(pool.filter((p) => p.slug !== slug && p.categorySlug !== post.categorySlug))
     .slice(0, limit);
 }

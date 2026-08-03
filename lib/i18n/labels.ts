@@ -1,6 +1,8 @@
 import type { Locale } from "./translations";
+import type { LocaleRecord } from "./locale-record";
+import { homeMarketLabel, isIsraelOnlySite } from "@/lib/site/geography";
 
-const SERVICE_LABELS: Record<Locale, Record<string, string>> = {
+const SERVICE_LABELS: LocaleRecord<Record<string, string>> = {
   en: {
     websites: "Websites",
     "digital-presence": "Digital presence",
@@ -49,16 +51,29 @@ const SERVICE_LABELS: Record<Locale, Record<string, string>> = {
     ecommerce: "التجارة الإلكترونية",
     "internal-tools": "الأدوات الداخلية",
   },
+  he: {
+    websites: "אתרים",
+    "digital-presence": "נוכחות דיגיטלית",
+    "saas-software": "SaaS ותוכנה",
+    "ai-systems": "מערכות AI",
+    "dashboards-intelligence": "דשבורדים ומודיעין",
+    "marketing-production": "שיווק והפקה",
+    "architecture-visualization": "ויזואליזציה אדריכלית",
+    "3d-rendering": "רנדור 3D",
+    ecommerce: "מסחר אלקטרוני",
+    "internal-tools": "כלים פנימיים",
+  },
 };
 
-const STATUS_LABELS: Record<Locale, Record<string, string>> = {
+const STATUS_LABELS: LocaleRecord<Record<string, string>> = {
   en: { live: "Live", delivered: "Delivered", active: "Active", "in-development": "In development", prototype: "Prototype", "planned-or-in-progress": "In development" },
   fr: { live: "En ligne", delivered: "Livré", active: "Actif", "in-development": "En développement", prototype: "Prototype", "planned-or-in-progress": "En développement" },
   tr: { live: "Yayında", delivered: "Teslim edildi", active: "Aktif", "in-development": "Geliştiriliyor", prototype: "Prototip", "planned-or-in-progress": "Geliştiriliyor" },
   ar: { live: "مباشر", delivered: "مسلّم", active: "نشط", "in-development": "قيد التطوير", prototype: "نموذج أولي", "planned-or-in-progress": "قيد التطوير" },
+  he: { live: "חי", delivered: "נמסר", active: "פעיל", "in-development": "בפיתוח", prototype: "אב־טיפוס", "planned-or-in-progress": "בפיתוח" },
 };
 
-const REGION_LABELS: Record<Locale, Record<string, string>> = {
+const REGION_LABELS: LocaleRecord<Record<string, string>> = {
   en: {
     Americas: "Americas",
     Europe: "Europe",
@@ -66,6 +81,7 @@ const REGION_LABELS: Record<Locale, Record<string, string>> = {
     "Asia Pacific": "Asia Pacific",
     International: "International",
     "Morocco / International": "Morocco / International",
+    Israel: "Israel",
   },
   fr: {
     Americas: "Amériques",
@@ -74,6 +90,7 @@ const REGION_LABELS: Record<Locale, Record<string, string>> = {
     "Asia Pacific": "Asie-Pacifique",
     International: "International",
     "Morocco / International": "Maroc / International",
+    Israel: "Israël",
   },
   tr: {
     Americas: "Amerika kıtası",
@@ -82,6 +99,7 @@ const REGION_LABELS: Record<Locale, Record<string, string>> = {
     "Asia Pacific": "Asya Pasifik",
     International: "Uluslararası",
     "Morocco / International": "Fas / Uluslararası",
+    Israel: "İsrail",
   },
   ar: {
     Americas: "الأمريكيتان",
@@ -90,18 +108,28 @@ const REGION_LABELS: Record<Locale, Record<string, string>> = {
     "Asia Pacific": "آسيا والمحيط الهادئ",
     International: "عالمي",
     "Morocco / International": "المغرب / عالمي",
+    Israel: "إسرائيل",
+  },
+  he: {
+    Americas: "אמריקות",
+    Europe: "אירופה",
+    "MENA & Africa": "MENA ואפריקה",
+    "Asia Pacific": "אסיה־פסיפיק",
+    International: "בינלאומי",
+    "Morocco / International": "מרוקו / בינלאומי",
+    Israel: "ישראל",
   },
 };
 
 export function serviceLabel(locale: Locale, category: string): string {
-  return SERVICE_LABELS[locale][category] ?? SERVICE_LABELS.en[category] ?? category;
+  return SERVICE_LABELS[locale]?.[category] ?? SERVICE_LABELS.en[category] ?? category;
 }
 
 export function statusLabel(locale: Locale, status: string): string {
-  return STATUS_LABELS[locale][status] ?? STATUS_LABELS.en[status] ?? status;
+  return STATUS_LABELS[locale]?.[status] ?? STATUS_LABELS.en[status] ?? status;
 }
 
 export function regionLabel(locale: Locale, label: string): string {
-  return REGION_LABELS[locale][label] ?? REGION_LABELS.en[label] ?? label;
+  if (isIsraelOnlySite()) return homeMarketLabel(locale);
+  return REGION_LABELS[locale]?.[label] ?? REGION_LABELS.en[label] ?? label;
 }
-

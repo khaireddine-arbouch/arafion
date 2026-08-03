@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 import { ALL_PORTFOLIO_PROJECTS } from "@/lib/map-projects";
-import { BLOG_POSTS } from "@/data/arafion-data/blog-posts";
-
-const BASE = "https://arafion.com";
+import { getPublishedPosts } from "@/data/arafion-data/blog-posts";
+import { getSiteConfig } from "@/lib/site/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const BASE = getSiteConfig().siteUrl;
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -53,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
-  const blogRoutes: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
+  const blogRoutes: MetadataRoute.Sitemap = getPublishedPosts().map((post) => ({
     url: `${BASE}/blog/${post.slug}`,
     lastModified: new Date(post.publishedAt),
     changeFrequency: "yearly" as const,

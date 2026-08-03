@@ -4,7 +4,9 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ALL_PORTFOLIO_PROJECTS } from "@/lib/map-projects";
 import type { PortfolioProject } from "@/lib/portfolio-view";
+import { getSiteConfig } from "@/lib/site/config";
 
+const site = getSiteConfig();
 const ALL = "All";
 
 function uniqueSorted(values: string[]): string[] {
@@ -246,7 +248,7 @@ export default function WorkExplorer() {
         <div className="mx-auto max-w-7xl px-5 py-5 md:px-8">
           <div className="flex items-center justify-between gap-4">
             <Link href="/" className="text-sm font-semibold tracking-tight text-ink">
-              Arafion
+              {site.shortName}
             </Link>
             <Link href="/contact" className="text-sm font-medium text-muted hover:text-ink">
               Contact
@@ -260,7 +262,7 @@ export default function WorkExplorer() {
               Filter, compare, and verify the portfolio.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-muted">
-              Browse project records from the canonical Arafion project data:
+              Browse project records from the canonical {site.shortName} project data:
               services, regions, status, proof types, and public stack tags.
             </p>
           </div>

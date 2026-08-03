@@ -1,10 +1,11 @@
-export type Locale = "en" | "fr" | "tr" | "ar";
+export type Locale = "en" | "fr" | "tr" | "ar" | "he";
 
 export const LOCALES: { code: Locale; name: string; nativeName: string; dir: "ltr" | "rtl" }[] = [
   { code: "en", name: "English",  nativeName: "English",  dir: "ltr" },
   { code: "fr", name: "French",   nativeName: "Français", dir: "ltr" },
   { code: "tr", name: "Turkish",  nativeName: "Türkçe",   dir: "ltr" },
   { code: "ar", name: "Arabic",   nativeName: "العربية",  dir: "rtl" },
+  { code: "he", name: "Hebrew",   nativeName: "עברית",    dir: "rtl" },
 ];
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -39,7 +40,7 @@ const en = {
   },
   about: {
     label:        "About us",
-    body1:        "Arafion is a product engineering lab that designs and builds high-leverage digital systems for companies moving across markets. We turn scattered operations into clear execution — shipping dashboards, automation systems, SaaS products, and data infrastructure that",
+    body1:        "{brand} is a product engineering lab that designs and builds high-leverage digital systems for companies moving across markets. We turn scattered operations into clear execution — shipping dashboards, automation systems, SaaS products, and data infrastructure that",
     body2:        "compound over time. Anchored in Morocco and Türkiye, serving teams across Europe and beyond.",
     learnMore:    "Learn about us",
     viewServices: "View services",
@@ -62,7 +63,7 @@ const en = {
   },
   services: {
     eyebrow: "What we build",
-    heading: "Six service families. One integrated team.",
+    heading: "Service families. One integrated team.",
     subheading: "From concept to shipped system — every discipline under one roof.",
     viewAll: "View all capabilities",
     startProject: "Start a",
@@ -124,14 +125,14 @@ const en = {
   },
   faq: {
     eyebrow: "FAQ",
-    heading: "Everything you need to know before working with Arafion.",
+    heading: "Everything you need to know before working with {brand}.",
     subheading: "How long does it take? What does it cost? Can you take over our existing system?",
     cta: "Ready to build something that lasts?",
     ctaSub: "Talk to the team — usually reply within one business day.",
     startProject: "Start a project",
     items: [
       {
-        q: "How long does it take to build a product with Arafion?",
+        q: "How long does it take to build a product with {brand}?",
         a: "Timelines depend on scope. A focused MVP or internal tool takes 4–8 weeks. A multi-tenant SaaS platform with AI and integrations is typically 10–16 weeks. We give an accurate estimate after a scoping call — not before.",
       },
       {
@@ -151,7 +152,7 @@ const en = {
         a: "Yes. We offer post-launch retainers covering monitoring, iteration, and feature development. Most long-term clients started with a single project and moved to a retainer once the system was live.",
       },
       {
-        q: "What makes Arafion different from a typical product agency?",
+        q: "What makes {brand} different from a typical product agency?",
         a: "We're engineers first. We don't outsource delivery or hand off designs to a separate dev team. The people who scope the work build it. We've also built our own systems — NileRoute OS, internal tooling — so we understand production constraints from the inside.",
       },
     ],
@@ -288,7 +289,7 @@ const fr: typeof en = {
   },
   about: {
     label:        "À propos",
-    body1:        "Arafion est un laboratoire d'ingénierie produit qui conçoit et développe des systèmes numériques à fort impact pour les entreprises en expansion internationale. Nous transformons des opérations dispersées en exécution fluide — en livrant des tableaux de bord, des systèmes d'automatisation, des produits SaaS et une infrastructure de données qui",
+    body1:        "{brand} est un laboratoire d'ingénierie produit qui conçoit et développe des systèmes numériques à fort impact pour les entreprises en expansion internationale. Nous transformons des opérations dispersées en exécution fluide — en livrant des tableaux de bord, des systèmes d'automatisation, des produits SaaS et une infrastructure de données qui",
     body2:        "se valorisent sur le long terme. Basés au Maroc et en Türkiye, au service d'équipes à travers l'Europe et au-delà.",
     learnMore:    "En savoir plus",
     viewServices: "Voir nos services",
@@ -373,14 +374,14 @@ const fr: typeof en = {
   },
   faq: {
     eyebrow: "FAQ",
-    heading: "Tout ce que vous devez savoir avant de travailler avec Arafion.",
+    heading: "Tout ce que vous devez savoir avant de travailler avec {brand}.",
     subheading: "Combien de temps ? Quel coût ? Pouvez-vous reprendre notre système existant ?",
     cta: "Prêt à construire quelque chose qui dure ?",
     ctaSub: "Parlons-en — nous répondons généralement sous un jour ouvré.",
     startProject: "Démarrer un projet",
     items: [
       {
-        q: "Combien de temps faut-il pour construire un produit avec Arafion ?",
+        q: "Combien de temps faut-il pour construire un produit avec {brand} ?",
         a: "Les délais dépendent du périmètre. Un MVP ciblé ou un outil interne prend 4 à 8 semaines. Une plateforme SaaS multi-tenant avec IA et intégrations nécessite généralement 10 à 16 semaines. Nous donnons une estimation précise après un appel de cadrage — pas avant.",
       },
       {
@@ -400,7 +401,7 @@ const fr: typeof en = {
         a: "Oui. Nous proposons des forfaits post-lancement couvrant la supervision, l'itération et le développement de nouvelles fonctionnalités. La plupart de nos clients long-terme ont commencé par un projet unique, puis sont passés en forfait une fois le système en production.",
       },
       {
-        q: "Qu'est-ce qui distingue Arafion d'une agence produit classique ?",
+        q: "Qu'est-ce qui distingue {brand} d'une agence produit classique ?",
         a: "Nous sommes des ingénieurs avant tout. Nous n'externalisons pas la livraison et ne transmettons pas les designs à une équipe dev séparée. Ceux qui cadrent le projet le construisent. Nous avons également développé nos propres systèmes — NileRoute OS, outils internes — ce qui nous donne une compréhension intime des contraintes de production.",
       },
     ],
@@ -537,7 +538,7 @@ const tr: typeof en = {
   },
   about: {
     label:        "Hakkımızda",
-    body1:        "Arafion, farklı pazarlarda büyüyen şirketler için yüksek etkili dijital sistemler tasarlayan ve inşa eden bir ürün mühendisliği laboratuvarıdır. Dağınık operasyonları net bir yürütmeye dönüştürüyoruz — zamanla değer katan gösterge tabloları, otomasyon sistemleri, SaaS ürünleri ve veri altyapısı",
+    body1:        "{brand}, farklı pazarlarda büyüyen şirketler için yüksek etkili dijital sistemler tasarlayan ve inşa eden bir ürün mühendisliği laboratuvarıdır. Dağınık operasyonları net bir yürütmeye dönüştürüyoruz — zamanla değer katan gösterge tabloları, otomasyon sistemleri, SaaS ürünleri ve veri altyapısı",
     body2:        "sunuyoruz. Fas ve Türkiye'de köklü yapımızla Avrupa genelindeki ve ötesindeki ekiplere hizmet veriyoruz.",
     learnMore:    "Bizi Tanıyın",
     viewServices: "Hizmetleri İncele",
@@ -622,14 +623,14 @@ const tr: typeof en = {
   },
   faq: {
     eyebrow: "SSS",
-    heading: "Arafion ile çalışmadan önce bilmeniz gereken her şey.",
+    heading: "{brand} ile çalışmadan önce bilmeniz gereken her şey.",
     subheading: "Ne kadar sürer? Maliyeti nedir? Mevcut sistemimizi devralabilir misiniz?",
     cta: "Kalıcı bir şey inşa etmeye hazır mısınız?",
     ctaSub: "Ekibimizle konuşun — genellikle bir iş günü içinde yanıt veriyoruz.",
     startProject: "Proje Başlat",
     items: [
       {
-        q: "Arafion ile bir ürün geliştirmek ne kadar sürer?",
+        q: "{brand} ile bir ürün geliştirmek ne kadar sürer?",
         a: "Süreler kapsama bağlıdır. Odaklı bir MVP veya dahili araç 4–8 hafta sürer. Yapay zeka ve entegrasyon içeren çok kiracılı bir SaaS platformu genellikle 10–16 haftayı kapsar. Doğru tahmini bir kapsam görüşmesinin ardından sunuyoruz — öncesinde değil.",
       },
       {
@@ -649,7 +650,7 @@ const tr: typeof en = {
         a: "Evet. İzleme, iterasyon ve özellik geliştirmeyi kapsayan lansman sonrası sabit ücret paketleri sunuyoruz. Uzun vadeli müşterilerin çoğu tek bir projeyle başladı ve sistem canlıya geçtikten sonra sabit ücret düzenlemesine geçti.",
       },
       {
-        q: "Arafion'u tipik bir ürün ajansından ayıran nedir?",
+        q: "{brand}'u tipik bir ürün ajansından ayıran nedir?",
         a: "Önce mühendisiz. Teslimi dış kaynaklara devretmiyoruz ve tasarımları ayrı bir geliştirme ekibine aktarmıyoruz. İşi kapsama alanına çekenler onu inşa ediyor. Ayrıca kendi sistemlerimizi geliştirdik — NileRoute OS, dahili araçlar — bu nedenle üretim kısıtlamalarını içeriden anlıyoruz.",
       },
     ],
@@ -1003,5 +1004,251 @@ const ar: typeof en = {
   },
 };
 
-export const translations: Record<Locale, typeof en> = { en, fr, tr, ar };
+const he: typeof en = {
+  dir: "rtl",
+  nav: {
+    work:     "עבודות",
+    services: "שירותים",
+    about:    "אודות",
+    blog:     "בלוג",
+    contact:  "צור קשר",
+    home:     "בית",
+  },
+  hero: {
+    line1:   "בנו מעבר.",
+    line2:   "שחררו עם",
+    line3:   "דיוק.",
+    tagline: "בפעילות שלכם טמון פוטנציאל —",
+    tagline2: "אנחנו עוזרים לכם",
+    taglineBold: "לבנות עליו.",
+    cta:     "התחלת פרויקט",
+    reply:   "מענה תוך יום עסקים אחד",
+    features: [
+      { title: "מודיעין בזמן אמת",        desc: "דשבורדים שמעלים תובנות ברגע שהן חשובות." },
+      { title: "תהליכי עבודה אוטומטיים",   desc: "מערכות שמסירות חיכוך ומתרחבות בלי עומס תפעולי." },
+      { title: "ויזואליזציות נתונים",      desc: "מערכי נתונים מורכבים שנעשים ברורים דרך ממשקים אינטראקטיביים מותאמים." },
+      { title: "אינטגרציות API",           desc: "חיבורי מערכות, צינורות נתונים ותשתיות אינטגרציה שנבנות ליציבות ולסקייל." },
+      { title: "הנדסה חוצת־שווקים",        desc: "תוכנה שנבנית לצוותים גלובליים — ממרוקו עד סינגפור." },
+    ],
+  },
+  about: {
+    label:        "אודותינו",
+    body1:        "{brand} הוא מעבדת הנדסת מוצר שמתכננת ובונה מערכות דיגיטליות בעלות מינוף גבוה לחברות שפועלות בין שווקים. אנחנו הופכים פעילות מפוזרת לביצוע ברור — משחררים דשבורדים, מערכות אוטומציה, מוצרי SaaS ותשתיות נתונים ש",
+    body2:        "צוברים ערך לאורך זמן. מעוגנים במרוקו ובטורקיה, ומשרתים צוותים באירופה ומעבר לה.",
+    learnMore:    "למידע עלינו",
+    viewServices: "לצפייה בשירותים",
+  },
+  globe: {
+    eyebrow:     "פרויקטים פרוסים",
+    heading:     "פועלים ב־4 יבשות.",
+    subheading:  "כל נקודה היא התקשרות חיה או שנמסרה. לחצו על סמן כדי לראות פרטי פרויקט.",
+    openMarker:  "פתיחת סמן",
+    regionLabels: {
+      "United States": "צפון אמריקה — מערכות בינה עסקית",
+      Canada:          "צפון אמריקה — מערכות בינה עסקית",
+      Morocco:         "מרוקו — תפעול נתונים",
+      Turkey:          "Türkiye — מערכות תוכנה",
+      France:          "אירופה — הנדסת תוכנה",
+      Germany:         "אירופה — הנדסת תוכנה",
+      "United Kingdom":"אירופה — הנדסת תוכנה",
+      Singapore:       "גלובלי — תשתיות SaaS",
+    },
+  },
+  services: {
+    eyebrow: "מה אנחנו בונים",
+    heading: "משפחות שירות. צוות משולב אחד.",
+    subheading: "מקונספט ועד מערכת שנשלחה — כל דיסציפלינה תחת קורת גג אחת.",
+    viewAll: "כל היכולות",
+    startProject: "התחלת",
+    project: "פרויקט",
+    forLabel: "עבור",
+    weBuild: "אנחנו בונים",
+    viewAllCapabilities: "כל היכולות",
+    hideCapabilities: "הסתרת יכולות",
+    categories: [
+      {
+        id: "software",
+        num: "01",
+        title: "הנדסת תוכנה ומוצר",
+        outcome: "מוצרי full-stack, פורטלים, דשבורדים ומערכות תפעול שנבנים לזרימות עבודה אמיתיות.",
+        for: "סטארטאפים, חברות בצמיחה ועסקים עתירי תפעול שבונים כלים פנימיים או פלטפורמות חיצוניות.",
+        cta: "התחלת פרויקט תוכנה",
+      },
+      {
+        id: "websites",
+        num: "02",
+        title: "אתרים ונוכחות דיגיטלית",
+        outcome: "אתרים שמסבירים את העסק בבהירות, מציגים הוכחות, קולטים לידים ותומכים בצמיחה.",
+        for: "עסקים שזקוקים לאמינות, לידים אונליין ונוכחות ציבורית רצינית.",
+        cta: "בניית אתר עסקי",
+      },
+      {
+        id: "intelligence",
+        num: "03",
+        title: "מודיעין, נתונים ובינה מלאכותית",
+        outcome: "אנחנו הופכים זרימות עבודה ונתונים מפוזרים למערכות בסיוע בינה מלאכותית, דשבורדים וממשקי החלטה.",
+        for: "צוותי תפעול, מנהלים ועסקים שיושבים על נתונים לא מובנים או מנוצלים חלקית.",
+        cta: "בניית מערכת בינה מלאכותית",
+      },
+      {
+        id: "marketing",
+        num: "04",
+        title: "שיווק, קמפיינים והפקה",
+        outcome: "אנחנו בונים את תשתיות הקמפיין, צינור היצירה, המעקב והדיווח — לא רק מודעות.",
+        for: "עסקים שמנהלים או מתכננים מדיה בתשלום, קמפיינים או הפקת תוכן בקנה מידה.",
+        cta: "בניית מערכת שיווק",
+      },
+      {
+        id: "visualization",
+        num: "05",
+        title: "ויזואליזציה אדריכלית ו־3D",
+        outcome: "הפיכת תוכניות, מודלים והפניות לרנדרים קולנועיים, מדיה אינטראקטיבית ונכסי 3D.",
+        for: "אדריכלים, מעצבי פנים, יזמים, צוותי נדל״ן וסטודיו למטבחים/פנים.",
+        cta: "התחלת פרויקט 3D",
+      },
+      {
+        id: "strategy",
+        num: "06",
+        title: "אסטרטגיה, הגדרת היקף ותחזוקה",
+        outcome: "לפני שבונים — מבהירים היקף, ארכיטקטורה, יעד ומסלול מסירה.",
+        for: "לקוחות רציניים שעומדים להשקיע במוצר תוכנה, מערכת AI, תשתיות קמפיין או בנייה מחדש.",
+        cta: "תיאום שיחת היקף",
+      },
+    ],
+  },
+  faq: {
+    eyebrow: "שאלות נפוצות",
+    heading: "כל מה שכדאי לדעת לפני עבודה עם {brand}.",
+    subheading: "כמה זמן זה לוקח? מה העלות? אפשר לקחת אחריות על מערכת קיימת?",
+    cta: "מוכנים לבנות משהו שנשאר?",
+    ctaSub: "דברו עם הצוות — בדרך כלל מענה תוך יום עסקים אחד.",
+    startProject: "התחלת פרויקט",
+    items: [
+      {
+        q: "כמה זמן לוקח לבנות מוצר עם {brand}?",
+        a: "לוחות הזמנים תלויים בהיקף. MVP ממוקד או כלי פנימי לוקחים 4–8 שבועות. פלטפורמת SaaS רב־דיירית עם AI ואינטגרציות היא בדרך כלל 10–16 שבועות. הערכה מדויקת ניתנת אחרי שיחת היקף — לא לפניה.",
+      },
+      {
+        q: "האם אתם עובדים עם סטארטאפים בשלב מוקדם, או רק עם חברות מבוססות?",
+        a: "עם שניהם. חלק מהעבודות הטובות ביותר שלנו היו עם מייסדים בשלב אפס־לאחד שנזקקו למערכת ברמת ייצור — לא לפרוטוטיפ. חשובה לנו בהירות הבעיה יותר מגודל החברה.",
+      },
+      {
+        q: "איך נראה מודל התמחור שלכם?",
+        a: "אנחנו עובדים על פרויקטים בהיקף קבוע למסירות מוגדרות, או על ריטיינר חודשי להנדסה שוטפת. אין תמחור שעתי — הוא מעוות תמריצים. כל התקשרות מתחילה בשלב היקף כדי ששני הצדדים יידעו בדיוק מה נבנה.",
+      },
+      {
+        q: "אפשר לקחת אחריות על קוד קיים, או שאתם מתחילים רק מאפס?",
+        a: "אנחנו מקבלים קוד קיים באופן קבוע. קודם מבצעים אודיט כדי להבין מה יורשים — חוב טכני, החלטות ארכיטקטורה, כיסוי בדיקות — ואז מציעים מסלול קדימה. חלק מהמערכות עוברות ריפקטור; אחרות נבנות מחדש על בסיס נקי.",
+      },
+      {
+        q: "האם יש תמיכה ותחזוקה אחרי שהפרויקט יוצא לאוויר?",
+        a: "כן. אנחנו מציעים ריטיינרים לאחר השקה שכוללים ניטור, איטרציה ופיתוח פיצ׳רים. רוב הלקוחות ארוכי הטווח התחילו בפרויקט בודד ועברו לריטיינר ברגע שהמערכת עלתה לאוויר.",
+      },
+      {
+        q: "מה מבדיל את {brand} מסוכנות מוצר טיפוסית?",
+        a: "אנחנו קודם כול מהנדסים. לא מבצעים מיקור חוץ של המסירה ולא מעבירים עיצובים לצוות פיתוח נפרד. מי שמגדיר את ההיקף — גם בונה. בנוסף בנינו מערכות משלנו — NileRoute OS, כלים פנימיים — כך שאנחנו מכירים מגבלות ייצור מבפנים.",
+      },
+    ],
+  },
+  cta: {
+    line1: "מגובה במלאכה.",
+    line2: "נבנה לסקייל.",
+    line3: "מהונדס בשבילכם.",
+    desc:  "ספרו לנו מה אתם בונים. נגיד לכם איך לשחרר את זה — מהר יותר, נקי יותר, ובנוי להחזיק.",
+    startProject: "התחלת פרויקט",
+    seeWork:      "לצפייה בעבודות",
+  },
+  footer: {
+    tagline: "מעבדת הנדסת מוצר, בנויה לסקייל.",
+    desc:    "אנחנו בונים דשבורדים, מוצרי SaaS, מערכות AI ותשתיות דיגיטליות לצוותים שזזים מהר.",
+    startProject: "התחלת פרויקט",
+    copyright:    "כל הזכויות שמורות.",
+    privacyLabel: "פרטיות",
+    termsLabel:   "תנאים",
+    columns: {
+      site:         "אתר",
+      capabilities: "יכולות",
+      demos:        "דמואים וחקר מקרה",
+      legal:        "משפטי ויצירת קשר",
+    },
+    links: {
+      home:                  "בית",
+      about:                 "אודות",
+      services:              "שירותים",
+      work:                  "עבודות ותיק עבודות",
+      blog:                  "בלוג",
+      contact:               "צור קשר",
+      faq:                   "שאלות נפוצות",
+      softwareSaas:          "תוכנה ו־SaaS",
+      websitesDigital:       "אתרים ודיגיטל",
+      dashboardsIntelligence:"דשבורדים ומודיעין",
+      marketingSystems:      "מערכות שיווק",
+      architecture3d:        "אדריכלות ו־3D",
+      strategyScoping:       "אסטרטגיה והיקף",
+      projectAudit:          "אודיט פרויקט",
+      allProjects:           "כל הפרויקטים",
+      caseStudies:           "חקר מקרה (דף הבית)",
+      privacy:               "מדיניות פרטיות",
+      terms:                 "תנאי שימוש",
+      emailUs:               "שלחו לנו מייל",
+    },
+  },
+  common: {
+    readMore:    "להמשך קריאה",
+    viewProject: "לצפייה בפרויקט",
+    viewWork:    "לצפייה בעבודות",
+    openMenu:    "פתיחת תפריט",
+    menu:        "תפריט",
+    close:       "סגירה",
+    loading:     "טוען…",
+    language:    "שפה",
+  },
+  sections: {
+    caseStudies: {
+      eyebrow: "חקר מקרה",
+      heading: "עבודות ייצור עם דמואים חיים או ציבוריים.",
+      subheading: "Shift + גלגלת עכבר בדסקטופ, או החלקה צידית במובייל.",
+      viewAll: "כל חקרי המקרה",
+      noArticles: "עדיין אין מאמרים בקטגוריה הזו.",
+      labels: {
+        status: "סטטוס",
+        region: "אזור",
+        focus: "מיקוד",
+        stack: "סטאק",
+        featured: "מומלץ",
+        readArticle: "קריאת המאמר",
+      },
+    },
+    blog: {
+      eyebrow: "מהמעבדה",
+      heading: "הערות הנדסה, פירוקי מערכות ומדריכי ייצור.",
+      subheading: "אנחנו מפרסמים איך חושבים על ארכיטקטורת תוכנה, זרימות AI, דשבורדים ומערכות דיגיטליות שנשלחות לייצור.",
+      viewAll: "כל ההערות",
+      readArticle: "קריאת המאמר",
+      featured: "מומלץ",
+      noArticles: "עדיין אין מאמרים בקטגוריה הזו.",
+      categories: [
+        { label: "הכול", slug: "all" },
+        { label: "תוכנה", slug: "software" },
+        { label: "AI", slug: "ai" },
+        { label: "נתונים", slug: "data" },
+        { label: "אדריכלות", slug: "architecture" },
+        { label: "צמיחה", slug: "growth" },
+        { label: "ייצור", slug: "production" },
+      ],
+    },
+    process: {
+      eyebrow: "איך אנחנו עובדים",
+      heading: "מרעיון למערכת שנשלחה — בלי ביצוע מעורפל.",
+      subheading: "אנחנו הופכים צרכים עסקיים לא ברורים למערכות דיגיטליות עם היקף, עיצוב, בנייה והשקה.",
+      steps: [
+        { n: "1", title: "אבחון", body: "מבינים את היעד העסקי, המשתמשים, זרימת העבודה, הנכסים, האילוצים ומה צריך לבנות." },
+        { n: "2", title: "בנייה", body: "מעצבים את החוויה, מממשים את המערכת, מחברים כלים, מכינים תוכן ובודקים את הזרימה לפני השקה." },
+        { n: "3", title: "השקה ושיפור", body: "פורסים, מוסרים, מאמנים את הלקוח, עוקבים אחרי ביצועים ותומכים באיטרציה הבאה." },
+      ],
+    },
+  },
+};
+
+export const translations: Record<Locale, typeof en> = { en, fr, tr, ar, he };
 export type Translations = typeof en;

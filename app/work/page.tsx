@@ -8,8 +8,15 @@ import type { ArafionProjectRow } from "@/lib/portfolio-view";
 import rawProjectsJson from "@/data/arafion-data/projects.json";
 import { regionLabel, serviceLabel, statusLabel } from "@/lib/i18n/labels";
 import { getClientBrief, getMoreLabel } from "@/lib/i18n/work-content";
+import {
+  getProjectDisplayTitle,
+  getProjectShortDescription,
+} from "@/lib/i18n/project-content";
+import { getWhatWeBuilt } from "@/lib/i18n/whatwebuilt-content";
+import { getSiteConfig } from "@/lib/site/config";
 
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
+const site = getSiteConfig();
 const RAW = rawProjectsJson as unknown as ArafionProjectRow[];
 
 /* ── Hero image (first/best screenshot) per slug ── */
@@ -37,11 +44,11 @@ export default function WorkPage() {
   const [active, setActive] = useState("all");
   const { locale } = useLanguage();
   const filters = [
-    { label: locale === "fr" ? "Tout" : locale === "tr" ? "Tümü" : locale === "ar" ? "الكل" : "All", slug: "all" },
-    { label: locale === "fr" ? "SaaS" : locale === "tr" ? "SaaS" : locale === "ar" ? "SaaS" : "SaaS", slug: "saas-software" },
+    { label: locale === "fr" ? "Tout" : locale === "tr" ? "Tümü" : locale === "ar" ? "الكل" : locale === "he" ? "הכל" : "All", slug: "all" },
+    { label: "SaaS", slug: "saas-software" },
     { label: "AI", slug: "ai-systems" },
-    { label: locale === "fr" ? "Tableaux" : locale === "tr" ? "Panolar" : locale === "ar" ? "لوحات" : "Dashboards", slug: "dashboards-intelligence" },
-    { label: locale === "fr" ? "Sites web" : locale === "tr" ? "Web siteleri" : locale === "ar" ? "المواقع" : "Websites", slug: "websites" },
+    { label: locale === "fr" ? "Tableaux" : locale === "tr" ? "Panolar" : locale === "ar" ? "لوحات" : locale === "he" ? "דשבורדים" : "Dashboards", slug: "dashboards-intelligence" },
+    { label: locale === "fr" ? "Sites web" : locale === "tr" ? "Web siteleri" : locale === "ar" ? "المواقع" : locale === "he" ? "אתרים" : "Websites", slug: "websites" },
   ];
   const heroTitle =
     locale === "fr"
@@ -50,7 +57,9 @@ export default function WorkPage() {
         ? "Yazılım, AI, veri ve tasarım genelinde inşa edilen sistemler."
         : locale === "ar"
           ? "أنظمة مبنية عبر البرمجيات والذكاء الاصطناعي والبيانات والتصميم."
-          : "Systems built across software, AI, data, and design.";
+          : locale === "he"
+            ? "מערכות שנבנו על פני תוכנה, AI, נתונים ועיצוב."
+            : "Systems built across software, AI, data, and design.";
   const heroSub =
     locale === "fr"
       ? "Des plateformes SaaS multi-tenant aux outils de recherche en génomique, en passant par les dashboards d'intelligence, les éditeurs médias dans le navigateur et les sites marketing multilingues — conçus et livrés."
@@ -58,7 +67,15 @@ export default function WorkPage() {
         ? "Çok kiracılı SaaS platformlarından genomik araştırma araçlarına, zeka panolarından tarayıcı tabanlı medya editörlerine ve çok dilli pazarlama sitelerine kadar — tasarlandı ve yayımlandı."
         : locale === "ar"
           ? "من منصات SaaS متعددة المستأجرين إلى أدوات أبحاث الجينوم، ولوحات الذكاء، ومحررات الوسائط داخل المتصفح، والمواقع التسويقية متعددة اللغات — تم بناؤها وتسليمها."
-          : "From multi-tenant SaaS platforms to genomics research tools, intelligence dashboards, browser-based media editors, and multilingual marketing sites — built and shipped.";
+          : locale === "he"
+            ? "מפלטפורמות SaaS רב־דייריות ועד כלי מחקר בגנומיקה, דשבורדי מודיעין, עורכי מדיה בדפדפן ואתרים שיווקיים רב־לשוניים — נבנו ונמסרו."
+            : "From multi-tenant SaaS platforms to genomics research tools, intelligence dashboards, browser-based media editors, and multilingual marketing sites — built and shipped.";
+  const workNav =
+    locale === "fr" ? "Travaux" : locale === "tr" ? "İşler" : locale === "ar" ? "الأعمال" : locale === "he" ? "עבודות" : "Work";
+  const projectsLabel =
+    locale === "fr" ? "projets" : locale === "tr" ? "proje" : locale === "ar" ? "مشروعًا" : locale === "he" ? "פרויקטים" : "projects";
+  const builtLabel =
+    locale === "fr" ? "Ce que nous avons construit" : locale === "tr" ? "Ne inşa ettik" : locale === "ar" ? "ما الذي بنيناه" : locale === "he" ? "מה בנינו" : "What we built";
 
   const projects = ALL_PORTFOLIO_PROJECTS.filter((p) =>
     active === "all" ? true : p.serviceCategories.includes(active),
@@ -74,10 +91,10 @@ export default function WorkPage() {
           height: "52px", display: "flex", alignItems: "center", justifyContent: "space-between",
         }}>
           <Link href="/" style={{ fontFamily: NM, fontWeight: 500, fontSize: "14px", color: "#1D1D1F", letterSpacing: "-0.02em", textDecoration: "none" }}>
-            Arafion
+            {site.shortName}
           </Link>
           <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "#86868B", letterSpacing: "0.04em", textTransform: "uppercase" }}>
-            {locale === "fr" ? "Travaux" : locale === "tr" ? "İşler" : locale === "ar" ? "الأعمال" : "Work"}
+            {workNav}
           </span>
         </div>
       </div>
@@ -85,7 +102,7 @@ export default function WorkPage() {
       {/* Header */}
       <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "clamp(3rem, 5vw, 5rem) 1.25rem clamp(2rem, 3.5vw, 3.5rem)" }}>
         <p style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#86868B", marginBottom: "1.25rem" }}>
-          {ALL_PORTFOLIO_PROJECTS.length} {locale === "fr" ? "projets" : locale === "tr" ? "proje" : locale === "ar" ? "مشروعًا" : "projects"}
+          {ALL_PORTFOLIO_PROJECTS.length} {projectsLabel}
         </p>
         <h1 style={{
           fontFamily: NM, fontWeight: 400,
@@ -129,8 +146,15 @@ export default function WorkPage() {
             const raw = RAW.find((r) => (r.slug ?? r.id) === project.slug);
             const heroSrc = HERO[project.slug] ?? "";
             const dotColor = STATUS_DOT[project.status] ?? "#86868B";
-            const brief = getClientBrief(locale, project.slug) || project.shortDescription;
-            const built = raw?.whatWeBuilt ?? [];
+            const title = getProjectDisplayTitle(
+              locale,
+              project.slug,
+              project.title || project.displayTitle,
+            );
+            const brief =
+              getClientBrief(locale, project.slug) ||
+              getProjectShortDescription(locale, project.slug, project.shortDescription);
+            const built = getWhatWeBuilt(locale, project.slug, raw?.whatWeBuilt ?? []);
 
             return (
               <Link
@@ -157,7 +181,7 @@ export default function WorkPage() {
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={heroSrc}
-                        alt={project.displayTitle}
+                        alt={title}
                         style={{
                           width: "100%", height: "100%",
                           objectFit: "cover", objectPosition: "top",
@@ -192,7 +216,7 @@ export default function WorkPage() {
                         letterSpacing: "-0.025em", color: "rgba(255,255,255,0.75)",
                         textAlign: "center", padding: "0 2rem", lineHeight: 1.2,
                       }}>
-                        {project.displayTitle}
+                        {title}
                       </p>
                       <div style={{
                         position: "absolute", bottom: "0.85rem", right: "0.85rem",
@@ -201,7 +225,7 @@ export default function WorkPage() {
                       }}>
                         <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: dotColor }} />
                         <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "10px", color: "rgba(255,255,255,0.5)", letterSpacing: "0.04em" }}>
-                          {project.statusLabel}
+                          {statusLabel(locale, project.status)}
                         </span>
                       </div>
                     </div>
@@ -231,7 +255,7 @@ export default function WorkPage() {
                       letterSpacing: "-0.022em", color: "#1D1D1F",
                       lineHeight: 1.25, marginBottom: "0.75rem",
                     }}>
-                      {project.displayTitle}
+                      {title}
                     </h3>
 
                     {/* Client brief / what they wanted */}
@@ -251,19 +275,19 @@ export default function WorkPage() {
                           letterSpacing: "0.08em", textTransform: "uppercase",
                           color: "#86868B", marginBottom: "0.6rem",
                         }}>
-                          {locale === "fr" ? "Ce que nous avons construit" : locale === "tr" ? "Ne inşa ettik" : locale === "ar" ? "ما الذي بنيناه" : "What we built"}
+                          {builtLabel}
                         </p>
                         <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
                           {built.slice(0, 5).map((item: string, i: number) => (
-                            <div key={i} style={{ display: "flex", alignItems: "baseline", gap: "0.6rem" }}>
-                              <span style={{ color: "#86868B", fontSize: "12px", flexShrink: 0 }}>—</span>
+                            <div key={i} style={{ position: "relative", paddingInlineStart: "1.1rem" }}>
+                              <span aria-hidden style={{ position: "absolute", insetInlineStart: 0, color: "#86868B", fontSize: "12px" }}>—</span>
                               <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "13px", color: "#1D1D1F", lineHeight: 1.4 }}>
                                 {item}
                               </span>
                             </div>
                           ))}
                           {built.length > 5 && (
-                            <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "#86868B", paddingLeft: "1.2rem" }}>
+                            <span style={{ fontFamily: NM, fontWeight: 400, fontSize: "12px", color: "#86868B", paddingInlineStart: "1.1rem" }}>
                             +{built.length - 5} {getMoreLabel(locale)}
                             </span>
                           )}
@@ -296,7 +320,7 @@ export default function WorkPage() {
                         color: "#1D1D1F", display: "inline-flex", alignItems: "center",
                         gap: "4px", flexShrink: 0,
                       }}>
-                        {locale === "fr" ? "Voir l'étude de cas" : locale === "tr" ? "Vaka çalışmasını görüntüle" : locale === "ar" ? "عرض دراسة الحالة" : "View case study"}
+                        {locale === "fr" ? "Voir l'étude de cas" : locale === "tr" ? "Vaka çalışmasını görüntüle" : locale === "ar" ? "عرض دراسة الحالة" : locale === "he" ? "צפו בקייס סטאדי" : "View case study"}
                         <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "9px", height: "9px" }}>
                           <path d="M2 5h6M5 2l3 3-3 3" />
                         </svg>

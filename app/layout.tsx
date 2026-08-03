@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Cairo } from "next/font/google";
+import { Inter, Cairo, Heebo } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import FloatingDockNav from "@/components/ui/FloatingDockNav";
@@ -8,6 +7,7 @@ import SiteFooter from "@/components/footer/SiteFooter";
 import { LanguageProvider } from "@/lib/i18n/context";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { translations } from "@/lib/i18n/translations";
+import { getSiteConfig } from "@/lib/site/config";
 import "./globals.css";
 
 const inter = Inter({
@@ -22,16 +22,23 @@ const cairo = Cairo({
   display: "swap",
 });
 
-const SITE_URL = "https://arafion.com";
+const heebo = Heebo({
+  subsets: ["hebrew", "latin"],
+  weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-heebo",
+  display: "swap",
+});
+
+const site = getSiteConfig();
+const titleDefault = `${site.name} — ${site.tagline}`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(site.siteUrl),
   title: {
-    default: "Arafion — Product Engineering Lab",
-    template: "%s · Arafion",
+    default: titleDefault,
+    template: `%s · ${site.shortName}`,
   },
-  description:
-    "Arafion is a hybrid execution studio building websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and architectural visualization systems. We build the systems behind serious digital execution.",
+  description: site.description,
   keywords: [
     "product engineering",
     "SaaS development",
@@ -44,11 +51,11 @@ export const metadata: Metadata = {
     "software engineering studio",
     "digital systems",
     "marketing infrastructure",
-    "Arafion",
+    site.shortName,
   ],
-  authors: [{ name: "Arafion", url: SITE_URL }],
-  creator: "Arafion",
-  publisher: "Arafion",
+  authors: [{ name: site.name, url: site.siteUrl }],
+  creator: site.name,
+  publisher: site.name,
   robots: {
     index: true,
     follow: true,
@@ -62,10 +69,10 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: SITE_URL,
-    siteName: "Arafion",
-    title: "Arafion — Product Engineering Lab",
+    locale: site.id === "norex" ? "en_IL" : "en_US",
+    url: site.siteUrl,
+    siteName: site.name,
+    title: titleDefault,
     description:
       "We build websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and architectural visualization systems for businesses that need serious digital execution.",
     images: [
@@ -73,53 +80,44 @@ export const metadata: Metadata = {
         url: "/background.png",
         width: 1200,
         height: 630,
-        alt: "Arafion — Product Engineering Lab",
+        alt: titleDefault,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Arafion — Product Engineering Lab",
+    title: titleDefault,
     description:
       "We build websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and architectural visualization systems.",
     images: ["/background.png"],
-    creator: "@arafionhq",
-    site: "@arafionhq",
+    creator: site.twitterHandle,
+    site: site.twitterHandle,
   },
   icons: {
-    icon: [
-      { url: "/Arafion%20Icon.png", type: "image/png" },
-    ],
-    apple: [
-      { url: "/Arafion%20Icon.png", type: "image/png" },
-    ],
-    shortcut: "/Arafion%20Icon.png",
+    icon: [{ url: site.iconPath, type: "image/png" }],
+    apple: [{ url: site.iconPath, type: "image/png" }],
+    shortcut: site.iconPath,
   },
   category: "technology",
   alternates: {
-    canonical: SITE_URL,
+    canonical: site.siteUrl,
   },
 };
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Arafion",
-  url: SITE_URL,
-  logo: `${SITE_URL}/Arafion%20Icon.png`,
-  description:
-    "Arafion is a hybrid execution studio building websites, SaaS products, AI workflows, dashboards, marketing infrastructure, and architectural visualization systems.",
-  email: "contact@arafion.com",
-  sameAs: [
-    "https://www.linkedin.com/company/arafion",
-    "https://www.instagram.com/arafionhq",
-    "https://www.instagram.com/arafion.architects/",
-  ],
+  name: site.name,
+  url: site.siteUrl,
+  logo: `${site.siteUrl}${site.iconPath}`,
+  description: site.description,
+  email: site.email,
+  sameAs: site.sameAs,
   contactPoint: {
     "@type": "ContactPoint",
-    email: "contact@arafion.com",
+    email: site.email,
     contactType: "customer service",
-    availableLanguage: ["English", "French", "Arabic"],
+    availableLanguage: site.availableLanguages,
   },
   knowsAbout: [
     "Software Engineering",
@@ -136,12 +134,12 @@ const organizationJsonLd = {
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Arafion",
-  url: SITE_URL,
+  name: site.name,
+  url: site.siteUrl,
   description: "Product engineering lab building digital systems, AI products, and visual sales assets.",
   potentialAction: {
     "@type": "SearchAction",
-    target: `${SITE_URL}/work?q={search_term_string}`,
+    target: `${site.siteUrl}/work?q={search_term_string}`,
     "query-input": "required name=search_term_string",
   },
 };
@@ -155,10 +153,12 @@ export default async function RootLayout({
   const dir = translations[locale]?.dir ?? "ltr";
 
   return (
-    <html lang={locale} dir={dir} className={`${inter.variable} ${cairo.variable}`}>
+    <html
+      lang={locale}
+      dir={dir}
+      className={`${inter.variable} ${cairo.variable} ${heebo.variable}`}
+    >
       <head>
-        {/* Preload the two fonts used on every page — eliminates their
-            appearance in the critical-path dependency chain */}
         <link rel="preload" href="/fonts/NeueMontreal-Regular.otf" as="font" type="font/otf" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/NeueMontreal-Medium.otf" as="font" type="font/otf" crossOrigin="anonymous" />
         <Script
@@ -180,7 +180,7 @@ export default async function RootLayout({
             __html: `if ('scrollRestoration' in history) history.scrollRestoration = 'manual';`,
           }}
         />
-        <LanguageProvider>
+        <LanguageProvider initialLocale={locale}>
           {children}
           <SiteFooter />
           <FloatingDockNav />

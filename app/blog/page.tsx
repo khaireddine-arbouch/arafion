@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { useLanguage } from "@/lib/i18n/context";
 import { getBlogIndexContent } from "@/lib/i18n/blog-content";
+import { getSiteConfig } from "@/lib/site/config";
 
 const NM = "var(--font-display), ui-sans-serif, system-ui, sans-serif";
+const site = getSiteConfig();
 
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -13,7 +15,16 @@ export default function BlogPage() {
   const blog = getBlogIndexContent(locale);
   const featured = blog.articles[0];
   const rest = blog.articles.slice(1);
-  const readLabel = locale === "fr" ? "lecture" : locale === "tr" ? "okuma" : locale === "ar" ? "قراءة" : "read";
+  const readLabel =
+    locale === "fr"
+      ? "lecture"
+      : locale === "tr"
+        ? "okuma"
+        : locale === "ar"
+          ? "قراءة"
+          : locale === "he"
+            ? "קריאה"
+            : "read";
 
   const filtered =
     activeCategory === "all"
@@ -57,7 +68,7 @@ export default function BlogPage() {
               textDecoration: "none",
             }}
           >
-            Arafion
+            {site.shortName}
           </Link>
           <span
             style={{

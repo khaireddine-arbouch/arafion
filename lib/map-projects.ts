@@ -5,6 +5,32 @@ import {
   type ArafionProjectRow,
   type PortfolioProject,
 } from "@/lib/portfolio-view";
+import { getSiteConfig, type SiteId } from "@/lib/site/config";
+import {
+  homeMarketCountry,
+  israelPinCoords,
+  isIsraelOnlySite,
+  scrubNonIsraelPlaces,
+} from "@/lib/site/geography";
+import { isProjectOfferingAllowed } from "@/lib/site/offerings";
+
+function localizePortfolioForSite(projects: PortfolioProject[]): PortfolioProject[] {
+  if (!isIsraelOnlySite()) return projects;
+  const market = homeMarketCountry();
+  return projects.map((project) => {
+    const pin = israelPinCoords(project.slug.length + project.weight);
+    return {
+      ...project,
+      country: market,
+      regionLabel: market,
+      locationLabel: market,
+      globeLabel: `${project.serviceLabels[0] ?? "Project"} · ${market}`,
+      shortDescription: scrubNonIsraelPlaces(project.shortDescription, "en"),
+      lat: pin.lat,
+      lng: pin.lng,
+    };
+  });
+}
 
 const SERVICE_TO_IMPACT: Partial<Record<string, ImpactTag>> = {
   "saas-software": "frontend-engineering",
@@ -70,28 +96,45 @@ function inferUSState(lat: number, lng: number): string | undefined {
   return undefined;
 }
 
+export function isProjectVisibleOnSite(
+  row: Pick<ArafionProjectRow, "sites">,
+  siteId: SiteId = getSiteConfig().id,
+): boolean {
+  if (!row.sites || row.sites.length === 0) return true;
+  return row.sites.includes(siteId);
+}
+
 function toMapProject(view: PortfolioProject, row: ArafionProjectRow): MapProject {
-  const filterCountry = normalizeFilterCountry(row.location.country, view.country);
+  const filterCountry = isIsraelOnlySite()
+    ? homeMarketCountry()
+    : normalizeFilterCountry(row.location.country, view.country);
+  const pin = isIsraelOnlySite()
+    ? israelPinCoords(view.slug.length + view.weight)
+    : { lat: view.lat, lng: view.lng };
   const state =
-    filterCountry === "United States" ? inferUSState(view.lat, view.lng) : undefined;
+    filterCountry === "United States" ? inferUSState(pin.lat, pin.lng) : undefined;
 
   return {
     id: view.id,
     slug: view.slug,
     operator: view.displayTitle,
     displayTitle: view.displayTitle,
-    globeLabel: view.globeLabel,
-    location: view.locationLabel,
-    regionLabel: view.regionLabel,
+    globeLabel: isIsraelOnlySite()
+      ? `${view.serviceLabels[0] ?? "Project"} · Israel`
+      : view.globeLabel,
+    location: isIsraelOnlySite() ? homeMarketCountry() : view.locationLabel,
+    regionLabel: isIsraelOnlySite() ? homeMarketCountry() : view.regionLabel,
     state,
     country: filterCountry,
-    lat: view.lat,
-    lng: view.lng,
+    lat: pin.lat,
+    lng: pin.lng,
     engagementWeight: view.weight,
     status: mapEngagementStatus(row.status),
     rawStatus: row.status,
     statusLabel: view.statusLabel,
-    notes: view.shortDescription,
+    notes: isIsraelOnlySite()
+      ? scrubNonIsraelPlaces(view.shortDescription, "en")
+      : view.shortDescription,
     concerns: concernsFromServices(view.serviceCategories),
     serviceCategories: view.serviceCategories,
     serviceLabels: view.serviceLabels,
@@ -105,9 +148,14 @@ function toMapProject(view: PortfolioProject, row: ArafionProjectRow): MapProjec
   };
 }
 
-const rows = arafionProjectsRaw as unknown as ArafionProjectRow[];
+const site = getSiteConfig();
+const rows = (arafionProjectsRaw as unknown as ArafionProjectRow[]).filter(
+  (row) =>
+    isProjectVisibleOnSite(row, site.id) &&
+    isProjectOfferingAllowed(row.serviceCategories, site.id),
+);
 export const ALL_PORTFOLIO_PROJECTS: PortfolioProject[] =
-  buildPortfolioProjects(rows);
+  localizePortfolioForSite(buildPortfolioProjects(rows));
 
 /** All geo-located engagements shown on the map. */
 export const ALL_MAP_PROJECTS: MapProject[] = ALL_PORTFOLIO_PROJECTS.map(
@@ -137,7 +185,7 @@ const MENA_COUNTRIES = new Set<string>([
   "Saudi Arabia", "United Arab Emirates", "Egypt", "Qatar",
   "Bahrain", "Kuwait", "Oman", "Jordan", "Lebanon", "Turkey",
   "Kenya", "Nigeria", "South Africa", "Ghana", "Ethiopia",
-  "Morocco", "Tunisia",
+  "Morocco", "Tunisia", "Israel", "Palestine",
 ]);
 
 export const EU_MAP_PROJECTS: MapProject[] = ALL_MAP_PROJECTS.filter(
@@ -152,8 +200,10 @@ export const MENA_MAP_PROJECTS: MapProject[] = ALL_MAP_PROJECTS.filter(
   (p) => p.country !== undefined && MENA_COUNTRIES.has(p.country),
 );
 
-export const ARAFION_ATTRIBUTION =
-  "Arafion Product Engineering Lab — arafion.com";
+export const SITE_ATTRIBUTION = `${site.name} — ${site.domain}`;
+
+/** @deprecated Use SITE_ATTRIBUTION */
+export const ARAFION_ATTRIBUTION = SITE_ATTRIBUTION;
 
 export function mapProjectsForEntity(entity: {
   level: string;

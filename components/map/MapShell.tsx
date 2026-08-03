@@ -26,7 +26,7 @@ import { STANCE_HEX, type SetTooltip, type TooltipState } from "@/lib/map-utils"
 import {
   DIMENSION_TAGS,
 } from "@/lib/dimensions";
-import { ALL_MAP_PROJECTS } from "@/lib/map-projects";
+import { ALL_MAP_PROJECTS, SITE_ATTRIBUTION } from "@/lib/map-projects";
 import { findRelatedMapProjects } from "@/lib/action-project-link";
 import { IMPACT_TAG_LABEL, STANCE_LABEL, STATE_FIPS } from "@/types";
 import SidePanel from "@/components/panel/SidePanel";
@@ -1591,7 +1591,7 @@ export default function MapShell({
                   nearby.
                 </p>
                 <p className="mt-1.5 text-[11px] text-muted/70 tracking-tight">
-                  Arafion · arafion.com
+                  {SITE_ATTRIBUTION}
                 </p>
               </div>
               {/* Power plant legend removed — agency mode */}
